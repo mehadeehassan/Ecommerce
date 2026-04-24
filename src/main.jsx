@@ -6,7 +6,9 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import MenDiscount from './components/DiscountProducts/MenDiscount.jsx';
 import WomenDiscount from './components/DiscountProducts/WomenDiscount.jsx';
 import DiscountAll from './components/DiscountProducts/DiscountAll.jsx';
-import Products from './Pages/Products';
+import Products from './Pages/Products.jsx';
+import About from './components/aboutpage/About.jsx';
+import Contacts from './components/ContactUs/Contact.jsx'
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 
@@ -19,6 +21,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/WomenDiscount" element={<WomenDiscount />} />
         <Route path="/DiscountAll" element={<DiscountAll />} />
         <Route path="/products/:productType" element={<Products />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contacts />} />
       </Routes>
       <Footer />
   </BrowserRouter>,

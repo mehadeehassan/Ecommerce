@@ -1,6 +1,8 @@
 import React from 'react'
 import footerLogo from '../../assets/Logo.png';
 import { FaFacebook, FaGithub, FaLinkedin, FaInstagram, FaLocationArrow, FaMobileAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
 
 const Footer = () => {
     return (
@@ -17,7 +19,7 @@ const Footer = () => {
                             SHOPS
                         </h2>
                         <p className="text-gray-400 text-sm font-medium sm:text-left text-justify leading-relaxed">
-                            My company is a leading provider of high-quality products and services. We strive to provide the best experience for our customers.
+                            My Company is a leading provider of high-quality products and services.
                         </p>
                     </div>
 
@@ -29,15 +31,15 @@ const Footer = () => {
                             <div className="py-8 px-4">
                                 <h1 className="sm:text-xl text-lg font-bold mb-3">Important Links</h1>
                                 <ul className="flex flex-col gap-3">
-                                    <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
+                                    <Link to="/"><li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>Home</span>
-                                    </li>
-                                    <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
+                                    </li></Link>
+                                    <Link to="/about"><li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>About</span>
-                                    </li>
-                                    <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
+                                    </li></Link>
+                                    <Link to="/contact"><li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>Contact</span>
-                                    </li>
+                                    </li></Link>
                                     <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>Blog</span>
                                     </li>
