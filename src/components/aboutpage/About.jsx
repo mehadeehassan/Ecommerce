@@ -13,7 +13,7 @@ export default function About() {
             </div>
 
             {/* lower section */}
-            <div className="py-16 px-6 bg-gray-900 text-white mt-80 shadow-md ">
+            <div className="py-16 px-6 bg-gray-600 text-white mt-80 shadow-md ">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <AboutCard aboutSection={{ title: "Fast Delivery", description: "We ensure home delivery within 24-72 hours all over the country.", icon: "🚚" }} />
                     <AboutCard aboutSection={{ title: "Premium Quality", description: "We never compromise on the quality of our products.", icon: "💎" }} />

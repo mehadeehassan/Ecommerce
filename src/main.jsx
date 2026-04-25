@@ -9,6 +9,7 @@ import DiscountAll from './components/DiscountProducts/DiscountAll.jsx';
 import Products from './Pages/Products.jsx';
 import About from './components/aboutpage/About.jsx';
 import Contacts from './components/ContactUs/Contact.jsx'
+import Services from './components/Services/Services.jsx';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/products/:productType" element={<Products />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contacts />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
       <Footer />
   </BrowserRouter>,

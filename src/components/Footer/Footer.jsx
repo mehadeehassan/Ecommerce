@@ -52,18 +52,18 @@ const Footer = () => {
                             <div className="py-8 px-4">
                                 <h1 className="sm:text-xl text-lg font-bold mb-3">Quick Links</h1>
                                 <ul className="flex flex-col gap-3">
-                                    <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
+                                    <Link to="/services"><li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>Services</span>
-                                    </li>
+                                    </li></Link>
                                     <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>Privacy Policy</span>
                                     </li>
-                                    <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
+                                    <Link to="/terms"><li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>Terms & Conditions</span>
-                                    </li>
-                                    <li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
+                                    </li></Link>
+                                    <Link to="/faq"><li className="cursor-pointer text-gray-400 hover:text-orange-400 hover:translate-x-1 duration-300">
                                         <span>FAQ</span>
-                                    </li>
+                                    </li></Link>
                                 </ul>
                             </div>
                         </div>
