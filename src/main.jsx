@@ -1,31 +1,66 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import Home from './Pages/Home'
-import { BrowserRouter, Route, Routes } from 'react-router';
-import MenDiscount from './components/DiscountProducts/MenDiscount.jsx';
-import WomenDiscount from './components/DiscountProducts/WomenDiscount.jsx';
-import DiscountAll from './components/DiscountProducts/DiscountAll.jsx';
-import Products from './Pages/Products.jsx';
-import About from './components/aboutpage/About.jsx';
-import Contacts from './components/ContactUs/Contact.jsx'
-import Services from './components/Services/Services.jsx';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router";
 
-createRoot(document.getElementById('root')).render(
+    //pages
+import Home from "./Pages/Home";
+import Products from "./Pages/Product/Products.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
+import Footer from "./components/Footer/Footer.jsx";
+import About from "./Pages/About/About.jsx";
+import Contacts from "./Pages/ContactUs/Contact.jsx";
+import Services from "./Pages/Services/Services.jsx";
+   
+      //login pages
+import LoginPage from "./Pages/Login/Login.jsx";
+import SignUpPage from "./Pages/Login/SignUp.jsx";
+
+    //  layout page 
+import HomeLayout from "./layout/HomeLayout.jsx";
+import AdminLayout from "./layout/AdminLayout.jsx";
+import LoginLayout from "./layout/LoginLayout.jsx"
+
+   // admin page
+import AdminPanel from "./Pages/Admin/AdminPanel.jsx";
+import Dashboard from "./Pages/Admin/Dashboard.jsx";
+import AdminProducts from "./Pages/Admin/AdminProducts.jsx";
+import Order from "./Pages/Admin/Order.jsx";
+import Customers from "./Pages/Admin/Customers.jsx";
+import Settings  from "./Pages/Admin/Settings.jsx";
+
+
+createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/MenDiscount" element={<MenDiscount />} />
-        <Route path="/WomenDiscount" element={<WomenDiscount />} />
-        <Route path="/DiscountAll" element={<DiscountAll />} />
-        <Route path="/products/:productType" element={<Products />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contacts />} />
-        <Route path="/services" element={<Services />} />
-      </Routes>
-      <Footer />
+   
+    <Routes>
+          {/* Home Routing  */}
+      <Route path="/" element={<HomeLayout/>} >
+      <Route index element={<Home />} />
+      <Route path="/products/:productType" element={<Products />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contacts />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/admin" element={<AdminPanel />} />
+      </Route>
+
+           {/* login routing */}
+      <Route path="/" element={<LoginLayout/>} >
+      <Route index element={<LoginLayout />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      </Route>
+
+            {/* admin routing */}
+      <Route path="/admin" element={<AdminLayout/>} >
+      <Route index element={<Dashboard />} />
+      <Route path="products" element={<AdminProducts />} /> 
+      <Route path="orders" element={<Order />} />       
+      <Route path="customers" element={<Customers />} /> 
+      <Route path="settings" element={<Settings />} />
+      </Route>
+
+    </Routes>
+    
   </BrowserRouter>,
-)
+);

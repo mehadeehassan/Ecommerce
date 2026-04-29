@@ -1,8 +1,12 @@
 import React from 'react'
-import Hero from '../components/Hero/Hero.jsx'
-import TopRatad from '../components/TopRatad/TopRatad.jsx';
-import BestSelling from '../components/BestSelling/BestSelling.jsx';
-import DiscountProducts from '../components/DiscountProducts/kidsDiscount.jsx';
+import Hero from '../components/Hero/Hero.jsx';
+import TopRatad from './TopRatad/TopRatad.jsx';
+import BestSelling from './BestSelling/BestSelling.jsx';
+import DiscountProducts from './DiscountProducts/kidsDiscount.jsx';
+
+
+
+
 
 
 
@@ -14,7 +18,6 @@ function Home() {
       <TopRatad />
       <BestSelling />
       <DiscountProducts />
-
     </div>
   );
 }
