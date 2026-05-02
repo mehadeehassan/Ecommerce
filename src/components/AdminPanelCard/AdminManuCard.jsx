@@ -3,13 +3,16 @@ import React from "react";
 export default function AdminCard({ adminSection }) {
     return (
     //    navbar items
-        <li className="group flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-all">
-            <div className="p-2 border border-gray-200 bg-gray-200 rounded-lg group-hover:bg-orange-400 group-hover:border-orange-400 transition-colors">
-                {adminSection.icon}
+        <li className="group flex items-center gap-2 p-3 rounded-lg cursor-pointer transition-all active:scale-95">
+            <div className="  group-hover:bg-orange-400 group-hover:border-orange-400 transition-colors">
+                <div className="text-[10px] sm:text-[5px]">
+                    {adminSection.icon}
+                </div>
             </div>
-            <span className="font-bold text-gray-800 group-hover:text-orange-500 transition-colors">
+            <span className="text-[10px] group-hover:text-orange-500 transition-colors whitespace-nowrap hidden sm:block">
                 {adminSection.name}
-            </span>
+             </span>
         </li>
+       
     )
 }
