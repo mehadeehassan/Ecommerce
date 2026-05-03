@@ -11,7 +11,6 @@ import {
 const AdminLayout = () => {
   return (
         //   sidebar and home menu card 
-        
     <div className="flex bg-gray-200 min-h-screen relative">
       <AdminPanel />
 

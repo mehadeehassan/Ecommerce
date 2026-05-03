@@ -47,7 +47,7 @@ export default function AdminPanel() {
       {/* 3. Sidebar Navigation */}
       <nav
         className={`
-          fixed md:static inset-y-0 left-0 z-40
+          fixed  md:static inset-y-0 left-0 z-40
           w-35 sm:w-45 bg-gray-50 shadow-2xl md:shadow-full text-black flex flex-col 
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}

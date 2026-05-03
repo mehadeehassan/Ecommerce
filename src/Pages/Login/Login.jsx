@@ -4,11 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-orange-200 flex items-center justify-center p-4">
-      <div className="w-full max-w-110 bg-gray-100 rounded-xl border border-gray-100 shadow-sm p-10">
+    <div className="min-h-screen bg-orange-200 flex items-center justify-center">
+      <div className="w-full max-w-100 bg-gray-200 rounded-xl border border-gray-500 shadow-sm p-15">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold  mb-2 text-orange-400">Log In</h1>
-          <p className="text-gray-400 ">Enter your credentials to continue</p>
+          <h1 className="text-3xl font-bold  mb-2 text-orange-400">Welcome Back!</h1>
+          <p className="text-gray-400 text-xs ">Please enter your details to access your dashboard.</p>
         </div>
 
         {/* Form */}
@@ -17,7 +17,7 @@ export default function LoginPage() {
             <input
               type="email"
               placeholder="Email"
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-orange-400 transition-all placeholder:text-gray-400"
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-orange-400 transition-all placeholder:text-gray-400"
             />
           </div>
 
@@ -25,7 +25,7 @@ export default function LoginPage() {
             <input
               type="text"
               placeholder="Password"
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-orange-400 transition-all placeholder:text-gray-400"
+              className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500/10 focus:border-orange-400 transition-all placeholder:text-gray-400"
             />
           </div>
 
@@ -34,11 +34,11 @@ export default function LoginPage() {
             <label className="flex items-center space-x-2 cursor-pointer">
               <input
                 type="checkbox"
-                className="form-checkbox h-5 w-5 text-orange-400"
+                className="form-checkbox h-3 w-3"
               />
-              <span className="text-gray-400">Remember me</span>
+              <span className="text-gray-400 text-xs">Remember me</span>
             </label>
-            <a href="#" className="text-orange-400 hover:underline font-medium">
+            <a href="#" className="text-orange-400 hover:underline font-medium text-xs">
               Forgot password?
             </a>
           </div>
@@ -46,33 +46,32 @@ export default function LoginPage() {
           {/* log In Button */}
           <button
             type="submit"
-            className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-3 rounded-lg transition-colors shadow-sm mt-2"
+            className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-1 rounded-lg transition-colors shadow-sm mt-3"
           >
             Log In
           </button>
-          <p className="text-center text-gray-400">or login with </p>
-
+          <p className="text-center text-gray-400 text-xs">or login with </p>
+          
         {/* Facebook Button And Google Button */}
-          <div className="flex items-center justify-center space-x-4 mt-4">
-            <button className="bg-white hover:bg-orange-400 text-black py-2 px-4 rounded-lg border border-gray-300 flex items-center gap-2">
+          <div className="flex items-center justify-center gap-10">
+            <button className="bg-white hover:bg-orange-400 text-black py-1 px-4 text-xs rounded-lg border border-gray-300 flex items-center gap-1 cursor-pointer">
               <FaFacebook className="text-blue-600" />
               <span>Facebook</span>
             </button>
-            <button className="bg-white hover:bg-orange-400 text-black py-2 px-4 rounded-lg border border-gray-300 flex items-center gap-2">
+            <button className="bg-white hover:bg-orange-400 text-black py-1 px-4 text-xs rounded-lg border border-gray-300 flex items-center gap-1 cursor-pointer">
               <FcGoogle />
               <span>Google</span>
             </button>
-
           </div>
         </div>
 
         {/* Sign In Section  */}
-        <div className="text-center mt-8 text-gray-400 text-sm">
+        <div className="text-center mt-2 text-gray-400 text-xs">
           <p>
             Don't have an account?{" "}
             <a
               href="/signup"
-              className="text-orange-400 hover:underline font-medium"
+              className="text-orange-400 hover:underline font-medium" 
             >
               Sign Up
             </a>

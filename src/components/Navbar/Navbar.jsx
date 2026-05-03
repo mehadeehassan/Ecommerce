@@ -14,13 +14,15 @@ const Navbar = () => {
       <div className="bg-orange-200 py-2">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div>
-            <Link to="/"><a
-              href="#"
-              className="font-extrabold text-2xl sm:text-2xl flex items-center gap-2"
-            >
-              <img src={Logo} alt="Logo" className="w-10" />
-              SHOPS
-            </a></Link>
+            <Link to="/">
+              <a
+                href="#"
+                className="font-extrabold text-2xl sm:text-2xl flex items-center gap-2"
+              >
+                <img src={Logo} alt="Logo" className="w-10" />
+                <samp className="relative group hidden sm:block">SHOPS</samp>
+              </a>
+            </Link>
           </div>
 
           {/* Search bar, Order Button */}
@@ -40,24 +42,27 @@ const Navbar = () => {
               </span>
               <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
             </button>
-
             {/* Log In Section  */}
-            <Link to="/login">
-              <button className="bg-white-400 transition-all duration-200 text-orange-400 py-1 px-4 border border-orange-400 hover:bg-orange-400 hover:text-white rounded-full flex items-center gap-3 group">
-                <IoLogInSharp className="text-xl  hover:text-white  drop-shadow-sm cursor-pointer" />{" "}
-                Log In
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button className="bg-orange-400 hover:bg-orange-500 transition-all duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3 group">
-                <FaUserCheck className="text-xl text-white drop-shadow-sm cursor-pointer" />{" "}
-                Sign Up
-              </button>
-            </Link>
+            <div className="flex flex-row items-center gap-2 sm:gap-2">
+              {/* Log In Button */}
+              <Link to="/login">
+                <button className="cursor-pointer transition-all duration-200 text-orange-400 py-0.5 px-2 sm:px-3 border border-orange-400 hover:bg-orange-400 hover:text-white rounded-full flex items-center gap-1 sm:gap-1 group text-sm sm:text-base">
+                  <IoLogInSharp className="text-lg sm:text-xl drop-shadow-sm" />
+                  <span className="whitespace-nowrap">Log In</span>
+                </button>
+              </Link>
+
+              {/* Sign Up Button */}
+              <Link to="/signup">
+                <button className="bg-orange-400 hover:bg-orange-500 transition-all cursor-pointer duration-200 text-white border border-orange-400 py-0.5 px-2 sm:px-3 rounded-full flex items-center gap-1 sm:gap-1 group text-sm sm:text-base">
+                  <FaUserCheck className="text-lg sm:text-xl drop-shadow-sm" />
+                  <span className="whitespace-nowrap">Sign Up</span>
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-
       {/* Lower Navbar  */}
       <div className="flex justify-center py-2">
         <ul className="sm:flex hidden items-center gap-4">
