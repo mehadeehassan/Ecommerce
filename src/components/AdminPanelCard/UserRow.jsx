@@ -28,3 +28,13 @@ const UserRow = ({ Row, onEdit, onDelete }) => {
 };
 
 export default UserRow;
+
+
+{/* <Modal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        title="Edit User"
+        footerBtnText="Update"
+        icon={Save}
+        onConfirm={() => setIsEditModalOpen(false)}
+      > */}

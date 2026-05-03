@@ -23,7 +23,7 @@ export default function AdminPanel() {
   return (
     // sidebar
     <>
-      <div className="md:hidden fixed  top-5 left-6 z-50">
+      <div className="md:hidden fixed top-5 left-6 z-50">
         <button
           onClick={toggleSidebar}
           className="p-1 shadow-md rounded-lg text-orange-400 border border-gray-200"
@@ -120,7 +120,7 @@ export default function AdminPanel() {
             })}
           </Link>
         </ul>
-        <div className="p-8">
+        <div className="p-6">
           <Link to="/login">
             <button className="w-full group   hover:bg-orange-400  rounded-md transition-colors items-center">
               <IoLogOutOutline className="inline-block mr-1 text-xs group-hover:text-white " />
