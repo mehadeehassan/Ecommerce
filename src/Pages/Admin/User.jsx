@@ -1,23 +1,19 @@
-import React, { useState } from "react";
-import { Pencil, Trash2, Plus,UserPlus, Save } from "lucide-react";
+import { Plus, Save, UserPlus } from "lucide-react";
+import { useState } from "react";
 import Swal from "sweetalert2";
-import UserRow from "../../components/AdminPanelCard/UserRow";
 import Modal from "../../components/AdminPanelCard/Model";
+import UserRow from "../../components/AdminPanelCard/UserRow";
 
 const User = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState({ name: "", email: "", status: "" });
+  const [selectedUser, setSelectedUser] = useState({
+    name: "",
+    email: "",
+    status: "",
+  });
 
   const handleDelete = (userName) => {
-    // Swal.fire({
-    //   title: "Are you sure?",
-    //   text: `Delete ${userName}?`,
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#d33",
-    //   confirmButtonText: "Yes, delete it!",
-    // });
     Swal.fire({
       title: "Are you sure?",
       text: `Delete ${userName}?`,
@@ -91,7 +87,10 @@ const User = () => {
                   email: "mehedi@gmail.com",
                   status: "Active",
                 }}
-                onEdit={() => setIsEditModalOpen(true)}
+                onEdit={(userData) => {
+                  setSelectedUser(userData);
+                  setIsEditModalOpen(true);
+                }}
                 onDelete={handleDelete}
               />
               <UserRow
@@ -100,7 +99,10 @@ const User = () => {
                   email: "ferdousi@gmail.com",
                   status: "Active",
                 }}
-                onEdit={() => setIsEditModalOpen(true)}
+                onEdit={(userData) => {
+                  setSelectedUser(userData);
+                  setIsEditModalOpen(true);
+                }}
                 onDelete={handleDelete}
               />
             </tbody>
@@ -171,7 +173,7 @@ const User = () => {
       {/* Edit User Model  */}
       <Modal
         isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)} 
+        onClose={() => setIsEditModalOpen(false)}
         title="Edit User"
         footerBtnText="Update"
         icon={Save}
@@ -183,7 +185,7 @@ const User = () => {
               Full Name <span className="text-red-500">*</span>
             </label>
             <input
-             key = {selectedUser.name}
+              key={selectedUser.name}
               type="text"
               defaultValue={selectedUser.name}
               className="w-full px-3 py-1 rounded-lg border border-gray-200  outline-none text-gray-500"
@@ -194,7 +196,7 @@ const User = () => {
               Email <span className="text-red-500">*</span>
             </label>
             <input
-             key = {selectedUser.email}
+              key={selectedUser.email}
               type="email"
               defaultValue={selectedUser.email}
               className="w-full px-3 py-1 rounded-lg border border-gray-200  outline-none text-gray-500"
@@ -203,9 +205,10 @@ const User = () => {
           <div>
             <label className="block text-sm  text-gray-600 mb-1">Status</label>
             <select
-             key = {selectedUser.status}
-             defaultValue={selectedUser.status}
-             className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none">
+              key={selectedUser.status}
+              defaultValue={selectedUser.status}
+              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none"
+            >
               <option>Active</option>
               <option>Inactive</option>
             </select>
@@ -215,5 +218,4 @@ const User = () => {
     </div>
   );
 };
-
 export default User;
