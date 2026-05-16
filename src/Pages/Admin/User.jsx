@@ -1,45 +1,31 @@
-import { Plus, Save, UserPlus } from "lucide-react";
+import { Plus, UserPlus } from "lucide-react";
 import { useState } from "react";
-import Swal from "sweetalert2";
-import Modal from "../../components/AdminPanelCard/Model";
+import Modal from "../../components/AdminPanelCard/Modal";
 import UserRow from "../../components/AdminPanelCard/UserRow";
 
 const User = () => {
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState({
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const setModalOpen = (value) => {
+    setIsModalOpen(value);
+  };
+
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
-    status: "",
+    password: "",
+    confirmPassword: "",
   });
-
-  const handleDelete = (userName) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: `Delete ${userName}?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed)
-        Swal.fire({
-          title: "Deleted!",
-          text: `Delete ${userName}?`,
-          icon: "success",
-        });
+  const handleChange = (event) => {
+    // console.log(event.target.name);
+    // console.log(event.target.value);
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
     });
   };
-
-  const handleAddUser = () => {
-    // console.log(" user", formData);
-    setIsAddModalOpen(false);
-  };
-
-  const handleEditUser = () => {
-    // console.log("Updating", selectedUser);
-    setIsEditModalOpen(false);
+  const handleSubmit = () => {
+   formData
+      //  console.log(formData);
   };
 
   return (
@@ -47,7 +33,7 @@ const User = () => {
       {/* add user button section */}
       <div className="flex justify-end mb-4">
         <button
-          onClick={() => setIsAddModalOpen(true)}
+          onClick={() => setModalOpen(true)}
           className="flex items-center gap-2 bg-orange-400 hover:bg-orange-500 text-white px-4 py-1.5 rounded-lg shadow-sm transition-all font-medium text-[13px]"
         >
           <Plus size={16} />
@@ -87,11 +73,6 @@ const User = () => {
                   email: "mehedi@gmail.com",
                   status: "Active",
                 }}
-                onEdit={(userData) => {
-                  setSelectedUser(userData);
-                  setIsEditModalOpen(true);
-                }}
-                onDelete={handleDelete}
               />
               <UserRow
                 Row={{
@@ -99,11 +80,6 @@ const User = () => {
                   email: "ferdousi@gmail.com",
                   status: "Active",
                 }}
-                onEdit={(userData) => {
-                  setSelectedUser(userData);
-                  setIsEditModalOpen(true);
-                }}
-                onDelete={handleDelete}
               />
             </tbody>
           </table>
@@ -112,12 +88,12 @@ const User = () => {
 
       {/*  Add User Model */}
       <Modal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
         title="Add New User"
-        footerBtnText="Save"
+        onSubmit={handleSubmit}
+        submitBtnText="Submit"
         icon={UserPlus}
-        onConfirm={handleAddUser}
       >
         <div className="space-y-4">
           <div>
@@ -125,6 +101,9 @@ const User = () => {
               Full Name <span className="text-red-500">*</span>
             </label>
             <input
+              name="name"
+              onChange={handleChange}
+              value={formData.name ?? ""}
               type="text"
               placeholder="Enter your full name"
               className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
@@ -135,6 +114,9 @@ const User = () => {
               Email <span className="text-red-500">*</span>
             </label>
             <input
+              name="email"
+              onChange={handleChange}
+              value={formData.email ?? ""}
               type="email"
               placeholder="ex: user@example.com"
               className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
@@ -145,6 +127,8 @@ const User = () => {
               Password <span className="text-red-500">*</span>
             </label>
             <input
+              name="password"
+              onChange={handleChange}
               type="password"
               placeholder="Enter your password"
               className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
@@ -155,6 +139,8 @@ const User = () => {
               Confirm Password <span className="text-red-500">*</span>
             </label>
             <input
+              name="confirmPassword"
+              onChange={handleChange}
               type="password"
               placeholder="Confirm your password"
               className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
@@ -169,52 +155,7 @@ const User = () => {
           </div>
         </div>
       </Modal>
-
-      {/* Edit User Model  */}
-      <Modal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        title="Edit User"
-        footerBtnText="Update"
-        icon={Save}
-        onConfirm={handleEditUser}
-      >
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm  text-gray-600 mb-1">
-              Full Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              key={selectedUser.name}
-              type="text"
-              defaultValue={selectedUser.name}
-              className="w-full px-3 py-1 rounded-lg border border-gray-200  outline-none text-gray-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm  text-gray-600 mb-1">
-              Email <span className="text-red-500">*</span>
-            </label>
-            <input
-              key={selectedUser.email}
-              type="email"
-              defaultValue={selectedUser.email}
-              className="w-full px-3 py-1 rounded-lg border border-gray-200  outline-none text-gray-500"
-            />
-          </div>
-          <div>
-            <label className="block text-sm  text-gray-600 mb-1">Status</label>
-            <select
-              key={selectedUser.status}
-              defaultValue={selectedUser.status}
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none"
-            >
-              <option>Active</option>
-              <option>Inactive</option>
-            </select>
-          </div>
-        </div>
-      </Modal>
+      
     </div>
   );
 };
