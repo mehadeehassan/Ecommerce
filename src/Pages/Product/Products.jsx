@@ -13,6 +13,7 @@ function Products() {
   let { productType } = useParams();
   productType = productType.replace(/-/g, " ");
   productType = productType.charAt(0).toUpperCase() + productType.slice(1);
+  productType = productType.replace(/\b\w/g, (char) => char.toUpperCase());
 
   return (
     <div className="mt-14 mb-12 bg-white text-black">

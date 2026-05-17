@@ -1,12 +1,14 @@
-import React from 'react';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from "lucide-react";
 
 const UserRow = ({ Row, onEdit, onDelete }) => {
   return (
-    
     <tr className="border-b border-gray-100">
-      <td className="px-5 py-2 text-gray-500 font-normal text-[12px]">{Row.name}</td>
-      <td className="px-5 py-2 text-gray-500 font-normal text-[12px]">{ Row.email}</td>
+      <td className="px-5 py-2 text-gray-500 font-normal text-[12px]">
+        {Row.name}
+      </td>
+      <td className="px-5 py-2 text-gray-500 font-normal text-[12px]">
+        {Row.email}
+      </td>
       <td className="px-5 py-2">
         <span className="inline-flex text-gray-600 items-center gap-1 text-[10px] px-2.5 py-0.5 rounded-full bg-green-300/50 tracking-wide font-normal">
           <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
@@ -28,13 +30,3 @@ const UserRow = ({ Row, onEdit, onDelete }) => {
 };
 
 export default UserRow;
-
-
-{/* <Modal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        title="Edit User"
-        footerBtnText="Update"
-        icon={Save}
-        onConfirm={() => setIsEditModalOpen(false)}
-      > */}

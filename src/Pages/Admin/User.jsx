@@ -14,6 +14,7 @@ const User = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    status: "",
   });
   const handleChange = (event) => {
     // console.log(event.target.name);
@@ -23,9 +24,12 @@ const User = () => {
       [event.target.name]: event.target.value,
     });
   };
-  const handleSubmit = () => {
-   formData
-      //  console.log(formData);
+  const handleAddUser = () => {
+    // formData;
+    //  console.log(formData);
+    setFormData({});
+    setModalOpen(false);
+    console.log(formData);
   };
 
   return (
@@ -78,7 +82,7 @@ const User = () => {
                 Row={{
                   name: "Ferdousi Begum Tuli",
                   email: "ferdousi@gmail.com",
-                  status: "Active",
+                  status: "Deactivate",
                 }}
               />
             </tbody>
@@ -91,9 +95,9 @@ const User = () => {
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         title="Add New User"
-        onSubmit={handleSubmit}
         submitBtnText="Submit"
         icon={UserPlus}
+        onSubmit={handleAddUser}
       >
         <div className="space-y-4">
           <div>
@@ -148,14 +152,19 @@ const User = () => {
           </div>
           <div>
             <label className="block text-sm  text-gray-600 mb-1">Status</label>
-            <select className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none ">
+            <select
+              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none "
+              onChange={handleChange}
+              value={formData.status ?? ""}
+              name="status"
+            >
+              <option value="selected">Select Status</option>
               <option>Active</option>
-              <option>Inactive</option>
+              <option>Deactivate</option>
             </select>
           </div>
         </div>
       </Modal>
-      
     </div>
   );
 };

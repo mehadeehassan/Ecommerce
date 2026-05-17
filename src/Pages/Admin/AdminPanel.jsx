@@ -23,7 +23,7 @@ export default function AdminPanel() {
   return (
     // sidebar
     <>
-      <div className="md:hidden fixed top-5 left-6 z-50">
+      <div className="md:hidden fixed top-5.5 left-3.5 z-50">
         <button
           onClick={toggleSidebar}
           className="p-1 shadow-md rounded-lg text-orange-400 border border-gray-200"
@@ -55,8 +55,8 @@ export default function AdminPanel() {
         `}
       >
         {/* Logo Section */}
-        <div className="p-4 py-2  flex items-center">
-          <Link to="/" className="flex items-center gap-0">
+        <div className={`p-2 py-2 items-center transition-all duration-300 ${isOpen ? "pl-12 md:pl-2" : "pl-2"}`}>
+          <Link to="/" className=" flex items-center gap-0">
             <img src={Logo} alt="Logo" className="w-8 shrink-0" />
             <span className="text-[15px]  hover:text-orange-400 transition-colors">
               SHOPS

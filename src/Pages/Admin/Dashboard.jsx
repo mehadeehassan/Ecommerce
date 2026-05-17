@@ -12,7 +12,9 @@ const Dashboard = () => {
               title: "Today's Revenue",
               number: "$1,240",
               percentage: "+15% from yesterday",
+              textColor: "text-green-500",
               icon: "💰",
+              borderColor: "border-green-500",
             },
           })}
           {AdminMainCard({
@@ -20,7 +22,9 @@ const Dashboard = () => {
               title: "New Customers",
               number: "42",
               percentage: "+10% from yesterday",
+              textColor: "text-blue-500",
               icon: "👤",
+              borderColor: "border-blue-500",
             },
           })}
           {AdminMainCard({
@@ -28,7 +32,9 @@ const Dashboard = () => {
               title: "Pending Orders",
               number: "18",
               percentage: "-2% from yesterday",
+              textColor: "text-yellow-500",
               icon: "📦",
+              borderColor: "border-yellow-500",
             },
           })}
           {AdminMainCard({
@@ -36,7 +42,9 @@ const Dashboard = () => {
               title: "Total Products",
               number: "1,450",
               percentage: "0% from yesterday",
+              textColor: "text-purple-500",
               icon: "🛒",
+              borderColor: "border-purple-500",
             },
           })}
         </div>
