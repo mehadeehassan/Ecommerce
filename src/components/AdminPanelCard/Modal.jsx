@@ -6,7 +6,7 @@ const Model = ({
   title,
   children,
   onSubmit,
-  submitBtnText,
+  saveBtnText,
   icon: Icon,
 }) => {
   if (!isOpen) return null;
@@ -14,11 +14,11 @@ const Model = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="bg-gray-100 w-full max-w-md rounded-xl shadow-2xl overflow-hidden duration-200">
-        <div className="flex items-center justify-between p-6">
-          <h3 className="text-sm text-gray-600">{title}</h3>
+        <div className="flex items-center justify-between p-3 border-b border-gray-200">
+          <h3 className="text-xs text-gray-600">{title}</h3>
           <button
             onClick={onClose}
-            className="text-red-500 hover:bg-red-50 p-1 rounded-full transition-colors"
+            className="text-red-500 hover:bg-red-50 rounded-full transition-colors"
           >
             <X size={20} strokeWidth={3} />
           </button>
@@ -26,13 +26,13 @@ const Model = ({
 
         <div className="p-5 space-y-4">{children}</div>
 
-        <div className="p-5 flex justify-end">
+        <div className="p-5 flex justify-end gap-3 border-t border-gray-200">
           <button
             onClick={onSubmit}
             className="flex items-center gap-2 bg-orange-400 hover:bg-orange-500 text-white px-2 py-1 rounded-lg transition-all shadow-md"
           >
             {Icon && <Icon size={16} />}
-            {submitBtnText}
+            {saveBtnText}
           </button>
         </div>
       </div>

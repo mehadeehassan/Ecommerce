@@ -1,14 +1,15 @@
-import { Plus, UserPlus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus, UserPlus } from "lucide-react";
 import { useState } from "react";
 import Modal from "../../components/AdminPanelCard/Modal";
 import UserRow from "../../components/AdminPanelCard/UserRow";
 
 const User = () => {
+  // Modal State and Form State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const setModalOpen = (value) => {
     setIsModalOpen(value);
   };
-
+  // form data state for add user form
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,6 +17,7 @@ const User = () => {
     confirmPassword: "",
     status: "",
   });
+  // handle change function for add user form
   const handleChange = (event) => {
     // console.log(event.target.name);
     // console.log(event.target.value);
@@ -24,6 +26,7 @@ const User = () => {
       [event.target.name]: event.target.value,
     });
   };
+  // handle add user function for add user form save button
   const handleAddUser = () => {
     // formData;
     //  console.log(formData);
@@ -82,7 +85,7 @@ const User = () => {
                 Row={{
                   name: "Ferdousi Begum Tuli",
                   email: "ferdousi@gmail.com",
-                  status: "Deactivate",
+                  status: "Inactive",
                 }}
               />
             </tbody>
@@ -95,13 +98,13 @@ const User = () => {
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         title="Add New User"
-        submitBtnText="Submit"
+        saveBtnText="Save"
         icon={UserPlus}
         onSubmit={handleAddUser}
       >
         <div className="space-y-4">
           <div>
-            <label className="block text-sm  text-gray-600 mb-1">
+            <label className="block text-xs  text-gray-600 mb-1">
               Full Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -114,7 +117,7 @@ const User = () => {
             />
           </div>
           <div>
-            <label className="block text-sm  text-gray-600 mb-1">
+            <label className="block text-xs  text-gray-600 mb-1">
               Email <span className="text-red-500">*</span>
             </label>
             <input
@@ -127,7 +130,7 @@ const User = () => {
             />
           </div>
           <div>
-            <label className="block text-sm  text-gray-600 mb-1">
+            <label className="block text-xs  text-gray-600 mb-1">
               Password <span className="text-red-500">*</span>
             </label>
             <input
@@ -139,7 +142,7 @@ const User = () => {
             />
           </div>
           <div>
-            <label className="block text-sm  text-gray-600 mb-1">
+            <label className="block text-xs  text-gray-600 mb-1">
               Confirm Password <span className="text-red-500">*</span>
             </label>
             <input
@@ -151,20 +154,55 @@ const User = () => {
             />
           </div>
           <div>
-            <label className="block text-sm  text-gray-600 mb-1">Status</label>
+            <label className="block text-xs  text-gray-600 mb-1">Status</label>
             <select
               className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none "
               onChange={handleChange}
               value={formData.status ?? ""}
               name="status"
             >
-              <option value="selected">Select Status</option>
               <option>Active</option>
-              <option>Deactivate</option>
+              <option>Inactive</option>
             </select>
           </div>
         </div>
       </Modal>
+
+      {/* pagination section */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <p className="text-xs text-gray-700">
+            Showing <span className="font-medium">1</span> to{" "}
+            <span className="font-medium">10</span> of{" "}
+            <span className="font-medium">50</span> results
+          </p>
+        </div>
+        <div className="flex items-center justify-end gap-2 mt-4">
+          <button className="flex items-center px-1 py-1 text-xs hover:rounded-lg text-gray-500 hover:bg-gray-300 transition-colors">
+            <ChevronLeft size={20} />
+            Back
+          </button>
+          <button className="px-1 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-300 transition-colors active:bg-orange-400">
+            1
+          </button>
+          <button className="px-1 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-300 transition-colors active:bg-orange-400">
+            2
+          </button>
+          <button className="px-1 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-300 transition-colors active:bg-orange-400">
+            3
+          </button>
+          <button className="px-1 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-300 transition-colors active:bg-orange-400">
+            ...
+          </button>
+          <button className="px-1 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-300 transition-colors active:bg-orange-400">
+            10
+          </button>
+          <button className="flex items-center px-1 py-1 text-xs hover:rounded-lg text-gray-500 hover:bg-gray-300 transition-colors">
+            Next
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
