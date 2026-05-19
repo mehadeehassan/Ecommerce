@@ -1,47 +1,116 @@
+import axios from "axios";
 import { ChevronLeft, ChevronRight, Plus, UserPlus } from "lucide-react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import Modal from "../../components/AdminPanelCard/Modal";
 import UserRow from "../../components/AdminPanelCard/UserRow";
 
 const User = () => {
-  // Modal State and Form State
+  //modal open and close state 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //modal open and close handle korar jonno function
   const setModalOpen = (value) => {
-    setIsModalOpen(value);
+    setIsModalOpen(value); // modal open and close state set kore dibe
+    setErrorMessage({}); //ager error message clear kore nibe jokhon modal open hobe ba close hobe
   };
-  // form data state for add user form
+  //form data state e form er input field er value gula set kore dibe
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
-    status: "",
+    status: 1,
   });
-  // handle change function for add user form
+  //backend theke asha validation error gula set kore dibe
+  const [errorMessage, setErrorMessage] = useState({});
+
+  // input field er value change handle korar jonno
   const handleChange = (event) => {
-    // console.log(event.target.name);
     // console.log(event.target.value);
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
-  };
-  // handle add user function for add user form save button
-  const handleAddUser = () => {
-    // formData;
-    //  console.log(formData);
-    setFormData({});
-    setModalOpen(false);
-    console.log(formData);
+
+    //name sathe error message clear korar jonno
+    if (errorMessage[event.target.name]) {
+      setErrorMessage({
+        ...errorMessage,
+        [event.target.name]: "", // name field er error message clear kore dibe jokhon user name field e input dibe
+      });
+    }
   };
 
+  //api call add user form submit korar jonno
+  const handleAddUser = async () => {
+    setErrorMessage({}); //ager error message clear kore nibe
+    try {
+      //api call kore backend e form data pathabe
+      const response = await axios.post(
+        "http://localhost:3000/signup",
+        formData,
+      );
+      if (response.status === 200) {
+        Swal.fire({
+          title: response.data.message,
+          text: "You clicked the button!",
+          icon: "success",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          status: 1,
+        });
+        setIsModalOpen(false); //form submit er por modal close kore dibe
+      }
+    } catch (error) {
+      console.log(error);
+
+      //beakend theke validation frontend e dekhanor Jonno.
+      if (error.response && error.response.data && error.response.data.errors) {
+        // console.log(error.response.data.errors);
+        //error message state e backend theke asha validation error gula set kore dibe
+        setErrorMessage(error.response.data.errors);
+      }
+      //email already exist error message backend theke asle frontend e dekhanor jonno
+      else if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        // console.log(error.response.data.message);
+        if (error.response.data.message.toLowerCase().includes("email")) {
+          //email related error message state e set kore dibe
+          setErrorMessage({
+            email: error.response.data.message,
+          });
+          //email related error message state e set korar por email field e focus kore dibe
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: error.response.data.message,
+            icon: "error",
+          });
+        }
+        // console.log(error.response.data.message);
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong! Please try again.",
+          icon: "error",
+        });
+      }
+    }
+  };
   return (
     <div className="p-6 min-h-screen font-sans">
       {/* add user button section */}
       <div className="flex justify-end mb-4">
         <button
           onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 bg-orange-400 hover:bg-orange-500 text-white px-4 py-1.5 rounded-lg shadow-sm transition-all font-medium text-[13px]"
+          className="flex items-center gap-0.5 bg-orange-400 hover:bg-orange-500 text-white px-1 py-1 rounded-lg shadow-sm transition-all font-medium text-[13px]"
         >
           <Plus size={16} />
           Add User
@@ -113,8 +182,12 @@ const User = () => {
               value={formData.name ?? ""}
               type="text"
               placeholder="Enter your full name"
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.name ? "border-red-500" : "border-gray-200"}`}
             />
+            //name related error message backend theke asle frontend e dekhanor jonno
+            {errorMessage.name && (
+              <p className="text-red-500 text-xs mt-1">{errorMessage.name}</p>
+            )}
           </div>
           <div>
             <label className="block text-xs  text-gray-600 mb-1">
@@ -126,8 +199,12 @@ const User = () => {
               value={formData.email ?? ""}
               type="email"
               placeholder="ex: user@example.com"
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.email ? "border-red-500" : "border-gray-200"}`}
             />
+            //email related error message backend theke asle frontend e dekhanor jonno
+            {errorMessage.email && (
+              <p className="text-red-500 text-xs mt-1">{errorMessage.email}</p>
+            )}
           </div>
           <div>
             <label className="block text-xs  text-gray-600 mb-1">
@@ -136,10 +213,17 @@ const User = () => {
             <input
               name="password"
               onChange={handleChange}
+              value={formData.password ?? ""}
               type="password"
               placeholder="Enter your password"
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.password ? "border-red-500" : "border-gray-200"}`}
             />
+            //password related error message backend theke asle frontend e dekhanor jonno
+            {errorMessage.password && (
+              <p className="text-red-500 text-xs mt-1">
+                {errorMessage.password}
+              </p>
+            )}
           </div>
           <div>
             <label className="block text-xs  text-gray-600 mb-1">
@@ -148,28 +232,35 @@ const User = () => {
             <input
               name="confirmPassword"
               onChange={handleChange}
+              value={formData.confirmPassword ?? ""}
               type="password"
               placeholder="Confirm your password"
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 placeholder:text-gray-300"
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
             />
+              //confirm password related error message backend theke asle frontend e dekhanor jonno
+            {errorMessage.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">
+                {errorMessage.confirmPassword}
+              </p>
+            )}
           </div>
           <div>
             <label className="block text-xs  text-gray-600 mb-1">Status</label>
             <select
               className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none "
               onChange={handleChange}
-              value={formData.status ?? ""}
+              value={formData.status ?? 1}
               name="status"
             >
-              <option>Active</option>
-              <option>Inactive</option>
+              <option value={1}>Active</option>
+              <option value={0}>Inactive</option>
             </select>
           </div>
         </div>
       </Modal>
 
-      {/* pagination section */}
-      <div className="flex items-center justify-between">
+      {/* pagination section dynamic page */}
+        <div className="flex items-center justify-between">
         <div className="flex items-center">
           <p className="text-xs text-gray-700">
             Showing <span className="font-medium">1</span> to{" "}
@@ -206,4 +297,5 @@ const User = () => {
     </div>
   );
 };
+
 export default User;

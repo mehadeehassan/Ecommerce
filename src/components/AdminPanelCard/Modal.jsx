@@ -26,10 +26,10 @@ const Model = ({
 
         <div className="p-5 space-y-4">{children}</div>
 
-        <div className="p-5 flex justify-end gap-3 border-t border-gray-200">
+        <div className="p-3 flex justify-end gap-3 border-t border-gray-200">
           <button
             onClick={onSubmit}
-            className="flex items-center gap-2 bg-orange-400 hover:bg-orange-500 text-white px-2 py-1 rounded-lg transition-all shadow-md"
+            className="flex items-center gap-0.5 bg-orange-400 hover:bg-orange-500 text-white px-1 py-1 rounded-lg transition-all shadow-md"
           >
             {Icon && <Icon size={16} />}
             {saveBtnText}
