@@ -1,12 +1,12 @@
 import axios from "axios";
 import { ChevronLeft, ChevronRight, Plus, UserPlus } from "lucide-react";
 import { useState } from "react";
-import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 import Modal from "../../components/AdminPanelCard/Modal";
 import UserRow from "../../components/AdminPanelCard/UserRow";
 
 const User = () => {
-  //modal open and close state 
+  //modal open and close state handle korar jonno
   const [isModalOpen, setIsModalOpen] = useState(false);
   //modal open and close handle korar jonno function
   const setModalOpen = (value) => {
@@ -40,8 +40,7 @@ const User = () => {
       });
     }
   };
-
-  //api call add user form submit korar jonno
+  //user register korar jonno form submit handle korar jonno function
   const handleAddUser = async () => {
     setErrorMessage({}); //ager error message clear kore nibe
     try {
@@ -51,10 +50,9 @@ const User = () => {
         formData,
       );
       if (response.status === 200) {
-        Swal.fire({
-          title: response.data.message,
-          text: "You clicked the button!",
-          icon: "success",
+        toast.success(response.data.message, {
+          position: "top-right",
+          duration: 5000,
         });
         setFormData({
           name: "",
@@ -66,46 +64,28 @@ const User = () => {
         setIsModalOpen(false); //form submit er por modal close kore dibe
       }
     } catch (error) {
-      console.log(error);
+      console.log("Full Error:", error);
+      console.log("Error Response:", error.response);
 
-      //beakend theke validation frontend e dekhanor Jonno.
-      if (error.response && error.response.data && error.response.data.errors) {
-        // console.log(error.response.data.errors);
-        //error message state e backend theke asha validation error gula set kore dibe
-        setErrorMessage(error.response.data.errors);
-      }
-      //email already exist error message backend theke asle frontend e dekhanor jonno
-      else if (
+      // Backend থেকে array format এ errors আসলে
+      if (
         error.response &&
         error.response.data &&
-        error.response.data.message
+        Array.isArray(error.response.data.errors)
       ) {
-        // console.log(error.response.data.message);
-        if (error.response.data.message.toLowerCase().includes("email")) {
-          //email related error message state e set kore dibe
-          setErrorMessage({
-            email: error.response.data.message,
-          });
-          //email related error message state e set korar por email field e focus kore dibe
-        } else {
-          Swal.fire({
-            title: "Error!",
-            text: error.response.data.message,
-            icon: "error",
-          });
-        }
-        // console.log(error.response.data.message);
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: "Something went wrong! Please try again.",
-          icon: "error",
+        // errors array কে object এ convert করব যাতে field name key হয়
+        const errorObj = {};
+        error.response.data.errors.forEach((err) => {
+          errorObj[err.field] = err.message;
         });
+        setErrorMessage(errorObj);
       }
     }
   };
   return (
     <div className="p-6 min-h-screen font-sans">
+      {/* toast notification    */}
+      <Toaster position="top-right" />
       {/* add user button section */}
       <div className="flex justify-end mb-4">
         <button
@@ -184,7 +164,7 @@ const User = () => {
               placeholder="Enter your full name"
               className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.name ? "border-red-500" : "border-gray-200"}`}
             />
-            //name related error message backend theke asle frontend e dekhanor jonno
+            {/* name related error message backend theke asle frontend e dekhanor jonno */}
             {errorMessage.name && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.name}</p>
             )}
@@ -201,7 +181,7 @@ const User = () => {
               placeholder="ex: user@example.com"
               className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.email ? "border-red-500" : "border-gray-200"}`}
             />
-            //email related error message backend theke asle frontend e dekhanor jonno
+            {/* email related error message backend theke asle frontend e dekhanor jonno */}
             {errorMessage.email && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.email}</p>
             )}
@@ -218,7 +198,7 @@ const User = () => {
               placeholder="Enter your password"
               className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.password ? "border-red-500" : "border-gray-200"}`}
             />
-            //password related error message backend theke asle frontend e dekhanor jonno
+            {/* password related error message backend theke asle frontend e dekhanor jonno */}
             {errorMessage.password && (
               <p className="text-red-500 text-xs mt-1">
                 {errorMessage.password}
@@ -237,7 +217,7 @@ const User = () => {
               placeholder="Confirm your password"
               className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
             />
-              //confirm password related error message backend theke asle frontend e dekhanor jonno
+            {/* confirm password related error message backend theke asle frontend e dekhanor jonno */}
             {errorMessage.confirmPassword && (
               <p className="text-red-500 text-xs mt-1">
                 {errorMessage.confirmPassword}
@@ -258,9 +238,9 @@ const User = () => {
           </div>
         </div>
       </Modal>
-
+      
       {/* pagination section dynamic page */}
-        <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center">
           <p className="text-xs text-gray-700">
             Showing <span className="font-medium">1</span> to{" "}
