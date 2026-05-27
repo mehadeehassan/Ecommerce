@@ -16,7 +16,7 @@ const AdminLayout = () => {
 
       {/* admin profile */}
       <div className="flex-1 flex flex-col min-w-0 ">
-        <div className="flex items-center justify-between px-8 py-4 sticky top-0 z-10">
+        <div className="flex items-center justify-between px-8 py-4 sticky top-0 z-10 bg-gray-50">
 
           {/* Top Bar Home icon */}
           <div className="flex items-center gap-1 sm:gap-2">

@@ -1,20 +1,17 @@
-import React, { useState } from "react";
-import Logo from "../../assets/Logo.png";
-import { Link } from "react-router-dom";
-import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
-import AdminMainCard from "../../components/AdminPanelCard/DashboardCard";
+import { useState } from "react";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import {
   IoBagHandleOutline,
   IoBarChartOutline,
-  IoSettingsOutline,
-  IoLogOutOutline,
-  IoGridOutline,
-  IoChevronForwardOutline,
-  IoSearchOutline,
-  IoMenu,
   IoClose,
+  IoGridOutline,
+  IoLogOutOutline,
+  IoMenu,
+  IoSettingsOutline,
 } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import Logo from "../../assets/Logo.png";
+import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
 
 export default function AdminPanel() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,15 +44,17 @@ export default function AdminPanel() {
       {/* 3. Sidebar Navigation */}
       <nav
         className={`
-          fixed  md:static inset-y-0 left-0 z-40
-          w-35 sm:w-45 bg-gray-50 shadow-2xl md:shadow-full text-black flex flex-col 
+          fixed md:sticky md:top-0 inset-y-0 left-0 z-40
+          w-35 sm:w-45 bg-gray-50  text-black flex flex-col 
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-          h-screen
+          h-screen md:max-h-screen md:overflow-y-auto
         `}
       >
         {/* Logo Section */}
-        <div className={`p-2 py-2 items-center transition-all duration-300 ${isOpen ? "pl-12 md:pl-2" : "pl-2"}`}>
+        <div
+          className={`p-2 py-2 items-center transition-all duration-300 ${isOpen ? "pl-12 md:pl-2" : "pl-2"}`}
+        >
           <Link to="/" className=" flex items-center gap-0">
             <img src={Logo} alt="Logo" className="w-8 shrink-0" />
             <span className="text-[15px]  hover:text-orange-400 transition-colors">
