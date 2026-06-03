@@ -15,7 +15,7 @@ const User = () => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   // form submit করলে backend থেকে আসা error গুলো রাখার জন্য
   const [errorMessage, setErrorMessage] = useState({});
-  // API থেকে আনা user list রাখার জন্য
+  // API থেকে আনা user list রাখার জন্য — শুরুতে রাখার জন্য
   const [allUser, setAllUser] = useState([]);
   // API call চলার সময় "Loading..." দেখানোর জন্য
   const [loading, setLoading] = useState(false);
@@ -26,15 +26,15 @@ const User = () => {
   // প্রতি page এ সর্বোচ্চ কতটি user দেখাবে
   const itemsPerPage = 10;
 
-  // Edit modal বন্ধ করলে form এর id reset করো এবং error clear করো
-  // Edit modal খুললেও error clear করো
+  // Edit modal বন্ধ করলে form এর id reset করে এবং error clear করে 
+  // Edit modal খুললেও error clear করে
   const setUpdateModalOpen = (value) => {
     setIsUpdateModalOpen(value);
     if (!value) setFormData((prev) => ({ ...prev, id: null }));
     setErrorMessage({});
   };
 
-  // Add modal খোলা বা বন্ধ করার সময় error clear করো
+  // Add modal খোলা বা বন্ধ করার সময় error clear করে 
   const setModalOpen = (value) => {
     setIsModalOpen(value);
     setErrorMessage({});
@@ -69,8 +69,6 @@ const User = () => {
   };
 
   // backend থেকে আসা error array কে field-wise object এ রূপান্তর করে set করে
-  // যেমন: [{field: "email", message: "Email already exists"}]
-  // → {email: "Email already exists"}
   const handleApiError = (error) => {
     if (
       error.response &&
@@ -85,7 +83,7 @@ const User = () => {
     }
   };
 
-  // API থেকে paginated user list আনার জন্য
+  // API থেকে আনা user list রাখার জন্য
   // currentPage অনুযায়ী সঠিক page এর data আনে
   const handleGetAllUser = async () => {
     setLoading(true);
@@ -104,7 +102,7 @@ const User = () => {
     }
   };
 
-  // currentPage বদলালে নতুন page এর data আনো
+  // currentPage বদলালে নতুন page এর data আনে 
   // প্রথমবার component load হলেও একবার চলে
   useEffect(() => {
     handleGetAllUser();
@@ -112,8 +110,8 @@ const User = () => {
   }, [currentPage]);
 
   // নতুন user add করার জন্য API call
-  // সফল হলে modal বন্ধ করো, form reset করো, list refresh করো
-  // ব্যর্থ হলে backend এর error গুলো form এ দেখাও
+  // সফল হলে modal বন্ধ করে, form reset করে, list refresh করে 
+  // ব্যর্থ হলে backend এর error গুলো form এ দেখায়
   const handleAddUser = async () => {
     setErrorMessage({});
     try {
@@ -141,8 +139,8 @@ const User = () => {
     }
   };
 
-  // Edit বাটনে click করলে সেই user এর data form এ বসিয়ে Edit modal খোলে
-  // API call হয় না — শুধু form pre-fill করে
+  // Edit বাটনে click করলে সেই user এর data form এ বসিয়ে Edit modal খুলে দেয়
+  // API call হয় না — শুধু form data set করে modal open করে দেয়
   const handleEditUser = (user) => {
     setFormData({
       id: user.id || null,
@@ -157,8 +155,8 @@ const User = () => {
 
   // existing user update করার জন্য API call
   // formData.id না থাকলে কিছুই করবে না (safety check)
-  // সফল হলে modal বন্ধ করো, list refresh করো
-  // ব্যর্থ হলে backend এর error গুলো form এ দেখাও
+  // সফল হলে modal বন্ধ করে, list refresh করে
+  // ব্যর্থ হলে backend এর error গুলো form এ দেখায়
   const handleUpdateUser = async () => {
     if (!formData.id) return;
     setErrorMessage({});
@@ -181,9 +179,9 @@ const User = () => {
   };
 
   // user delete করার জন্য আগে confirmation popup দেখাও
-  // user confirm করলে API call করো, cancel করলে কিছুই করো না
-  // সফল হলে success popup দেখাও, list refresh করো
-  // ব্যর্থ হলে error popup দেখাও
+  // user confirm করলে API call করে , cancel করলে কিছুই করে না
+  // সফল হলে success popup দেখায়, list refresh করে 
+  // ব্যর্থ হলে error popup দেখায় 
   const handleDeleteUser = async (userId, userName) => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -363,24 +361,27 @@ const User = () => {
               </p>
             )}
           </div>
-          <div>
-            <label className="block text-xs  text-gray-600 mb-1">
-              Confirm Password <span className="text-red-500">*</span>
-            </label>
-            <input
-              name="confirmPassword"
-              onChange={handleChange}
-              value={formData.confirmPassword ?? ""}
-              type="password"
-              placeholder="Confirm your password"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
-            />
-            {errorMessage.confirmPassword && (
-              <p className="text-red-500 text-xs mt-1">
-                {errorMessage.confirmPassword}
-              </p>
-            )}
-          </div>
+          {/* password field এ কিছু লেখা থাকলেই শুধু দেখাবে */}
+          {formData.password && (
+            <div>
+              <label className="block text-xs  text-gray-600 mb-1">
+                Confirm Password <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="confirmPassword"
+                onChange={handleChange}
+                value={formData.confirmPassword ?? ""}
+                type="password"
+                placeholder="Confirm your password"
+                className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
+              />
+              {errorMessage.confirmPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.confirmPassword}
+                </p>
+              )}
+            </div>
+          )}
           <div>
             <label className="block text-xs  text-gray-600 mb-1">Status</label>
             <select
@@ -440,9 +441,7 @@ const User = () => {
             )}
           </div>
           <div>
-            <label className="block text-xs  text-gray-600 mb-1">
-              Password
-            </label>
+            <label className="block text-xs text-gray-600 mb-1">Password <span className="text-red-500">*</span></label>
             <input
               name="password"
               onChange={handleChange}
@@ -457,24 +456,28 @@ const User = () => {
               </p>
             )}
           </div>
-          <div>
-            <label className="block text-xs  text-gray-600 mb-1">
-              Confirm Password
-            </label>
-            <input
-              name="confirmPassword"
-              onChange={handleChange}
-              value={formData.confirmPassword ?? ""}
-              type="password"
-              placeholder="Confirm the new password"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
-            />
-            {errorMessage.confirmPassword && (
-              <p className="text-red-500 text-xs mt-1">
-                {errorMessage.confirmPassword}
-              </p>
-            )}
-          </div>
+
+          {/* password field এ কিছু লেখা থাকলেই শুধু দেখাবে */}
+          {formData.password && (
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Confirm Password <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="confirmPassword"
+                onChange={handleChange}
+                value={formData.confirmPassword ?? ""}
+                type="password"
+                placeholder="Confirm the new password"
+                className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
+              />
+              {errorMessage.confirmPassword && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.confirmPassword}
+                </p>
+              )}
+            </div>
+          )}
           <div>
             <label className="block text-xs  text-gray-600 mb-1">Status</label>
             <select
