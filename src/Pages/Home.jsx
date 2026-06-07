@@ -4,12 +4,6 @@ import TopRatad from './TopRatad/TopRatad.jsx';
 import BestSelling from './BestSelling/BestSelling.jsx';
 import DiscountProducts from './DiscountProducts/kidsDiscount.jsx';
 
-
-
-
-
-
-
 function Home() {
 
   return (

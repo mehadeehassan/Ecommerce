@@ -250,16 +250,16 @@ const User = () => {
         </div>
 
         <div className="overflow-x-auto mt-6">
-          <table className="w-full text-left">
+          <table className="w-full table-fixed text-left">
             <thead>
               <tr className="bg-gray-200/90">
-                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase">
+                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase border-r border-gray-200 ">
                   Full Name
                 </th>
-                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase">
+                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase border-r border-gray-200">
                   Email
                 </th>
-                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase">
+                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase border-r border-gray-200 text-center">
                   Status
                 </th>
                 <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase text-end">

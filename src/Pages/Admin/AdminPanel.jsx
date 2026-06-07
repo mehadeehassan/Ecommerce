@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import {
+  IoAppsOutline,
   IoBagHandleOutline,
   IoBarChartOutline,
   IoClose,
   IoGridOutline,
+  IoListOutline,
   IoLogOutOutline,
   IoMenu,
+  IoScaleOutline,
   IoSettingsOutline,
+  IoStorefrontOutline,
+  IoPersonAddOutline,
 } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
@@ -15,7 +19,7 @@ import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
 
 export default function AdminPanel() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [productOpen, setProductOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
   return (
     // sidebar
@@ -69,29 +73,73 @@ export default function AdminPanel() {
               adminSection: {
                 name: "Dashboard",
                 icon: (
-                  <IoGridOutline className="text-xs text-gray-700 group-hover:text-white" />
+                  <IoGridOutline className="text-gray-400 group-hover:text-orange-400" />
                 ),
               },
             })}
           </Link>
+          <div className="mb-0">
+            <div onClick={() => setProductOpen((p) => !p)}>
+              {AdminCard({
+                adminSection: {
+                  name: "Products",
+                  icon: (
+                    <IoBagHandleOutline className="text-gray-400 group-hover:text-orange-400" />
+                  ),
+                },
+                hasDropdown: true,
+                isOpen: productOpen,
+              })}
+            </div>
+            <div
+              className={`overflow-hidden transition-all duration-300 ${productOpen ? "max-h-60" : "max-h-0"}`}
+            >
+              <ul className="pl-2 flex flex-col gap-0.5 py-1">
+                <Link to="/admin/products/brands">
+                  <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
+                    <IoStorefrontOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
+                    <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">
+                      Brands
+                    </span>
+                  </li>
+                </Link>
 
-          <Link to="/admin/products">
-            {AdminCard({
-              adminSection: {
-                name: "Products",
-                icon: (
-                  <IoBagHandleOutline className="text-xs text-gray-700 group-hover:text-white" />
-                ),
-              },
-            })}
-          </Link>
+                <Link to="/admin/products/category">
+                  <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
+                    <IoAppsOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
+                    <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">
+                      Category
+                    </span>
+                  </li>
+                </Link>
 
-          <Link to="/admin/User">
+                <Link to="/admin/products/units">
+                  <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
+                    <IoScaleOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
+                    <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">
+                      Units
+                    </span>
+                  </li>
+                </Link>
+
+                <Link to="/admin/products">
+                  <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
+                    <IoListOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
+                    <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">
+                      Product List
+                    </span>
+                  </li>
+                </Link>
+              </ul>
+            </div>
+          </div>
+
+          <Link to="/admin/user">
             {AdminCard({
               adminSection: {
                 name: "Users",
                 icon: (
-                  <AiOutlineUsergroupAdd className="text-xs text-gray-700 group-hover:text-white" />
+                  <IoPersonAddOutline className="text-gray-400 group-hover:text-orange-400" />
                 ),
               },
             })}
@@ -102,7 +150,7 @@ export default function AdminPanel() {
               adminSection: {
                 name: "Customers",
                 icon: (
-                  <IoBarChartOutline className="text-xs text-gray-700 group-hover:text-white" />
+                  <IoBarChartOutline className="text-gray-400 group-hover:text-orange-400" />
                 ),
               },
             })}
@@ -113,7 +161,7 @@ export default function AdminPanel() {
               adminSection: {
                 name: "Settings",
                 icon: (
-                  <IoSettingsOutline className="text-xs text-gray-700 group-hover:text-white" />
+                  <IoSettingsOutline className="text-gray-400 group-hover:text-orange-400" />
                 ),
               },
             })}
@@ -123,9 +171,7 @@ export default function AdminPanel() {
           <Link to="/login">
             <button className="w-full group   hover:bg-orange-400  rounded-md transition-colors items-center">
               <IoLogOutOutline className="inline-block mr-1 text-xs group-hover:text-white " />
-              <span className="group-hover:text-white text-[10px]">
-                Log out
-              </span>
+              <span className="group-hover:text-white text-xs">Log out</span>
             </button>
           </Link>
         </div>
