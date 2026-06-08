@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Plus, UserPlus } from "lucide-react";
+import { Plus, FolderPlus, FolderPen } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
@@ -256,7 +256,7 @@ const Category = () => {
         onClose={() => setModalOpen(false)}
         title="Add New Category"
         saveBtnText="Save"
-        icon={UserPlus}
+        icon={FolderPlus}
         onSubmit={handleAddCategory}
       >
         <div className="space-y-4">
@@ -287,7 +287,7 @@ const Category = () => {
         onClose={() => setUpdateModalOpen(false)}
         title="Update Category"
         saveBtnText="Update"
-        icon={UserPlus}
+        icon={FolderPen}
         onSubmit={handleUpdateCategory}
       >
         <div className="space-y-4">

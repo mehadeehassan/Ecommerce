@@ -1,11 +1,11 @@
 import axios from "axios";
-import { Plus, UserPlus } from "lucide-react";
-import {  useState , useEffect} from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { Plus, BadgePlus, BadgeCheck } from "lucide-react";
 import Swal from "sweetalert2";
+import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
-import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 
 const Brand = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,9 +69,7 @@ const Brand = () => {
   const handleGetAllBrand = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        "http://localhost:3000/getAllBrand"
-      );
+      const response = await axios.get("http://localhost:3000/getAllBrand");
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllBrand(response.data.data);
@@ -209,7 +207,7 @@ const Brand = () => {
               </tr>
             </thead>
             <tbody>
-             {loading ? (
+              {loading ? (
                 <tr>
                   <td
                     colSpan={3}
@@ -244,7 +242,7 @@ const Brand = () => {
                     }
                   />
                 ))
-              )} 
+              )}
             </tbody>
           </table>
         </div>
@@ -253,11 +251,11 @@ const Brand = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-       title="Add New Brand" 
-       saveBtnText="Save" 
-       icon={UserPlus}
-       onSubmit={handleAddBrand}
-       >
+        title="Add New Brand"
+        saveBtnText="Save"
+        icon={BadgePlus}
+        onSubmit={handleAddBrand}
+      >
         <div className="space-y-4">
           <div>
             <label className="block text-xs text-gray-600 mb-1">
@@ -287,7 +285,7 @@ const Brand = () => {
         onClose={() => setUpdateModalOpen(false)}
         title="Update Brand"
         saveBtnText="Update"
-        icon={UserPlus}
+        icon={BadgeCheck}
         onSubmit={handleUpdateBrand}
       >
         <div className="space-y-4">
@@ -313,10 +311,10 @@ const Brand = () => {
       </Modal>
       {/* pagination */}
       <Pagination
-      totalItems={totalItems}
-      itemsPerPage={itemsPerPage}
-      currentPage={currentPage}
-      onPageChange={setCurrentPage}
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
       />
     </div>
   );
