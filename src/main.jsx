@@ -26,6 +26,7 @@ import AdminPanel from "./Pages/Admin/AdminPanel.jsx";
 import Dashboard from "./Pages/Admin/Dashboard.jsx";
 import ProductsList from "./Pages/Admin/product-dropMenu/ProductsList.jsx";
 import Category from "./Pages/Admin/product-dropMenu/Category.jsx";
+import Brand from "./Pages/Admin/product-dropMenu/Brand.jsx";
 import User from "./Pages/Admin/User.jsx";
 import Customers from "./Pages/Admin/Customers.jsx";
 import Settings from "./Pages/Admin/Settings.jsx";
@@ -55,6 +56,7 @@ createRoot(document.getElementById("root")).render(
         <Route index element={<Dashboard />} />
         <Route path="products" element={<ProductsList/>} />
         <Route path="products/category" element={<Category />} />
+        <Route path="products/brand" element={<Brand />} />
         <Route path="user" element={<User />} />
         <Route path="customers" element={<Customers />} />
         <Route path="settings" element={<Settings />} />

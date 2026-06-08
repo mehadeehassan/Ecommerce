@@ -95,7 +95,7 @@ export default function AdminPanel() {
               className={`overflow-hidden transition-all duration-300 ${productOpen ? "max-h-60" : "max-h-0"}`}
             >
               <ul className="pl-2 flex flex-col gap-0.5 py-1">
-                <Link to="/admin/products/brands">
+                <Link to="/admin/products/brand">
                   <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
                     <IoStorefrontOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
                     <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">

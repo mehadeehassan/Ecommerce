@@ -1,17 +1,17 @@
 import axios from "axios";
 import { Plus, UserPlus } from "lucide-react";
-import { useEffect, useState } from "react";
+import {  useState , useEffect} from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
-import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
+import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 
-const Category = () => {
+const Brand = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState({});
-  const [allCategory, setAllCategory] = useState([]);
+  const [allBrand, setAllBrand] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -29,12 +29,12 @@ const Category = () => {
 
   const [formData, setFormData] = useState({
     id: null,
-    category_name: "",
+    brand_name: "",
   });
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
-    handleGetAllCategory();
+    handleGetAllBrand();
   }, []);
 
   const handleChange = (event) => {
@@ -66,15 +66,15 @@ const Category = () => {
     // console.log("error:", error.response?.data);
   };
 
-  const handleGetAllCategory = async () => {
+  const handleGetAllBrand = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:3000/getAllCategory"
+        "http://localhost:3000/getAllBrand"
       );
       // console.log("response:", response.data);
       if (response.status === 200) {
-        setAllCategory(response.data.data);
+        setAllBrand(response.data.data);
         setTotalItems(response.data.total);
       }
     } catch (error) {
@@ -84,36 +84,36 @@ const Category = () => {
     }
   };
 
-  const handleAddCategory = async () => {
+  const handleAddBrand = async () => {
     setErrorMessage({});
     // console.log("formData:", formData);
     try {
       const response = await axios.post(
-        "http://localhost:3000/addCategory",
+        "http://localhost:3000/addBrand",
         formData,
       );
-      // console.log("response:", response.data);
+      console.log("response:", response.data);
       if (response.status === 200) {
         toast.success(response.data.message, {
           position: "top-right",
           duration: 5000,
         });
         setFormData({
-          category_name: "",
+          brand_name: "",
         });
         setModalOpen(false);
-        handleGetAllCategory();
+        handleGetAllBrand();
       }
     } catch (error) {
       handleApiError(error);
     }
   };
 
-  const handleUpdateCategory = async () => {
+  const handleUpdateBrand = async () => {
     setErrorMessage({});
     try {
       const response = await axios.put(
-        `http://localhost:3000/updateCategory/${formData.id}`,
+        `http://localhost:3000/updateBrand/${formData.id}`,
         formData,
       );
       if (response.status === 200) {
@@ -122,14 +122,14 @@ const Category = () => {
           duration: 5000,
         });
         setUpdateModalOpen(false);
-        handleGetAllCategory();
+        handleGetAllBrand();
       }
     } catch (error) {
       handleApiError(error);
     }
   };
 
-  const handleDeleteCategory = async (userId, userName) => {
+  const handleDeleteBrand = async (userId, userName) => {
     const result = await Swal.fire({
       title: "Are you sure?",
       text: `"${userName}" will be deleted.`,
@@ -142,7 +142,7 @@ const Category = () => {
     if (!result.isConfirmed) return;
     try {
       const response = await axios.delete(
-        `http://localhost:3000/deleteCategory/${userId}`,
+        `http://localhost:3000/deleteBrand/${userId}`,
       );
       if (response.status === 200) {
         Swal.fire({
@@ -152,7 +152,7 @@ const Category = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        handleGetAllCategory();
+        handleGetAllBrand();
       }
     } catch (error) {
       console.log("Delete Error:", error);
@@ -163,7 +163,6 @@ const Category = () => {
       });
     }
   };
-
   return (
     <div className="p-6 min-h-screen font-sans">
       {/* toast notification */}
@@ -186,13 +185,13 @@ const Category = () => {
           onClick={() => setModalOpen(true)}
         >
           <Plus size={16} />
-          Add Category
+          Add Brand
         </button>
       </div>
-      {/* table container card */}
+      {/* Table with Brands */}
       <div className="bg-gray-100/40 rounded-t-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="p-3">
-          <h3 className="font-bold text-[15px] text-gray-800">Category List</h3>
+          <h3 className="font-bold text-[15px] text-gray-800">Brand List</h3>
         </div>
         <div className="overflow-x-auto mt-6">
           <table className="w-full table-fixed text-left">
@@ -202,7 +201,7 @@ const Category = () => {
                   ID
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-4/6 text-center border-r border-gray-200">
-                  Category Name
+                  Brand Management
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 text-center ">
                   Actions
@@ -210,7 +209,7 @@ const Category = () => {
               </tr>
             </thead>
             <tbody>
-              {loading ? (
+             {loading ? (
                 <tr>
                   <td
                     colSpan={3}
@@ -219,7 +218,7 @@ const Category = () => {
                     Loading...
                   </td>
                 </tr>
-              ) : allCategory.length === 0 ? (
+              ) : allBrand.length === 0 ? (
                 <tr>
                   <td
                     colSpan={3}
@@ -229,83 +228,84 @@ const Category = () => {
                   </td>
                 </tr>
               ) : (
-                allCategory.map((category) => (
+                allBrand.map((brand) => (
                   <CategoryRow
-                    key={category.id}
-                    row={{ id: category.serial, name: category.category_name }}
+                    key={brand.id}
+                    row={{ id: brand.serial, name: brand.brand_name }}
                     onEdit={() => {
                       setFormData({
-                        id: category.id,
-                        category_name: category.category_name,
+                        id: brand.id,
+                        brand_name: brand.brand_name,
                       });
                       setUpdateModalOpen(true);
                     }}
                     onDelete={() =>
-                      handleDeleteCategory(category.id, category.category_name)
+                      handleDeleteBrand(brand.id, brand.brand_name)
                     }
                   />
                 ))
-              )}
+              )} 
             </tbody>
           </table>
         </div>
       </div>
-      {/* category add modal  */}
+      {/* Add Brand Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        title="Add New Category"
-        saveBtnText="Save"
-        icon={UserPlus}
-        onSubmit={handleAddCategory}
-      >
+       title="Add New Brand" 
+       saveBtnText="Save" 
+       icon={UserPlus}
+       onSubmit={handleAddBrand}
+       >
         <div className="space-y-4">
           <div>
             <label className="block text-xs text-gray-600 mb-1">
-              Category Name <span className="text-red-500"> * </span>
+              Brand Name <span className="text-red-500"> * </span>
             </label>
             <input
-              name="category_name"
+              name="brand_name"
               onChange={handleChange}
-              value={formData.category_name ?? ""}
+              value={formData.brand_name ?? ""}
               type="text"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-              placeholder="Enter category name"
+              placeholder="Enter brand name"
             />
-            {errorMessage.category_name && (
+            {errorMessage.brand_name && (
               <p className="text-red-500 text-xs mt-1">
-                {errorMessage.category_name}
+                {errorMessage.brand_name}
               </p>
             )}
           </div>
         </div>
       </Modal>
 
-      {/* category update modal  */}
+      {/* Update Brand Modal */}
+
       <Modal
         isOpen={isUpdateModalOpen}
         onClose={() => setUpdateModalOpen(false)}
-        title="Update Category"
+        title="Update Brand"
         saveBtnText="Update"
         icon={UserPlus}
-        onSubmit={handleUpdateCategory}
+        onSubmit={handleUpdateBrand}
       >
         <div className="space-y-4">
           <div>
             <label className="block text-xs text-gray-600 mb-1">
-              Category Name <span className="text-red-500"> * </span>
+              Brand Name <span className="text-red-500"> * </span>
             </label>
             <input
-              name="category_name"
+              name="brand_name"
               onChange={handleChange}
-              value={formData.category_name ?? ""}
+              value={formData.brand_name ?? ""}
               type="text"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
-              placeholder="Enter category name"
+              placeholder="Enter brand name"
             />
-            {errorMessage.category_name && (
+            {errorMessage.brand_name && (
               <p className="text-red-500 text-xs mt-1">
-                {errorMessage.category_name}
+                {errorMessage.brand_name}
               </p>
             )}
           </div>
@@ -313,13 +313,13 @@ const Category = () => {
       </Modal>
       {/* pagination */}
       <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
+      totalItems={totalItems}
+      itemsPerPage={itemsPerPage}
+      currentPage={currentPage}
+      onPageChange={setCurrentPage}
       />
     </div>
   );
 };
 
-export default Category;
+export default Brand;
