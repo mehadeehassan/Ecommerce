@@ -25,7 +25,7 @@ const Category = () => {
   const setModalOpen = (value) => {
     setIsModalOpen(value);
     setErrorMessage({});
-    if (!value) setFormData({ id: null, category_name: "" });
+    setFormData({ id: null, category_name: "" });
   };
 
   const [formData, setFormData] = useState({

@@ -25,7 +25,7 @@ const Brand = () => {
   const setModalOpen = (value) => {
     setIsModalOpen(value);
     setErrorMessage({});
-    if (!value) setFormData({ id: null, brand_name: "" });
+    setFormData({ id: null, brand_name: "" });
   };
 
   const [formData, setFormData] = useState({

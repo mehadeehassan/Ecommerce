@@ -38,7 +38,7 @@ const User = () => {
   const setModalOpen = (value) => {
     setIsModalOpen(value);
     setErrorMessage({});
-    if (!value) setFormData({ id: null, name: "", email: "", password: "", confirmPassword: "" });
+    setFormData({ id: null, name: "", email: "", password: "", confirmPassword: "" });
   };
 
   // form এর সব field এর value এক জায়গায় রাখার জন্য
