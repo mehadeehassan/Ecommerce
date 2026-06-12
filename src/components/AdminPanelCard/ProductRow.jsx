@@ -4,7 +4,7 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
   return (
     <tr className="border-b border-gray-100">
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.id}
+        {Row.serial}
       </td>
       <td className="px-5 py-2 border-r border-gray-200 text-center">
         <img
@@ -14,16 +14,16 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
         />
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.productName}
+        {Row.product_name}
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.brand}
+        {Row.brand_name}
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.category}
+        {Row.category_name}
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.code}
+        {Row.product_code}
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
         {Row.description}

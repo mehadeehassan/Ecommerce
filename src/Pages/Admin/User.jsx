@@ -26,7 +26,7 @@ const User = () => {
   // প্রতি page এ সর্বোচ্চ কতটি user দেখাবে
   const itemsPerPage = 10;
 
-  // Edit modal বন্ধ করলে form এর id reset করে এবং error clear করে 
+  // Edit modal বন্ধ করলে form এর id reset করে এবং error clear করে
   // Edit modal খুললেও error clear করে
   const setUpdateModalOpen = (value) => {
     setIsUpdateModalOpen(value);
@@ -34,11 +34,17 @@ const User = () => {
     setErrorMessage({});
   };
 
-  // Add modal খোলা বা বন্ধ করার সময় error clear করে 
+  // Add modal খোলা বা বন্ধ করার সময় error clear করে
   const setModalOpen = (value) => {
     setIsModalOpen(value);
     setErrorMessage({});
-    setFormData({ id: null, name: "", email: "", password: "", confirmPassword: "" });
+    setFormData({
+      id: null,
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   // form এর সব field এর value এক জায়গায় রাখার জন্য
@@ -103,15 +109,8 @@ const User = () => {
     }
   };
 
-  // currentPage বদলালে নতুন page এর data আনে 
-  // প্রথমবার component load হলেও একবার চলে
-  useEffect(() => {
-    handleGetAllUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]);
-
   // নতুন user add করার জন্য API call
-  // সফল হলে modal বন্ধ করে, form reset করে, list refresh করে 
+  // সফল হলে modal বন্ধ করে, form reset করে, list refresh করে
   // ব্যর্থ হলে backend এর error গুলো form এ দেখায়
   const handleAddUser = async () => {
     setErrorMessage({});
@@ -181,8 +180,8 @@ const User = () => {
 
   // user delete করার জন্য আগে confirmation popup দেখাও
   // user confirm করলে API call করে , cancel করলে কিছুই করে না
-  // সফল হলে success popup দেখায়, list refresh করে 
-  // ব্যর্থ হলে error popup দেখায় 
+  // সফল হলে success popup দেখায়, list refresh করে
+  // ব্যর্থ হলে error popup দেখায়
   const handleDeleteUser = async (userId, userName) => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -217,6 +216,14 @@ const User = () => {
       });
     }
   };
+
+  // currentPage বদলালে নতুন page এর data আনে
+  // প্রথমবার component load হলেও একবার চলে
+  useEffect(() => {
+    handleGetAllUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
+
   return (
     <div className="p-6 min-h-screen font-sans">
       {/* toast notification */}
@@ -442,7 +449,9 @@ const User = () => {
             )}
           </div>
           <div>
-            <label className="block text-xs text-gray-600 mb-1">Password <span className="text-red-500">*</span></label>
+            <label className="block text-xs text-gray-600 mb-1">
+              Password <span className="text-red-500">*</span>
+            </label>
             <input
               name="password"
               onChange={handleChange}
