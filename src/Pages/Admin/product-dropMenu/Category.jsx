@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Plus, FolderPlus, FolderPen } from "lucide-react";
+import { FolderPen, FolderPlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
@@ -70,9 +70,7 @@ const Category = () => {
   const handleGetAllCategory = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        "http://localhost:3000/getAllCategory"
-      );
+      const response = await axios.get("http://localhost:3000/getAllCategory");
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllCategory(response.data.data);
@@ -312,13 +310,15 @@ const Category = () => {
           </div>
         </div>
       </Modal>
-      {/* pagination */}
-      <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
+      {/* pagination section dynamic page */}
+      <div className="mt-2">
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
+import { BadgeCheck, BadgePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Plus, BadgePlus, BadgeCheck } from "lucide-react";
 import Swal from "sweetalert2";
 import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 import Modal from "../../../components/AdminPanelCard/Modal";
@@ -310,13 +310,15 @@ const Brand = () => {
           </div>
         </div>
       </Modal>
-      {/* pagination */}
-      <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
+      {/* pagination section dynamic page */}
+      <div className="mt-2">
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };
