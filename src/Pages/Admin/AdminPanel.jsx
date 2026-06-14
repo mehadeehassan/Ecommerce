@@ -8,12 +8,11 @@ import {
   IoListOutline,
   IoLogOutOutline,
   IoMenu,
-  IoScaleOutline,
+  IoPersonAddOutline,
   IoSettingsOutline,
   IoStorefrontOutline,
-  IoPersonAddOutline,
 } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
 
@@ -21,6 +20,12 @@ export default function AdminPanel() {
   const [isOpen, setIsOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
   const toggleSidebar = () => setIsOpen(!isOpen);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    navigate("/admin-login");
+  };
   return (
     // sidebar
     <>
@@ -168,12 +173,13 @@ export default function AdminPanel() {
           </Link>
         </ul>
         <div className="p-6">
-          <Link to="/login">
-            <button className="w-full group   hover:bg-orange-400  rounded-md transition-colors items-center">
-              <IoLogOutOutline className="inline-block mr-1 text-xs group-hover:text-white " />
-              <span className="group-hover:text-white text-xs">Log out</span>
-            </button>
-          </Link>
+          <button
+            onClick={handleLogout}
+            className="w-full group hover:bg-orange-400 rounded-md transition-colors items-center"
+          >
+            <IoLogOutOutline className="inline-block mr-1 text-xs group-hover:text-white" />
+            <span className="group-hover:text-white text-xs">Log out</span>
+          </button>
         </div>
       </nav>
     </>
