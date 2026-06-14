@@ -113,14 +113,14 @@ export default function AdminPanel() {
                   </li>
                 </Link>
 
-                <Link to="/admin/products/units">
+                {/* <Link to="/admin/products/units">
                   <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
                     <IoScaleOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
                     <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">
                       Units
                     </span>
                   </li>
-                </Link>
+                </Link> */}
 
                 <Link to="/admin/products">
                   <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">

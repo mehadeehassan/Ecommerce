@@ -1,0 +1,97 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
+export default function AdminLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const res = await axios.post("http://localhost:3000/adminLogin", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("adminToken", res.data.token);
+      navigate("/admin");
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+    }
+  };
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="p-8 w-full border border-gray-50 max-w-sm">
+        <div className="text-center mb-6">
+          <h2 className="text-xl font-medium text-gray-800 mt-2 mb-1">
+            Log in to ShopAdmin
+          </h2>
+          <p className="text-xs text-gray-400">
+            Enter your email and password below to log in
+          </p>
+        </div>
+
+        <form onSubmit={handleLogin} className="flex flex-col gap-3">
+          <div>
+            <label className="text-sm text-gray-700 block mb-1">
+              Email address
+            </label>
+            <input
+              type="email"
+              placeholder="email@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-orange-400"
+              required
+            />
+          </div>
+          <div>
+            <div className="flex justify-between items-center mb-1">
+              <label className="text-sm text-gray-700">Password</label>
+              <a href="#" className="text-xs text-orange-500 underline">
+                Forgot password?
+              </a>
+            </div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-orange-400"
+              required
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="remember"
+              className="accent-orange-500"
+            />
+            <label htmlFor="remember" className="text-sm text-gray-500">
+              Remember me
+            </label>
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg py-1 text-sm font-medium transition-all mt-4"
+          >
+            Log in
+          </button>
+        </form>
+
+        <p className="text-center text-xs text-gray-400 mt-4">
+          Don't have an account?{" "}
+          <a href="#" className="text-orange-500 font-medium underline">
+            Sign up
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
