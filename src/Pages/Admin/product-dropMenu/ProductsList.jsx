@@ -95,6 +95,9 @@ const Products = () => {
       });
       setErrorMessage(errorObj);
     }
+    if (error.response?.data?.message === "Image is required") {
+      setErrorMessage((prev) => ({ ...prev, image: "Image is required" }));
+    }
   };
 
   const handleGetAllProduct = async () => {
@@ -267,10 +270,10 @@ const Products = () => {
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1 border-r border-gray-200 ">
                   ID
                 </th>
-                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-center">
                   Image
                 </th>
-                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-50 border-r border-gray-200 ">
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Product Name
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
@@ -285,7 +288,7 @@ const Products = () => {
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Description
                 </th>
-                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-center">
                   Status
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-end">

@@ -10,7 +10,7 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
         <img
           src={Row.image ?? "https://via.placeholder.com/80x40"}
           alt="product"
-          className="w-20 h-10 rounded-xl object-cover mx-auto"
+          className="w-15 h-10 rounded-lg object-cover mx-auto"
         />
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
