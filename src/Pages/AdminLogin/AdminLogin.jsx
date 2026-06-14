@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router";
 
 export default function AdminLogin() {
@@ -18,14 +19,36 @@ export default function AdminLogin() {
         password,
       });
 
+      toast.success(res.data.message, {
+        position: "top-right",
+        duration: 5000,
+      });
+      // admin token save kore dibo
       localStorage.setItem("adminToken", res.data.token);
-      navigate("/admin");
+      // 0.3 second delay kore admin panel e navigate kore dibo
+      setTimeout(() => {
+        navigate("/admin");
+      }, 300);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     }
   };
   return (
     <div className="flex items-center justify-center min-h-screen">
+      {/* toast notification */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          success: {
+            duration: 5000,
+            className: "!bg-green-300/50 !text-green-900 !backdrop-blur-sm",
+          },
+          error: {
+            duration: 5000,
+            className: "!bg-red-300/50 !text-red-900 !backdrop-blur-sm",
+          },
+        }}
+      />
       <div className="p-8 w-full border border-gray-50 max-w-sm">
         <div className="text-center mb-6">
           <h2 className="text-xl font-medium text-gray-800 mt-2 mb-1">
