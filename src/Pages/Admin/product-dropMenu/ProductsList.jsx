@@ -25,6 +25,7 @@ const Products = () => {
       setFormData({
         id: null,
         product_code: "",
+        product_price: "",
         product_name: "",
         category_id: "",
         brand_id: "",
@@ -41,6 +42,7 @@ const Products = () => {
     setFormData({
       id: null,
       product_code: "",
+      product_price: "",
       product_name: "",
       category_id: "",
       brand_id: "",
@@ -53,6 +55,7 @@ const Products = () => {
   const [formData, setFormData] = useState({
     id: null,
     product_code: "",
+    product_price: "",
     product_name: "",
     category_id: "",
     brand_id: "",
@@ -140,6 +143,7 @@ const Products = () => {
     try {
       const data = new FormData();
       data.append("product_code", formData.product_code);
+      data.append("product_price", formData.product_price);
       data.append("product_name", formData.product_name);
       data.append("category_id", formData.category_id);
       data.append("brand_id", formData.brand_id);
@@ -170,6 +174,7 @@ const Products = () => {
       const data = new FormData();
       data.append("id", formData.id);
       data.append("product_code", formData.product_code);
+      data.append("product_price", formData.product_price);
       data.append("product_name", formData.product_name);
       data.append("category_id", formData.category_id);
       data.append("brand_id", formData.brand_id);
@@ -285,6 +290,9 @@ const Products = () => {
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Code
                 </th>
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-left">
+                  Price
+                </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Description
                 </th>
@@ -324,6 +332,7 @@ const Products = () => {
                       setFormData({
                         id: product.id,
                         product_code: product.product_code,
+                        product_price: product.product_price,
                         product_name: product.product_name,
                         category_id: product.category_id,
                         brand_id: product.brand_id,
@@ -353,24 +362,44 @@ const Products = () => {
         onSubmit={handleAddProduct}
       >
         <div className="space-y-4">
-          {/* Code — full width */}
-          <div>
-            <label className="block text-xs text-gray-600 mb-1">
-              Code <span className="text-red-500">*</span>
-            </label>
-            <input
-              name="product_code"
-              type="text"
-              onChange={handleChange}
-              value={formData.product_code ?? ""}
-              placeholder="Enter product code"
-              className="w-full p-2 border border-gray-300 rounded-md text-sm"
-            />
-            {errorMessage.product_code && (
-              <p className="text-red-500 text-xs mt-1">
-                {errorMessage.product_code}
-              </p>
-            )}
+          {/* Code — half column and price — half column */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Code <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="product_code"
+                type="text"
+                onChange={handleChange}
+                value={formData.product_code ?? ""}
+                placeholder="Enter product code"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              />
+              {errorMessage.product_code && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.product_code}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Price <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="product_price"
+                type="number"
+                onChange={handleChange}
+                value={formData.product_price ?? ""}
+                placeholder="Enter product price"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              />
+              {errorMessage.product_price && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.product_price}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Product Name + Category — 2 column */}
@@ -516,23 +545,43 @@ const Products = () => {
       >
         <div className="space-y-4">
           {/* Code — full width */}
-          <div>
-            <label className="block text-xs text-gray-600 mb-1">
-              Code <span className="text-red-500">*</span>
-            </label>
-            <input
-              name="product_code"
-              type="text"
-              onChange={handleChange}
-              value={formData.product_code ?? ""}
-              placeholder="Enter product code"
-              className="w-full p-2 border border-gray-300 rounded-md text-sm"
-            />
-            {errorMessage.product_code && (
-              <p className="text-red-500 text-xs mt-1">
-                {errorMessage.product_code}
-              </p>
-            )}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Code <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="product_code"
+                type="text"
+                onChange={handleChange}
+                value={formData.product_code ?? ""}
+                placeholder="Enter product code"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              />
+              {errorMessage.product_code && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.product_code}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Price <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="product_price"
+                type="number"
+                onChange={handleChange}
+                value={formData.product_price ?? ""}
+                placeholder="Enter product price"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              />
+              {errorMessage.product_price && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.product_price}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Product Name + Category — 2 column */}

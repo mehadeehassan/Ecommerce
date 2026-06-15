@@ -12,6 +12,7 @@ import {
   IoSettingsOutline,
   IoStorefrontOutline,
 } from "react-icons/io5";
+import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
@@ -23,7 +24,7 @@ export default function AdminPanel() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("adminToken");
+    Cookies.remove("adminToken");
     navigate("/admin-login");
   };
   return (

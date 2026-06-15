@@ -1,7 +1,9 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -24,7 +26,7 @@ export default function AdminLogin() {
         duration: 5000,
       });
       // admin token save kore dibo
-      localStorage.setItem("adminToken", res.data.token);
+      Cookies.set("adminToken", res.data.token);
       // 0.3 second delay kore admin panel e navigate kore dibo
       setTimeout(() => {
         navigate("/admin");
@@ -76,9 +78,9 @@ export default function AdminLogin() {
           <div>
             <div className="flex justify-between items-center mb-1">
               <label className="text-sm text-gray-700">Password</label>
-              <a href="#" className="text-xs text-orange-500 underline">
+              <Link to="/forgot-password" className="text-xs hover:text-orange-500 underline">
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <input
               type="password"
@@ -110,9 +112,9 @@ export default function AdminLogin() {
 
         <p className="text-center text-xs text-gray-400 mt-4">
           Don't have an account?{" "}
-          <a href="#" className="text-orange-500 font-medium underline">
+          <Link to="#" className="hover:text-orange-500 text-md text-gray-800 underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
