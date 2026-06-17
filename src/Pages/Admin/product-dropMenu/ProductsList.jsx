@@ -1,4 +1,3 @@
-import axios from "axios";
 import { PackageCheck, PackagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -6,6 +5,7 @@ import Swal from "sweetalert2";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
 import ProductRow from "../../../components/AdminPanelCard/ProductRow";
+import axiosAdmin from "../../Utils/axiosAdmin";
 const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
@@ -106,7 +106,7 @@ const Products = () => {
   const handleGetAllProduct = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
+      const response = await axiosAdmin.get(
         `http://localhost:3000/getAllProduct?page=${currentPage}&limit=${itemsPerPage}`,
       );
       if (response.status === 200) {
@@ -122,7 +122,9 @@ const Products = () => {
 
   const handleGetAllCategory = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getAllCategory");
+      const response = await axiosAdmin.get(
+        "http://localhost:3000/getAllCategory",
+      );
       if (response.status === 200) setAllCategory(response.data.data);
     } catch (error) {
       console.log(error);
@@ -131,7 +133,9 @@ const Products = () => {
 
   const handleGetAllBrand = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getAllBrand");
+      const response = await axiosAdmin.get(
+        "http://localhost:3000/getAllBrand",
+      );
       if (response.status === 200) setAllBrand(response.data.data);
     } catch (error) {
       console.log(error);
@@ -151,7 +155,7 @@ const Products = () => {
       data.append("description", formData.description);
       if (formData.image) data.append("image", formData.image);
 
-      const response = await axios.post(
+      const response = await axiosAdmin.post(
         "http://localhost:3000/addProduct",
         data,
         {
@@ -182,7 +186,7 @@ const Products = () => {
       data.append("description", formData.description);
       if (formData.image) data.append("image", formData.image);
 
-      const response = await axios.put(
+      const response = await axiosAdmin.put(
         "http://localhost:3000/updateProduct",
         data,
         {
@@ -212,7 +216,7 @@ const Products = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axios.delete(
+      const response = await axiosAdmin.delete(
         `http://localhost:3000/deleteProduct/${productId}`,
       );
       if (response.status === 200) {
@@ -388,7 +392,8 @@ const Products = () => {
               </label>
               <input
                 name="product_price"
-                type="number"
+                type="text"
+                inputMode="numeric"
                 onChange={handleChange}
                 value={formData.product_price ?? ""}
                 placeholder="Enter product price"
@@ -570,7 +575,8 @@ const Products = () => {
               </label>
               <input
                 name="product_price"
-                type="number"
+                type="text"
+                inputMode="numeric"
                 onChange={handleChange}
                 value={formData.product_price ?? ""}
                 placeholder="Enter product price"

@@ -32,9 +32,9 @@ const Dashboard = () => {
               title: "Pending Orders",
               number: "18",
               percentage: "-2% from yesterday",
-              textColor: "text-yellow-500",
+              textColor: "text-red-500",
               icon: "📦",
-              borderColor: "border-yellow-500",
+              borderColor: "border-red-500",
             },
           })}
           {AdminMainCard({

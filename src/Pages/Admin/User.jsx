@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import axios from "axios";
 import { Plus, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -7,6 +6,7 @@ import Swal from "sweetalert2";
 import Modal from "../../components/AdminPanelCard/Modal";
 import Pagination from "../../components/AdminPanelCard/Pagination";
 import UserRow from "../../components/AdminPanelCard/UserRow";
+import axiosAdmin from "../Utils/axiosAdmin";
 
 const User = () => {
   // Add User modal খোলা/বন্ধের জন্য — true হলে modal দেখাবে
@@ -95,7 +95,7 @@ const User = () => {
   const handleGetAllUser = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
+      const response = await axiosAdmin.get(
         `http://localhost:3000/getAllUserLimit?page=${currentPage}&limit=${itemsPerPage}`,
       );
       if (response.status === 200) {
@@ -115,7 +115,7 @@ const User = () => {
   const handleAddUser = async () => {
     setErrorMessage({});
     try {
-      const response = await axios.post(
+      const response = await axiosAdmin.post(
         "http://localhost:3000/signup",
         formData,
       );
@@ -161,7 +161,7 @@ const User = () => {
     if (!formData.id) return;
     setErrorMessage({});
     try {
-      const response = await axios.put(
+      const response = await axiosAdmin.put(
         `http://localhost:3000/updateUser/${formData.id}`,
         formData,
       );
@@ -194,7 +194,7 @@ const User = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axios.delete(
+      const response = await axiosAdmin.delete(
         `http://localhost:3000/deleteUser/${userId}`,
       );
       if (response.status === 200) {

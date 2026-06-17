@@ -1,4 +1,3 @@
-import axios from "axios";
 import { FolderPen, FolderPlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -6,6 +5,7 @@ import Swal from "sweetalert2";
 import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
+import axiosAdmin from "../../Utils/axiosAdmin";
 
 const Category = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +70,9 @@ const Category = () => {
   const handleGetAllCategory = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3000/getAllCategory");
+      const response = await axiosAdmin.get(
+        "http://localhost:3000/getAllCategory",
+      );
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllCategory(response.data.data);
@@ -87,7 +89,7 @@ const Category = () => {
     setErrorMessage({});
     // console.log("formData:", formData);
     try {
-      const response = await axios.post(
+      const response = await axiosAdmin.post(
         "http://localhost:3000/addCategory",
         formData,
       );
@@ -111,7 +113,7 @@ const Category = () => {
   const handleUpdateCategory = async () => {
     setErrorMessage({});
     try {
-      const response = await axios.put(
+      const response = await axiosAdmin.put(
         `http://localhost:3000/updateCategory/${formData.id}`,
         formData,
       );
@@ -140,7 +142,7 @@ const Category = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axios.delete(
+      const response = await axiosAdmin.delete(
         `http://localhost:3000/deleteCategory/${userId}`,
       );
       if (response.status === 200) {

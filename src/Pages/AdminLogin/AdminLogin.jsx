@@ -1,9 +1,10 @@
-import axios from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+// import axios from "axios";
+import axiosAdmin from "../Utils/axiosAdmin";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:3000/adminLogin", {
+      const res = await axiosAdmin.post("http://localhost:3000/adminLogin", {
         email,
         password,
       });
@@ -30,7 +31,7 @@ export default function AdminLogin() {
       // 0.3 second delay kore admin panel e navigate kore dibo
       setTimeout(() => {
         navigate("/admin");
-      }, 300);
+      }, 500);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
     }
@@ -78,7 +79,10 @@ export default function AdminLogin() {
           <div>
             <div className="flex justify-between items-center mb-1">
               <label className="text-sm text-gray-700">Password</label>
-              <Link to="/forgot-password" className="text-xs hover:text-orange-500 underline">
+              <Link
+                to="/forgot-password"
+                className="text-xs hover:text-orange-500 underline"
+              >
                 Forgot password?
               </Link>
             </div>
@@ -112,7 +116,10 @@ export default function AdminLogin() {
 
         <p className="text-center text-xs text-gray-400 mt-4">
           Don't have an account?{" "}
-          <Link to="#" className="hover:text-orange-500 text-md text-gray-800 underline">
+          <Link
+            to="#"
+            className="hover:text-orange-500 text-md text-gray-800 underline"
+          >
             Sign up
           </Link>
         </p>
