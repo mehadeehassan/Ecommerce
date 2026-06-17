@@ -7,21 +7,23 @@ import Pagination from "../../../components/AdminPanelCard/Pagination";
 import ProductRow from "../../../components/AdminPanelCard/ProductRow";
 import axiosAdmin from "../../Utils/axiosAdmin";
 const Products = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState({});
-  const [allCategory, setAllCategory] = useState([]);
-  const [allBrand, setAllBrand] = useState([]);
-  const [allProduct, setAllProduct] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-  const itemsPerPage = 10;
+  const [isModalOpen, setIsModalOpen] = useState(false); // প্রোডাক্ট অ্যাড করার মডাল ওপেন/ক্লোজ স্টেট
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // প্রোডাক্ট আপডেট করার মডাল ওপেন/ক্লোজ স্টেট
+  const [errorMessage, setErrorMessage] = useState({}); // ব্যাকএন্ড থেকে আসা ভ্যালিডেশন এরর রাখার স্টেট
+  const [allCategory, setAllCategory] = useState([]); // ড্রপডাউনের জন্য সব ক্যাটাগরি রাখার স্টেট
+  const [allBrand, setAllBrand] = useState([]); // ড্রপডাউনের জন্য সব ব্র্যান্ড রাখার স্টেট
+  const [allProduct, setAllProduct] = useState([]); // টেবিলে দেখানোর জন্য প্রোডাক্ট লিস্টের স্টেট
+  const [loading, setLoading] = useState(false); // ডাটা লোড হওয়ার সময় স্পিনার বা লোডিং টেক্সট দেখানোর স্টেট
+  const [currentPage, setCurrentPage] = useState(1); // বর্তমান পেজ নাম্বার ট্র্যাকিং স্টেট
+  const [totalItems, setTotalItems] = useState(0); // ডাটাবেজে মোট কয়টি প্রোডাক্ট আছে তা রাখার স্টেট (পেজিনেশনের জন্য)
+  const itemsPerPage = 10; // প্রতি পেজে কয়টি করে প্রোডাক্ট দেখাবে তার লিমিট
 
+  // প্রোডাক্ট আপডেট মডাল ওপেন বা ক্লোজ করার ফাংশন
   const setUpdateModalOpen = (value) => {
     setIsUpdateModalOpen(value);
-    setErrorMessage({});
+    setErrorMessage({}); // মডাল অ্যাকশনের সাথে এরর মেসেজ ক্লিয়ার করা
     if (!value) {
+      // মডাল ক্লোজ (false) হলে ফর্মের সব ডাটা খালি (Reset) করে দেওয়া
       setFormData({
         id: null,
         product_code: "",
@@ -36,9 +38,11 @@ const Products = () => {
     }
   };
 
+  // নতুন প্রোডাক্ট অ্যাড করার মডাল ওপেন বা ক্লোজ করার ফাংশন
   const setModalOpen = (value) => {
     setIsModalOpen(value);
-    setErrorMessage({});
+    setErrorMessage({}); // এরর মেসেজ ক্লিয়ার করা
+    // ফর্ম ডাটা রিসেট করা
     setFormData({
       id: null,
       product_code: "",
@@ -52,6 +56,7 @@ const Products = () => {
     });
   };
 
+  // ইনপুট ফিল্ডগুলোর ভ্যালু ট্র্যাক করার জন্য অবজেক্ট স্টেট
   const [formData, setFormData] = useState({
     id: null,
     product_code: "",
@@ -64,8 +69,10 @@ const Products = () => {
     image: null,
   });
 
+  // ইনপুট ফিল্ডের পরিবর্তন হ্যান্ডেল করার ফাংশন (Controlled Input)
   const handleChange = (event) => {
     if (event.target.type === "file") {
+      // ফাইল/ইমেজ ইনপুট হলে ফাইলের অবজেক্টটি সেভ করবে
       setFormData({
         ...formData,
         image: event.target.files[0],
@@ -76,6 +83,7 @@ const Products = () => {
         [event.target.name]: event.target.value,
       });
 
+      // ইউজার যখন ইনপুট দেওয়া শুরু করবে, তখন ওই নির্দিষ্ট ফিল্ডের আগের এরর মেসেজটি মুছে যাবে
       if (errorMessage[event.target.name]) {
         setErrorMessage({
           ...errorMessage,
@@ -85,6 +93,7 @@ const Products = () => {
     }
   };
 
+  // ব্যাকএন্ড ভ্যালিডেশন এররগুলোকে প্রসেস করে এরর স্টেটে বসানো
   const handleApiError = (error) => {
     console.log("errors:", error.response?.data?.errors);
     if (
@@ -93,30 +102,33 @@ const Products = () => {
       Array.isArray(error.response.data.errors)
     ) {
       const errorObj = {};
+      // ব্যাকএন্ড থেকে আসা এরর অ্যারে লুপ করে অবজেক্টে রূপান্তর করে
       error.response.data.errors.forEach((err) => {
         errorObj[err.field] = err.message;
       });
-      setErrorMessage(errorObj);
+      setErrorMessage(errorObj); // স্টেটে এরর অবজেক্ট সেট করা
     }
+    // আলাদাভাবে ইমেজ রিকোয়ার্ড এরর হ্যান্ডেল করা
     if (error.response?.data?.message === "Image is required") {
       setErrorMessage((prev) => ({ ...prev, image: "Image is required" }));
     }
   };
 
+  // ডাটাবেজ থেকে পেজ অনুযায়ী প্রোডাক্ট লিস্ট নিয়ে আসা
   const handleGetAllProduct = async () => {
-    setLoading(true);
+    setLoading(true); // লোডিং শুরু
     try {
       const response = await axiosAdmin.get(
         `http://localhost:3000/getAllProduct?page=${currentPage}&limit=${itemsPerPage}`,
       );
       if (response.status === 200) {
-        setAllProduct(response.data.data);
-        setTotalItems(response.data.total);
+        setAllProduct(response.data.data); // প্রোডাক্ট লিস্ট স্টেটে রাখা
+        setTotalItems(response.data.total); // মোট প্রোডাক্ট সংখ্যা সেভ করা (পেজিনেশনের হিসাবের জন্য)
       }
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLoading(false); // লোডিং শেষ
     }
   };
 
@@ -142,9 +154,11 @@ const Products = () => {
     }
   };
 
+  // নতুন প্রোডাক্ট তৈরি করার ফাংশন
   const handleAddProduct = async () => {
-    setErrorMessage({});
+    setErrorMessage({}); // পুরাতন এরর ক্লিয়ার করা
     try {
+      // যেহেতু ইমেজ/ফাইল আপলোড হবে, তাই FormData অবজেক্ট ব্যবহার করা হয়েছে
       const data = new FormData();
       data.append("product_code", formData.product_code);
       data.append("product_price", formData.product_price);
@@ -159,16 +173,16 @@ const Products = () => {
         "http://localhost:3000/addProduct",
         data,
         {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: { "Content-Type": "multipart/form-data" }, // ফাইল পাঠানোর জন্য হেডার
         },
       );
       if (response.status === 200) {
-        toast.success(response.data.message);
-        setModalOpen(false);
-        handleGetAllProduct();
+        toast.success(response.data.message); // সফলতার মেসেজ দেখানো
+        setModalOpen(false); // মডাল বন্ধ করা ও ফর্ম রিসেট করা
+        handleGetAllProduct(); // নতুন প্রোডাক্টসহ টেবিল আপডেট করা
       }
     } catch (error) {
-      handleApiError(error);
+      handleApiError(error); // এরর হলে তা হ্যান্ডেল করা
     }
   };
 
@@ -233,14 +247,14 @@ const Products = () => {
       console.log(error);
     }
   };
-
+  // কম্পোনেন্ট প্রথমবার লোড হলে এবং যখনই 'currentPage' পরিবর্তিত হবে, তখনই এই API কলগুলো রান করবে
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     handleGetAllProduct();
     handleGetAllCategory();
     handleGetAllBrand();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]);
+  }, [currentPage]); // Dependency array-তে currentPage থাকায় পেজ চেঞ্জ হলেই ডাটা রিফেচ হবে
 
   return (
     <div className="p-6 min-h-screen font-sans">
