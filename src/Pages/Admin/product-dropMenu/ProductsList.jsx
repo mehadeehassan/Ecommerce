@@ -69,7 +69,7 @@ const Products = () => {
     image: null,
   });
 
-  // ইনপুট ফিল্ডের পরিবর্তন হ্যান্ডেল করার ফাংশন (Controlled Input)
+  // ইনপুট ফিল্ডের পরিবর্তন হ্যান্ডেল করার ফাংশন
   const handleChange = (event) => {
     if (event.target.type === "file") {
       // ফাইল/ইমেজ ইনপুট হলে ফাইলের অবজেক্টটি সেভ করবে
