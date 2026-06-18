@@ -33,7 +33,9 @@ export default function AdminLogin() {
         navigate("/admin");
       }, 500);
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      const msg = err.response?.data?.message || "Something went wrong";
+      setError(msg);
+      toast.error(msg);
     }
   };
   return (

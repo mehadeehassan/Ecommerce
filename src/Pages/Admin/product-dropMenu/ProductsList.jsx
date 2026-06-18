@@ -96,6 +96,12 @@ const Products = () => {
   // ব্যাকএন্ড ভ্যালিডেশন এররগুলোকে প্রসেস করে এরর স্টেটে বসানো
   const handleApiError = (error) => {
     console.log("errors:", error.response?.data?.errors);
+
+    const errorMsg =
+      error.response?.data?.errors?.[0]?.message ||
+      error.response?.data?.message ||
+      "Something went wrong!";
+    toast.error(errorMsg);
     if (
       error.response &&
       error.response.data &&

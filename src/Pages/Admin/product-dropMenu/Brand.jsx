@@ -53,6 +53,11 @@ const Brand = () => {
   };
 
   const handleApiError = (error) => {
+    const errorMsg =
+      error.response?.data?.errors?.[0]?.message ||
+      error.response?.data?.message ||
+      "Something went wrong!";
+    toast.error(errorMsg);
     if (
       error.response &&
       error.response.data &&

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { FaCaretDown, FaUserCheck } from "react-icons/fa";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { FaUserCheck } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdClose, IoMdMenu, IoMdSearch } from "react-icons/io";
 import { IoLogInSharp } from "react-icons/io5";
@@ -9,24 +10,43 @@ import Logo from "../../assets/Logo.png";
 const Navbar = () => {
   // menu open/close function
   const [isMenuOpen, setIsMenuOpen] = useState(false);
- // dropdown open/close function
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // categories backend theke asbe ei state e
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability
+    handleGetAllCategory();
+  }, []);
+
+  const handleGetAllCategory = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/getAllCategory");
+      if (response.status === 200) {
+        setCategories(response.data.data);
+      }
+    } catch (error) {
+      console.log("Error fetching categories:", error);
+    }
+  };
 
   return (
     <div className="shadow-md bg-white transition-all duration-200 relative z-40">
       {/* Upper Navbar */}
       <div className="bg-orange-200 py-2">
         <div className="container mx-auto flex justify-between items-center px-4">
-          
           {/* Logo & Mobile Menu Button */}
           <div className="flex items-center gap-2">
-
             {/* Mobile menu button toggle button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="sm:hidden text-2xl text-gray-700 hover:text-orange-400 transition-colors"
             >
-              {isMenuOpen ? <IoMdClose className="text-orange-500"/> : <IoMdMenu className="text-orange-500" />}
+              {isMenuOpen ? (
+                <IoMdClose className="text-orange-500" />
+              ) : (
+                <IoMdMenu className="text-orange-500" />
+              )}
             </button>
             <Link to="/">
               <a
@@ -45,7 +65,7 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="search"
-                className="w-50 sm:w-50 group-hover:w-72 transition-all duration-300 
+                className="w-50 sm:w-50 group-hover:w-72 transition-all duration-300
                     rounded-full border border-gray-300 px-2 py-1 focus:border-orange-400 bg-white text-gray-700"
               />
               <IoMdSearch className="text-gray-500 group-hover:text-orange-400 absolute top-1/2 -translate-y-1/2 right-3" />
@@ -56,7 +76,7 @@ const Navbar = () => {
               </span>
               <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
             </button>
-            
+
             {/* Log In Section */}
             <div className="flex flex-row items-center gap-2 sm:gap-2">
               <Link to="/login">
@@ -78,88 +98,30 @@ const Navbar = () => {
       </div>
 
       {/* Lower Navbar (Desktop & Mobile Responsive)*/}
-      <div className={`${isMenuOpen ? "block" : "hidden"} sm:block py-2 bg-white sm:bg-transparent border-t sm:border-t-0`}>
+      <div
+        className={`${isMenuOpen ? "block" : "hidden"} sm:block py-2 bg-white sm:bg-transparent border-t sm:border-t-0`}
+      >
         <ul className="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-1 sm:gap-4 px-4 sm:px-0">
           <li className="w-full sm:w-auto">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
             >
               Home
-            </a>
-          </li>
-          <li className="w-full sm:w-auto">
-            <a
-              href="/products/top-rated"
-              className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
-            >
-              Top Rated
-            </a>
-          </li>
-          <li className="w-full sm:w-auto">
-            <a
-              href="/products/kids-wear"
-              className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
-            >
-              Kids Wear
-            </a>
-          </li>
-          <li className="w-full sm:w-auto">
-            <a
-              href="/products/men-wear"
-              className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
-            >
-              Men Wear
-            </a>
-          </li>
-          <li className="w-full sm:w-auto">
-            <a
-              href="/products/electronics"
-              className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
-            >
-              Electronics
-            </a>
+            </Link>
           </li>
 
-          {/* Simple Dropdown */}
-          <li 
-            className="group relative cursor-pointer w-full sm:w-auto px-4 sm:px-0"
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          >
-            {/* href="#" er jonne page jeno top-a na uthe jay ba URL change na hoy, tai preventDefault use kora hoyeche  */}
-            <a href="/#" className="flex items-center gap-1 py-2" onClick={(e) => e.preventDefault()}>
-              Other
-              <span>
-                <FaCaretDown className={`transition-all duration-200 ${isDropdownOpen ? "rotate-180" : "group-hover:rotate-180"}`} />
-              </span>
-            </a>
-            
-            {/* Dropdown Menu */}
-            <div className={`
-              ${isDropdownOpen ? "block" : "hidden group-hover:sm:block"} 
-              sm:absolute z-50 w-full sm:w-48 rounded-md bg-white p-2 text-black 
-              sm:shadow-md top-full left-0 relative sm:left-auto mt-1 sm:mt-0
-            `}>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="/products/trending"
-                    className="inline-block p-2 rounded-md w-full hover:bg-orange-200 active:bg-orange-200"
-                  >
-                    Trending Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/products/best-selling"
-                    className="inline-block p-2 rounded-md w-full hover:bg-orange-200 active:bg-orange-200"
-                  >
-                    Best Selling
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
+          {/* Dynamic Categories - Admin Panel Theke Asche */}
+          {categories.map((category) => (
+            <li key={category.id} className="w-full sm:w-auto">
+              <Link
+                to={`/products/${category.category_name}`}
+                className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
+              >
+                {category.category_name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
