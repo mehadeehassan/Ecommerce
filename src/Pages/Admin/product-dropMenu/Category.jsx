@@ -76,7 +76,7 @@ const Category = () => {
     setLoading(true);
     try {
       const response = await axiosAdmin.get(
-        "http://localhost:3000/getAllCategory",
+        "/getAllCategory",
       );
       // console.log("response:", response.data);
       if (response.status === 200) {
@@ -95,7 +95,7 @@ const Category = () => {
     // console.log("formData:", formData);
     try {
       const response = await axiosAdmin.post(
-        "http://localhost:3000/addCategory",
+        "/addCategory",
         formData,
       );
       // console.log("response:", response.data);
@@ -119,7 +119,7 @@ const Category = () => {
     setErrorMessage({});
     try {
       const response = await axiosAdmin.put(
-        `http://localhost:3000/updateCategory/${formData.id}`,
+        `/updateCategory/${formData.id}`,
         formData,
       );
       if (response.status === 200) {
@@ -148,7 +148,7 @@ const Category = () => {
     if (!result.isConfirmed) return;
     try {
       const response = await axiosAdmin.delete(
-        `http://localhost:3000/deleteCategory/${userId}`,
+        `/deleteCategory/${userId}`,
       );
       if (response.status === 200) {
         Swal.fire({

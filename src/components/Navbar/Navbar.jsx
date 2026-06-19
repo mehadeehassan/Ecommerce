@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
@@ -6,6 +5,7 @@ import { IoMdClose, IoMdMenu, IoMdSearch } from "react-icons/io";
 import { IoLogInSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
+import axiosPublic from "../../Pages/Utils/axiosPublic";
 
 const Navbar = () => {
   // menu open/close function
@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const handleGetAllCategory = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getAllCategory");
+      const response = await axiosPublic.get("/getAllCategory");
       if (response.status === 200) {
         setCategories(response.data.data);
       }
@@ -48,14 +48,12 @@ const Navbar = () => {
                 <IoMdMenu className="text-orange-500" />
               )}
             </button>
-            <Link to="/">
-              <a
-                href="#"
-                className="font-extrabold text-2xl sm:text-2xl flex items-center gap-2"
-              >
-                <img src={Logo} alt="Logo" className="w-10" />
-                <samp className="relative group hidden sm:block">SHOPS</samp>
-              </a>
+            <Link
+              to="/"
+              className="font-extrabold text-2xl sm:text-2xl flex items-center gap-2"
+            >
+              <img src={Logo} alt="Logo" className="w-10" />
+              <samp className="relative group hidden sm:block">SHOPS</samp>
             </Link>
           </div>
 
@@ -97,7 +95,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Lower Navbar (Desktop & Mobile Responsive)*/}
+      {/* Lower Navbar Desktop & Mobile Responsive*/}
       <div
         className={`${isMenuOpen ? "block" : "hidden"} sm:block py-2 bg-white sm:bg-transparent border-t sm:border-t-0`}
       >
@@ -115,7 +113,7 @@ const Navbar = () => {
           {categories.map((category) => (
             <li key={category.id} className="w-full sm:w-auto">
               <Link
-                to={`/products/${category.category_name}`}
+                to={`/products/${category.category_name.toLowerCase()}`}
                 className="block sm:inline-block py-2 sm:py-0 px-4 hover:text-orange-400 duration-200 w-full active:text-orange-400"
               >
                 {category.category_name}

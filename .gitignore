@@ -25,3 +25,4 @@ dist-ssr
 /.codeium
 .codeium/ 
 .vscode/extensions.json
+.env

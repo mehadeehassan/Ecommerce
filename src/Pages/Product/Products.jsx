@@ -1,19 +1,36 @@
-import React from "react";
-import Img1 from "../../assets/woman/w1.png";
-import Img2 from "../../assets/woman/w2.png";
-import Img3 from "../../assets/woman/w3.avif";
-import Img4 from "../../assets/woman/w4.jpg";
-import Img5 from "../../assets/woman/w5.jpg";
-import Img6 from "../../assets/woman/w6.jpg";
-import { FaStar } from "react-icons/fa";
-import ProductCard from "../../components/ProductCard/ProductCard";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import axiosPublic from "../../Pages/Utils/axiosPublic";
+import { getImageUrl } from "../../Pages/Utils/imageUrl";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 function Products() {
-  let { productType } = useParams();
-  productType = productType.replace(/-/g, " ");
-  productType = productType.charAt(0).toUpperCase() + productType.slice(1);
-  productType = productType.replace(/\b\w/g, (char) => char.toUpperCase());
+  const { productType } = useParams();
+  const [products, setProducts] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability
+    handleGetProductsByCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productType]);
+
+  const handleGetProductsByCategory = async () => {
+    try {
+      const response = await axiosPublic.get(
+        `/getProductCategoryById/${productType}`,
+      );
+
+      if (response.status === 200) {
+        setProducts(response.data.data);
+        setCategoryName(response.data.data[0]?.category_name || productType);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      setProducts([]);
+      setCategoryName(productType);
+    }
+  };
 
   return (
     <div className="mt-14 mb-12 bg-white text-black">
@@ -22,73 +39,31 @@ function Products() {
           <p className="text-sm text-orange-400">
             Top Selling Products for you
           </p>
-          <h1 className="text-3xl font-bold">{productType}</h1>
+          <h1 className="text-3xl font-bold">{categoryName}</h1>
           <p className="text-xs text-gray-400">
             My best selling products for you
           </p>
           <div className="w-20 h-1 bg-orange-400 mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
+          {products.map((item) => (
             <ProductCard
+              key={item.product_id}
               product={{
-                productPicturePath: Img1,
-                title: "Women Western",
-                color: "Blue",
-                price: "$100",
-                rating: 5.0,
+                productPicturePath: getImageUrl(item.image),
+                name: item.product_name,
+                brand: item.brand_name,
+                price: `$${item.product_price}`,
+                code: item.product_code,
+                description: item.description,
               }}
             />
-            <ProductCard
-              product={{
-                productPicturePath: Img2,
-                title: "Women Formal",
-                color: "Red",
-                price: "$200",
-                rating: 4.5,
-              }}
-            />
-            <ProductCard
-              product={{
-                productPicturePath: Img3,
-                title: "Women Casual",
-                color: "White",
-                price: "$300",
-                rating: 4.4,
-              }}
-            />
-            <ProductCard
-              product={{
-                productPicturePath: Img4,
-                title: "Women Party",
-                color: "Yellow",
-                price: "$400",
-                rating: 4.8,
-              }}
-            />
-            <ProductCard
-              product={{
-                productPicturePath: Img5,
-                title: "Women T-Shirt",
-                color: "Gray",
-                price: "$500",
-                rating: 4.2,
-              }}
-            />
-            <ProductCard
-              product={{
-                productPicturePath: Img6,
-                title: "Women Jeans",
-                color: "Pink",
-                price: "$600",
-                rating: 4.5,
-              }}
-            />
-          </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
 export default Products;

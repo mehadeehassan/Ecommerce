@@ -1,4 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
+import { getImageUrl } from "../../Pages/Utils/imageUrl";
 
 const ProductRow = ({ Row, onEdit, onDelete }) => {
   return (
@@ -8,12 +9,7 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
       </td>
       <td className="px-5 py-2 border-r border-gray-200 text-center">
         <img
-          // src={Row.image ?? "https://via.placeholder.com/80x40"}
-          src={
-            Row.image
-              ? `http://localhost:3000/Products/${Row.image}`
-              : "https://via.placeholder.com/80x40"
-          }
+          src={getImageUrl(Row.image) || "https://via.placeholder.com/80x40"}
           alt="product"
           className="w-15 h-10 rounded-lg object-cover mx-auto"
         />
@@ -30,11 +26,8 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
         {Row.product_code}
       </td>
-      {/* <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.product_price}
-      </td> */}
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        ${Number(Row.product_price).toFixed(2)}
+        {Row.product_price}
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
         {Row.description}

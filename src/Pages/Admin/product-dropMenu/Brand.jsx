@@ -76,7 +76,7 @@ const Brand = () => {
     setLoading(true);
     try {
       const response = await axiosAdmin.get(
-        "http://localhost:3000/getAllBrand",
+        "/getAllBrand",
       );
       // console.log("response:", response.data);
       if (response.status === 200) {
@@ -95,7 +95,7 @@ const Brand = () => {
     // console.log("formData:", formData);
     try {
       const response = await axiosAdmin.post(
-        "http://localhost:3000/addBrand",
+        "/addBrand",
         formData,
       );
       console.log("response:", response.data);
@@ -119,7 +119,7 @@ const Brand = () => {
     setErrorMessage({});
     try {
       const response = await axiosAdmin.put(
-        `http://localhost:3000/updateBrand/${formData.id}`,
+        `/updateBrand/${formData.id}`,
         formData,
       );
       if (response.status === 200) {
@@ -148,7 +148,7 @@ const Brand = () => {
     if (!result.isConfirmed) return;
     try {
       const response = await axiosAdmin.delete(
-        `http://localhost:3000/deleteBrand/${userId}`,
+        `/deleteBrand/${userId}`,
       );
       if (response.status === 200) {
         Swal.fire({

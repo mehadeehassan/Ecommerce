@@ -125,7 +125,7 @@ const Products = () => {
     setLoading(true); // লোডিং শুরু
     try {
       const response = await axiosAdmin.get(
-        `http://localhost:3000/getAllProduct?page=${currentPage}&limit=${itemsPerPage}`,
+        `/getAllProduct?page=${currentPage}&limit=${itemsPerPage}`,
       );
       if (response.status === 200) {
         setAllProduct(response.data.data); // প্রোডাক্ট লিস্ট স্টেটে রাখা
@@ -141,7 +141,7 @@ const Products = () => {
   const handleGetAllCategory = async () => {
     try {
       const response = await axiosAdmin.get(
-        "http://localhost:3000/getAllCategory",
+        "/getAllCategory",
       );
       if (response.status === 200) setAllCategory(response.data.data);
     } catch (error) {
@@ -152,7 +152,7 @@ const Products = () => {
   const handleGetAllBrand = async () => {
     try {
       const response = await axiosAdmin.get(
-        "http://localhost:3000/getAllBrand",
+        "/getAllBrand",
       );
       if (response.status === 200) setAllBrand(response.data.data);
     } catch (error) {
@@ -176,7 +176,7 @@ const Products = () => {
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.post(
-        "http://localhost:3000/addProduct",
+        "/addProduct",
         data,
         {
           headers: { "Content-Type": "multipart/form-data" }, // ফাইল পাঠানোর জন্য হেডার
@@ -207,7 +207,7 @@ const Products = () => {
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.put(
-        "http://localhost:3000/updateProduct",
+        "/updateProduct",
         data,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -237,7 +237,7 @@ const Products = () => {
     if (!result.isConfirmed) return;
     try {
       const response = await axiosAdmin.delete(
-        `http://localhost:3000/deleteProduct/${productId}`,
+        `/deleteProduct/${productId}`,
       );
       if (response.status === 200) {
         Swal.fire({

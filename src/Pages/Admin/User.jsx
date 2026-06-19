@@ -101,7 +101,7 @@ const User = () => {
     setLoading(true);
     try {
       const response = await axiosAdmin.get(
-        `http://localhost:3000/getAllUserLimit?page=${currentPage}&limit=${itemsPerPage}`,
+        `/getAllUserLimit?page=${currentPage}&limit=${itemsPerPage}`,
       );
       if (response.status === 200) {
         setAllUser(response.data.data);
@@ -114,6 +114,7 @@ const User = () => {
     }
   };
 
+  
   // নতুন user add করার জন্য API call
   // সফল হলে modal বন্ধ করে, form reset করে, list refresh করে
   // ব্যর্থ হলে backend এর error গুলো form এ দেখায়
@@ -121,7 +122,7 @@ const User = () => {
     setErrorMessage({});
     try {
       const response = await axiosAdmin.post(
-        "http://localhost:3000/signup",
+        "/signup",
         formData,
       );
       if (response.status === 200) {
@@ -167,7 +168,7 @@ const User = () => {
     setErrorMessage({});
     try {
       const response = await axiosAdmin.put(
-        `http://localhost:3000/updateUser/${formData.id}`,
+        `/updateUser/${formData.id}`,
         formData,
       );
       if (response.status === 200) {
@@ -200,7 +201,7 @@ const User = () => {
     if (!result.isConfirmed) return;
     try {
       const response = await axiosAdmin.delete(
-        `http://localhost:3000/deleteUser/${userId}`,
+        `/deleteUser/${userId}`,
       );
       if (response.status === 200) {
         Swal.fire({
