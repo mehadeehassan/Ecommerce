@@ -23,7 +23,7 @@ function Products() {
 
       if (response.status === 200) {
         setProducts(response.data.data);
-        setCategoryName(response.data.data[0]?.category_name || productType);
+        setCategoryName(productType);
       }
     } catch (error) {
       console.log("Error:", error);
@@ -39,7 +39,7 @@ function Products() {
           <p className="text-sm text-orange-400">
             Top Selling Products for you
           </p>
-          <h1 className="text-3xl font-bold">{categoryName}</h1>
+          <h1 className="text-3xl font-bold">{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}</h1>
           <p className="text-xs text-gray-400">
             My best selling products for you
           </p>
@@ -54,7 +54,7 @@ function Products() {
                 productPicturePath: getImageUrl(item.image),
                 name: item.product_name,
                 brand: item.brand_name,
-                price: `$${item.product_price}`,
+                price: item.product_price,
                 code: item.product_code,
                 description: item.description,
               }}

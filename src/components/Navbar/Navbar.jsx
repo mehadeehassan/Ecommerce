@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { FaUserCheck } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
+import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoMdClose, IoMdMenu, IoMdSearch } from "react-icons/io";
-import { IoLogInSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import axiosPublic from "../../Pages/Utils/axiosPublic";
@@ -68,15 +67,16 @@ const Navbar = () => {
               />
               <IoMdSearch className="text-gray-500 group-hover:text-orange-400 absolute top-1/2 -translate-y-1/2 right-3" />
             </div>
-            <button className="bg-orange-400 transition-all duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3 group">
-              <span className="group-hover:block hidden transition-all duration-200">
-                Order
-              </span>
-              <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
-            </button>
-
+            <Link to="/cart">
+              <button className="bg-orange-400 transition-all duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3 group">
+                <span className="group-hover:block hidden transition-all duration-200">
+                  Order
+                </span>
+                <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
+              </button>
+            </Link>
             {/* Log In Section */}
-            <div className="flex flex-row items-center gap-2 sm:gap-2">
+            {/* <div className="flex flex-row items-center gap-2 sm:gap-2">
               <Link to="/login">
                 <button className="cursor-pointer transition-all duration-200 text-orange-400 py-0.5 px-2 sm:px-3 border border-orange-400 hover:bg-orange-400 hover:text-white rounded-full flex items-center gap-1 group text-sm sm:text-base">
                   <IoLogInSharp className="text-lg sm:text-xl drop-shadow-sm" />
@@ -90,7 +90,14 @@ const Navbar = () => {
                   <span className="whitespace-nowrap">Sign Up</span>
                 </button>
               </Link>
-            </div>
+            </div> */}
+            <Link to="/login">
+              <div className="flex gap-3 items-center ">
+                <div className="flex gap-3 items-center ">
+                  <HiOutlineUserCircle className="text-3xl text-gray-700" />
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

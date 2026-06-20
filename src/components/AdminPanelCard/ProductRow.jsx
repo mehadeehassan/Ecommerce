@@ -29,7 +29,7 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
         {Row.product_price}
       </td>
-      <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
+      <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 line-clamp-2 text-left">
         {Row.description}
       </td>
       <td className="px-5 py-2 border-r border-gray-200 text-center">

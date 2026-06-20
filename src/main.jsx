@@ -8,6 +8,7 @@ import Contacts from "./Pages/ContactUs/Contact.jsx";
 import Home from "./Pages/Home";
 import Products from "./Pages/Product/Products.jsx";
 import Services from "./Pages/Services/Services.jsx";
+import AdToCart from "./Pages/Cart/AddToCart.jsx";
 
 //login pages
 import LoginPage from "./Pages/Login/Login.jsx";
@@ -39,6 +40,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contacts />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/cart" element={<AdToCart/>} />
       </Route>
 
       {/* login routing */}
