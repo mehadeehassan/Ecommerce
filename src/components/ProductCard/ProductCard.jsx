@@ -1,4 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 export default function ProductCard({ product }) {
+  const navigate = useNavigate()
+  const handleAddToCart = () => {
+    navigate("/cart", {state: {product}});
+  }
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3">
@@ -28,7 +33,7 @@ export default function ProductCard({ product }) {
         {product.description}
       </p>
 
-      <button className="mt-auto bg-orange-400 hover:bg-orange-600 text-white text-xs font-medium py-2 rounded-full hover:scale-105 duration-200">
+      <button onClick={handleAddToCart} className="mt-auto bg-orange-400 hover:bg-orange-600 text-white text-xs font-medium py-2 rounded-full hover:scale-105 duration-200">
         Order Now
       </button>
     </div>

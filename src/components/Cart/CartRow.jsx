@@ -3,7 +3,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Img from "../../assets/shopping.webp";
 
-const CartRow= () => {
+const CartRow= ({product}) => {
     return (
         <div className="w-full lg:w-2/3 items-center ">
             <div className="w-full text-center md:text-left">
@@ -15,12 +15,12 @@ const CartRow= () => {
                         <MdOutlineClose className="text-xl text-gray-600 hover:text-orange-500 cursor-pointer duration-300 ml-2 " />
                         <img
                             className="w-36 h-36 object-cover rounded-2xl border border-gray-200"
-                            src={Img}
-                            alt="product image"
+                            src={product.productPicturePath}
+                            alt={product.name}
                         />
                     </div>
-                    <h2 className="w-52 text-center">Wireless Headphones</h2>
-                    <p className="w-10 text-center">49.99</p>
+                    <h2 className="w-52 text-center">{product.name}</h2>
+                    <p className="w-10 text-center">{product.price}</p>
                     <div className="flex items-center gap-6 border px-4 py-2">
                         <p className="text-sm">Quantity</p>
                         <div className="flex items-center gap-4 text-sm font-semibold">
@@ -29,7 +29,7 @@ const CartRow= () => {
                             <span className="hover:bg-orange-400 hover:text-white px-2 rounded-full duration-500 cursor-pointer">+</span>
                         </div>
                     </div>
-                    <p className="w-20 text-center">$ 49.99</p>
+                    <p className="w-20 text-center">$ {product.price}</p>
                 </div>
             </div>
 
