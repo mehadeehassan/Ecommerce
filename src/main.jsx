@@ -1,14 +1,16 @@
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./index.css";
+import { store } from "./Redux/Store.js";
 
 //pages
 import About from "./Pages/About/About.jsx";
+import AdToCart from "./Pages/Cart/AddToCart.jsx";
 import Contacts from "./Pages/ContactUs/Contact.jsx";
 import Home from "./Pages/Home";
 import Products from "./Pages/Product/Products.jsx";
 import Services from "./Pages/Services/Services.jsx";
-import AdToCart from "./Pages/Cart/AddToCart.jsx";
 
 //login pages
 import LoginPage from "./Pages/Login/Login.jsx";
@@ -31,41 +33,44 @@ import AdminLogin from "./Pages/AdminLogin/AdminLogin.jsx";
 import ForgotPassword from "./Pages/AdminLogin/ForgotPassword.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <Routes>
-      {/* Home Routing  */}
-      <Route path="/" element={<HomeLayout />}>
-        <Route index element={<Home />} />
-        <Route path="/products/:productType" element={<Products />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contacts />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/cart" element={<AdToCart/>} />
-      </Route>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        {/* Home Routing  */}
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/products/:productType" element={<Products />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contacts />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/cart" element={<AdToCart />} />
+          {/* <Route path="/payment" element={<Payment />} /> */}
+        </Route>
 
-      {/* login routing */}
-      <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/admin-login" element={<AdminLogin />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+        {/* login routing */}
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-      {/* admin routing */}
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Dashboard />} />
-        <Route path="products" element={<ProductsList />} />
-        <Route path="products/category" element={<Category />} />
-        <Route path="products/brand" element={<Brand />} />
-        <Route path="user" element={<User />} />
-        <Route path="customers" element={<Customers />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>,
+        {/* admin routing */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="products" element={<ProductsList />} />
+          <Route path="products/category" element={<Category />} />
+          <Route path="products/brand" element={<Brand />} />
+          <Route path="user" element={<User />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
 );

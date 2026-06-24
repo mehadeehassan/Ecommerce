@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoMdClose, IoMdMenu, IoMdSearch } from "react-icons/io";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import axiosPublic from "../../Pages/Utils/axiosPublic";
@@ -12,6 +13,8 @@ const Navbar = () => {
 
   // categories backend theke asbe ei state e
   const [categories, setCategories] = useState([]);
+
+  const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
@@ -28,6 +31,8 @@ const Navbar = () => {
       console.log("Error fetching categories:", error);
     }
   };
+
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <div className="shadow-md bg-white transition-all duration-200 relative z-40">
@@ -68,29 +73,20 @@ const Navbar = () => {
               <IoMdSearch className="text-gray-500 group-hover:text-orange-400 absolute top-1/2 -translate-y-1/2 right-3" />
             </div>
             <Link to="/cart">
-              <button className="bg-orange-400 transition-all duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3 group">
+              <button className="bg-orange-400 transition-all duration-200 text-white py-1 px-4 rounded-full flex items-center gap-3 group relative">
                 <span className="group-hover:block hidden transition-all duration-200">
                   Order
                 </span>
-                <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
+                <div className="relative">
+                  <FaCartShopping className="text-xl text-white drop-shadow-sm cursor-pointer" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-white text-orange-500 text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border border-orange-400">
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
               </button>
             </Link>
-            {/* Log In Section */}
-            {/* <div className="flex flex-row items-center gap-2 sm:gap-2">
-              <Link to="/login">
-                <button className="cursor-pointer transition-all duration-200 text-orange-400 py-0.5 px-2 sm:px-3 border border-orange-400 hover:bg-orange-400 hover:text-white rounded-full flex items-center gap-1 group text-sm sm:text-base">
-                  <IoLogInSharp className="text-lg sm:text-xl drop-shadow-sm" />
-                  <span className="whitespace-nowrap">Log In</span>
-                </button>
-              </Link>
-
-              <Link to="/signup">
-                <button className="bg-orange-400 hover:bg-orange-500 transition-all cursor-pointer duration-200 text-white border border-orange-400 py-0.5 px-2 sm:px-3 rounded-full flex items-center gap-1 group text-sm sm:text-base">
-                  <FaUserCheck className="text-lg sm:text-xl drop-shadow-sm" />
-                  <span className="whitespace-nowrap">Sign Up</span>
-                </button>
-              </Link>
-            </div> */}
             <Link to="/login">
               <div className="flex gap-3 items-center ">
                 <div className="flex gap-3 items-center ">

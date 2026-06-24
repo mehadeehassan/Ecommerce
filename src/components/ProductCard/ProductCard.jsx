@@ -1,9 +1,19 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/cartSlice";
 export default function ProductCard({ product }) {
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const [isAdded, setIsAdded] = useState(false);
+
   const handleAddToCart = () => {
-    navigate("/cart", {state: {product}});
-  }
+    dispatch(addToCart(product));
+    toast.success(`${product.name} added to cart!`);
+
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+  };
+
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-200">
       <div className="aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3">
@@ -33,8 +43,14 @@ export default function ProductCard({ product }) {
         {product.description}
       </p>
 
-      <button onClick={handleAddToCart} className="mt-auto bg-orange-400 hover:bg-orange-600 text-white text-xs font-medium py-2 rounded-full hover:scale-105 duration-200">
-        Order Now
+      <button
+        onClick={handleAddToCart}
+        disabled={isAdded}
+        className={`mt-auto text-white text-xs font-medium py-2 rounded-full duration-200 ${
+          isAdded ? "bg-green-500" : "bg-orange-400 hover:scale-105"
+        }`}
+      >
+        {isAdded ? "Added ✓" : "Order Now"}
       </button>
     </div>
   );
