@@ -100,7 +100,7 @@ const Products = () => {
     const errorMsg =
       error.response?.data?.errors?.[0]?.message ||
       error.response?.data?.message ||
-      "Something went wrong!";
+      `${formData.product_name ? `"${formData.product_name}" - ` : ""}Something went wrong!`;
     toast.error(errorMsg);
     if (
       error.response &&
@@ -140,9 +140,7 @@ const Products = () => {
 
   const handleGetAllCategory = async () => {
     try {
-      const response = await axiosAdmin.get(
-        "/getAllCategory",
-      );
+      const response = await axiosAdmin.get("/getAllCategory");
       if (response.status === 200) setAllCategory(response.data.data);
     } catch (error) {
       console.log(error);
@@ -151,9 +149,7 @@ const Products = () => {
 
   const handleGetAllBrand = async () => {
     try {
-      const response = await axiosAdmin.get(
-        "/getAllBrand",
-      );
+      const response = await axiosAdmin.get("/getAllBrand");
       if (response.status === 200) setAllBrand(response.data.data);
     } catch (error) {
       console.log(error);
@@ -175,15 +171,13 @@ const Products = () => {
       data.append("description", formData.description);
       if (formData.image) data.append("image", formData.image);
 
-      const response = await axiosAdmin.post(
-        "/addProduct",
-        data,
-        {
-          headers: { "Content-Type": "multipart/form-data" }, // ফাইল পাঠানোর জন্য হেডার
-        },
-      );
+      const response = await axiosAdmin.post("/addProduct", data, {
+        headers: { "Content-Type": "multipart/form-data" }, // ফাইল পাঠানোর জন্য হেডার
+      });
       if (response.status === 200) {
-        toast.success(response.data.message); // সফলতার মেসেজ দেখানো
+        toast.success(
+          `"${formData.product_name}" has been added successfully!`,
+        ); // সফলতার মেসেজ দেখানো
         setModalOpen(false); // মডাল বন্ধ করা ও ফর্ম রিসেট করা
         handleGetAllProduct(); // নতুন প্রোডাক্টসহ টেবিল আপডেট করা
       }
@@ -206,16 +200,14 @@ const Products = () => {
       data.append("description", formData.description);
       if (formData.image) data.append("image", formData.image);
 
-      const response = await axiosAdmin.put(
-        "/updateProduct",
-        data,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        },
-      );
+      const response = await axiosAdmin.put("/updateProduct", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       if (response.status === 200) {
-        toast.success(response.data.message);
+        toast.success(
+          `"${formData.product_name}" has been updated successfully!`,
+        );
         handleGetAllProduct();
         setUpdateModalOpen(false);
       }
@@ -227,7 +219,7 @@ const Products = () => {
   const handleDeleteProduct = async (productId, productName) => {
     const result = await Swal.fire({
       title: "Are you sure?",
-      text: `"${productName}" will be deleted.`,
+      text: `"${productName}" successfully deleted.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -236,9 +228,7 @@ const Products = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axiosAdmin.delete(
-        `/deleteProduct/${productId}`,
-      );
+      const response = await axiosAdmin.delete(`/deleteProduct/${productId}`);
       if (response.status === 200) {
         Swal.fire({
           title: "Deleted!",

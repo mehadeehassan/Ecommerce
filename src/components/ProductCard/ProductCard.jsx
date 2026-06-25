@@ -2,6 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/cartSlice";
+
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [isAdded, setIsAdded] = useState(false);
@@ -15,43 +16,70 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-md transition-shadow duration-200">
-      <div className="aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3">
+    <div className="group bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      {/* Product Image Section */}
+      <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5">
         <img
           src={product.productPicturePath}
           alt={product.name}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
+        <span className="absolute bottom-2 right-2 bg-white text-gray-900 text-xs font-semibold px-2.5 py-1 rounded-full border border-gray-100 shadow-sm">
+          ${product.price}
+        </span>
       </div>
 
-      <h3 className="font-semibold text-sm truncate" title={product.name}>
-        {product.name}
-      </h3>
-      <p className="text-orange-500 text-xs font-medium mt-0.5">
+      {/* Brand & Name */}
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-orange-500">
         {product.brand}
       </p>
+      <h3
+        className="font-semibold text-gray-900 text-sm leading-snug mt-0.5 truncate"
+        title={product.name}
+      >
+        {product.name}
+      </h3>
 
-      <div className="flex items-center justify-between text-[11px] text-gray-400 mt-1">
-        <span>{product.code}</span>
-        <span className="text-gray-600 font-medium">${product.price}</span>
-      </div>
-
+      {/* Description */}
       <p
-        className="text-xs text-gray-400 mt-2 mb-3 line-clamp-2"
+        className="text-xs text-gray-400 leading-relaxed mt-1.5 flex-1 line-clamp-2"
         title={product.description}
       >
         {product.description}
       </p>
 
-      <button
-        onClick={handleAddToCart}
-        disabled={isAdded}
-        className={`mt-auto text-white text-xs font-medium py-2 rounded-full duration-200 ${
-          isAdded ? "bg-green-500" : "bg-orange-400 hover:scale-105"
-        }`}
-      >
-        {isAdded ? "Added ✓" : "Order Now"}
-      </button>
+      {/* Footer Section: Code & Dynamic Button */}
+      <div className="flex items-center justify-between border-t border-gray-100 mt-2.5 pt-2.5">
+        <span className="text-[11px] text-gray-400">{product.code}</span>
+
+        <button
+          onClick={handleAddToCart}
+          disabled={isAdded}
+          className={`flex items-center gap-1 text-white text-xs font-medium px-3.5 py-1.5 rounded-full transition-all duration-200 ${
+            isAdded ? "bg-green-500" : "bg-orange-500 hover:bg-orange-600"
+          }`}
+        >
+          {isAdded ? (
+            <>Added ✓</>
+          ) : (
+            <>
+              Order
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-3 h-3"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

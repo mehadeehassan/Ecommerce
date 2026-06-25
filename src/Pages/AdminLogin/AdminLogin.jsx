@@ -22,7 +22,7 @@ export default function AdminLogin() {
         password,
       });
 
-      toast.success(res.data.message, {
+      toast.success(res.data.message || "Logged in successfully!", {
         position: "top-right",
         duration: 5000,
       });

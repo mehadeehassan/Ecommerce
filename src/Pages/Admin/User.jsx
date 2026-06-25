@@ -80,7 +80,7 @@ const User = () => {
     const errorMsg =
       error.response?.data?.errors?.[0]?.message ||
       error.response?.data?.message ||
-      "Something went wrong!";
+      `${formData.name ? `"${formData.name}" - ` : ""}Something went wrong!`;
     toast.error(errorMsg);
     if (
       error.response &&
@@ -114,19 +114,15 @@ const User = () => {
     }
   };
 
-  
   // নতুন user add করার জন্য API call
   // সফল হলে modal বন্ধ করে, form reset করে, list refresh করে
   // ব্যর্থ হলে backend এর error গুলো form এ দেখায়
   const handleAddUser = async () => {
     setErrorMessage({});
     try {
-      const response = await axiosAdmin.post(
-        "/signup",
-        formData,
-      );
+      const response = await axiosAdmin.post("/signup", formData);
       if (response.status === 200) {
-        toast.success(response.data.message, {
+        toast.success(`"${formData.name}" has been added successfully!`, {
           position: "top-right",
           duration: 5000,
         });
@@ -172,7 +168,7 @@ const User = () => {
         formData,
       );
       if (response.status === 200) {
-        toast.success(response.data.message, {
+        toast.success(`"${formData.name}" has been updated successfully!`, {
           position: "top-right",
           duration: 5000,
         });
@@ -200,9 +196,7 @@ const User = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axiosAdmin.delete(
-        `/deleteUser/${userId}`,
-      );
+      const response = await axiosAdmin.delete(`/deleteUser/${userId}`);
       if (response.status === 200) {
         Swal.fire({
           title: "Deleted!",

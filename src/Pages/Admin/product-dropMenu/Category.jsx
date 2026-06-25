@@ -56,7 +56,7 @@ const Category = () => {
     const errorMsg =
       error.response?.data?.errors?.[0]?.message ||
       error.response?.data?.message ||
-      "Something went wrong!";
+      `${formData.category_name ? `"${formData.category_name}" - ` : ""}Something went wrong!`;
     toast.error(errorMsg);
     if (
       error.response &&
@@ -75,9 +75,7 @@ const Category = () => {
   const handleGetAllCategory = async () => {
     setLoading(true);
     try {
-      const response = await axiosAdmin.get(
-        "/getAllCategory",
-      );
+      const response = await axiosAdmin.get("/getAllCategory");
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllCategory(response.data.data);
@@ -94,16 +92,16 @@ const Category = () => {
     setErrorMessage({});
     // console.log("formData:", formData);
     try {
-      const response = await axiosAdmin.post(
-        "/addCategory",
-        formData,
-      );
+      const response = await axiosAdmin.post("/addCategory", formData);
       // console.log("response:", response.data);
       if (response.status === 200) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 5000,
-        });
+        toast.success(
+          `"${formData.category_name}" has been added successfully!`,
+          {
+            position: "top-right",
+            duration: 5000,
+          },
+        );
         setFormData({
           category_name: "",
         });
@@ -123,10 +121,13 @@ const Category = () => {
         formData,
       );
       if (response.status === 200) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 5000,
-        });
+        toast.success(
+          `"${formData.category_name}" has been updated successfully!`,
+          {
+            position: "top-right",
+            duration: 5000,
+          },
+        );
         setUpdateModalOpen(false);
         handleGetAllCategory();
       }
@@ -147,9 +148,7 @@ const Category = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axiosAdmin.delete(
-        `/deleteCategory/${userId}`,
-      );
+      const response = await axiosAdmin.delete(`/deleteCategory/${userId}`);
       if (response.status === 200) {
         Swal.fire({
           title: "Deleted!",

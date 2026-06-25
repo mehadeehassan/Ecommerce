@@ -56,7 +56,7 @@ const Brand = () => {
     const errorMsg =
       error.response?.data?.errors?.[0]?.message ||
       error.response?.data?.message ||
-      "Something went wrong!";
+      `${formData.brand_name ? `"${formData.brand_name}" - ` : ""}Something went wrong!`;
     toast.error(errorMsg);
     if (
       error.response &&
@@ -75,9 +75,7 @@ const Brand = () => {
   const handleGetAllBrand = async () => {
     setLoading(true);
     try {
-      const response = await axiosAdmin.get(
-        "/getAllBrand",
-      );
+      const response = await axiosAdmin.get("/getAllBrand");
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllBrand(response.data.data);
@@ -94,16 +92,16 @@ const Brand = () => {
     setErrorMessage({});
     // console.log("formData:", formData);
     try {
-      const response = await axiosAdmin.post(
-        "/addBrand",
-        formData,
-      );
+      const response = await axiosAdmin.post("/addBrand", formData);
       console.log("response:", response.data);
       if (response.status === 200) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 5000,
-        });
+        toast.success(
+          `"${formData.brand_name}" has been added successfully!`,
+          {
+            position: "top-right",
+            duration: 5000,
+          },
+        );
         setFormData({
           brand_name: "",
         });
@@ -123,9 +121,11 @@ const Brand = () => {
         formData,
       );
       if (response.status === 200) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          duration: 5000,
+        toast.success(
+          `"${formData.brand_name}" has been updated successfully!`,
+          {
+            position: "top-right",
+            duration: 5000,
         });
         setUpdateModalOpen(false);
         handleGetAllBrand();
@@ -147,9 +147,7 @@ const Brand = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      const response = await axiosAdmin.delete(
-        `/deleteBrand/${userId}`,
-      );
+      const response = await axiosAdmin.delete(`/deleteBrand/${userId}`);
       if (response.status === 200) {
         Swal.fire({
           title: "Deleted!",
@@ -230,7 +228,7 @@ const Brand = () => {
                     colSpan={3}
                     className="text-center py-6 text-gray-400 text-sm"
                   >
-                    No categories found
+                    No Brands found
                   </td>
                 </tr>
               ) : (
