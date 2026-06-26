@@ -270,6 +270,9 @@ const User = () => {
                 <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase border-r border-gray-200 text-center">
                   Status
                 </th>
+                <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase border-r border-gray-200 text-center">
+                  Role
+                </th>
                 <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase text-end">
                   Actions
                 </th>

@@ -1,46 +1,63 @@
 import React from "react";
+import { Truck, Gem, Headphones } from "lucide-react";
 import AboutCard from "../../components/AboutCard/AboutCard";
+
+const FEATURES = [
+  {
+    icon: Truck,
+    title: "Fast Delivery",
+    description:
+      "We ensure home delivery within 24-72 hours all over the country.",
+  },
+  {
+    icon: Gem,
+    title: "Premium Quality",
+    description: "We never compromise on the quality of our products.",
+  },
+  {
+    icon: Headphones,
+    title: "Best Support",
+    description:
+      "Our support team is always there for you whenever you need help.",
+  },
+];
 
 export default function About() {
   return (
-    <div className="bg-white text-gray-900">
-      {/* about section  */}
-      <div className="text-center py-20 px-6 bg-gray-50 shadow-md ">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
-        <p className="text-gray-400 max-w-2xl mx-auto text-lg hover:text-orange-400 ">
-          {" "}
-          We believe in quality and trust. Our main goal is to make your
-          shopping experience easy and enjoyable.
+    <div className="bg-white text-stone-900">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        .font-display { font-family: 'Sora', sans-serif; }
+        .font-utility { font-family: 'JetBrains Mono', monospace; }
+      `}</style>
+
+      {/* Hero */}
+      <div className="text-center py-20 px-6 border-b border-stone-100">
+        <p className="font-utility text-[11px] uppercase tracking-[0.25em] text-orange-500 mb-4">
+          About us
+        </p>
+        <h1 className="font-display text-4xl md:text-5xl font-bold mb-5">
+          We believe in quality and trust
+        </h1>
+        <p className="text-stone-500 max-w-2xl mx-auto text-lg leading-relaxed">
+          Our goal is simple: make your shopping experience easy, reliable,
+          and genuinely enjoyable, from the moment you browse to the day your
+          order arrives.
         </p>
       </div>
 
-      {/* lower section */}
-      <div className="py-16 px-6 bg-gray-600 text-white mt-80 shadow-md ">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <AboutCard
-            aboutSection={{
-              title: "Fast Delivery",
-              description:
-                "We ensure home delivery within 24-72 hours all over the country.",
-              icon: "🚚",
-            }}
-          />
-          <AboutCard
-            aboutSection={{
-              title: "Premium Quality",
-              description:
-                "We never compromise on the quality of our products.",
-              icon: "💎",
-            }}
-          />
-          <AboutCard
-            aboutSection={{
-              title: "Best Support",
-              description:
-                "Our support team is always there for you whenever you need help.",
-              icon: "🤝",
-            }}
-          />
+      {/* Why shop with us */}
+      <div className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-center mb-12">
+            Why shop with us
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {FEATURES.map((feature) => (
+              <AboutCard key={feature.title} aboutSection={feature} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

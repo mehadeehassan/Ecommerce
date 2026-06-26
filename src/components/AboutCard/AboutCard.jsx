@@ -1,14 +1,17 @@
-import React from 'react';
-
+import React from "react";
 
 export default function AboutCard({ aboutSection }) {
-    return (
-            <div>
-                <div className="p-6">
-                    <div className="text-4xl mb-4">{aboutSection.icon}</div>
-                    <h3 className="text-xl font-bold mb-2">{aboutSection.title}</h3>
-                    <p className="text-gray-400 hover:text-orange-400">{aboutSection.description}</p>
-                </div>
-            </div>
-    )
+  const { icon: Icon, title, description } = aboutSection;
+
+  return (
+    <div className="rounded-2xl border border-stone-200 bg-white p-8 text-center hover:border-orange-200 hover:shadow-md transition-all">
+      <div className="w-14 h-14 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center mx-auto mb-5">
+        <Icon className="w-6 h-6" strokeWidth={1.75} />
+      </div>
+      <h3 className="font-display text-lg font-semibold text-stone-900 mb-2">
+        {title}
+      </h3>
+      <p className="text-stone-500 text-sm leading-relaxed">{description}</p>
+    </div>
+  );
 }

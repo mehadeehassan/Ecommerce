@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { IoMdClose, IoMdMenu, IoMdSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -54,9 +54,9 @@ const Navbar = () => {
             </button>
             <Link
               to="/"
-              className="font-extrabold text-2xl sm:text-2xl flex items-center gap-2"
+              className="font-extrabold text-2xl sm:text-2xl flex items-center"
             >
-              <img src={Logo} alt="Logo" className="w-10" />
+              <img src={Logo} alt="Logo" className="w-11" />
               <samp className="relative group hidden sm:block">SHOPS</samp>
             </Link>
           </div>
@@ -88,10 +88,8 @@ const Navbar = () => {
               </button>
             </Link>
             <Link to="/login">
-              <div className="flex gap-3 items-center ">
-                <div className="flex gap-3 items-center ">
-                  <HiOutlineUserCircle className="text-3xl text-gray-700" />
-                </div>
+              <div className="flex items-center ">
+                <FaRegUser className="text-2xl text-orange-500" />
               </div>
             </Link>
           </div>

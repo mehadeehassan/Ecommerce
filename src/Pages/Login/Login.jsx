@@ -54,12 +54,12 @@ export default function LoginPage() {
           
         {/* Facebook Button And Google Button */}
           <div className="flex items-center justify-center gap-10">
-            <button className="bg-white hover:bg-orange-400 text-black py-1 px-4 text-xs rounded-lg border border-gray-300 flex items-center gap-1 cursor-pointer">
-              <FaFacebook className="text-blue-600" />
+            <button className=" hover:bg-orange-400 text-black py-1 px-4 text-xs rounded-lg border border-gray-300 flex items-center gap-1 cursor-pointer">
+              <FaFacebook className="text-blue-600 text-lg" />
               <span>Facebook</span>
             </button>
-            <button className="bg-white hover:bg-orange-400 text-black py-1 px-4 text-xs rounded-lg border border-gray-300 flex items-center gap-1 cursor-pointer">
-              <FcGoogle />
+            <button className=" hover:bg-orange-400 text-black py-1 px-4 text-xs rounded-lg border border-gray-300 flex items-center gap-1 cursor-pointer">
+              <FcGoogle  className="text-lg"/>
               <span>Google</span>
             </button>
           </div>

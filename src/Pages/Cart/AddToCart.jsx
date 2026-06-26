@@ -37,7 +37,7 @@ const AdToCart = () => {
   const handleRemove = (id) => {
     const product = cart.find((item) => item.code === id);
     dispatch(removeFromCart(id));
-    toast.error(`${product?.name || "Product"} has been removed!`);
+    toast.error(`Your ${product?.name || "Product"} has been removed!`);
   };
 
   const handleReset = () => {

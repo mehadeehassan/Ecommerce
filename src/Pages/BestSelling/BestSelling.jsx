@@ -41,7 +41,7 @@ const BestSelling = () => {
         productPicturePath: getImageUrl(product.image),
       }),
     );
-    toast.success(`${product.product_name} cart e add hoyeche!`);
+    toast.success(`Your ${product.product_name} cart e added Successfully!`);
   };
 
   return (
