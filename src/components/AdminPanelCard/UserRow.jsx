@@ -1,6 +1,12 @@
 import { Pencil, Trash2 } from "lucide-react";
 
 const UserRow = ({ Row, onEdit, onDelete }) => {
+  const getRoleStyle = (role) => {
+    if (role === "admin") return "bg-purple-300/50 text-purple-700";
+    if (role === "manager") return "bg-blue-300/50 text-blue-700";
+    return "bg-gray-300/50 text-gray-600";
+  };
+
   return (
     <tr className="border-b border-gray-100">
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
@@ -25,6 +31,13 @@ const UserRow = ({ Row, onEdit, onDelete }) => {
             }`}
           ></span>
           {Row.status === 1 || Row.status === "Active" ? "Active" : "Inactive"}
+        </span>
+      </td>
+      <td className="px-5 py-2 border-r border-gray-200 text-center">
+        <span
+          className={`inline-flex items-center text-[10px] px-2.5 py-0.5 rounded-full tracking-wide font-medium capitalize ${getRoleStyle(Row.role)}`}
+        >
+          {Row.role ?? "user"}
         </span>
       </td>
       <td className="px-5 py-2 text-gray-500 border-r border-gray-200 text-center">

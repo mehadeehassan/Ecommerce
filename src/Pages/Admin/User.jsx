@@ -44,6 +44,8 @@ const User = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      role: "user",
+      permissions: [],
     });
   };
 
@@ -57,6 +59,8 @@ const User = () => {
     password: "",
     confirmPassword: "",
     status: 1,
+    role: "user",
+    permissions: [],
   });
 
   // যেকোনো input এ কিছু টাইপ করলে সেই field এর value update হবে
@@ -151,6 +155,8 @@ const User = () => {
       password: "",
       confirmPassword: "",
       status: user.status === 0 || user.status === "Inactive" ? 0 : 1,
+      role: "user",
+      permissions: [],
     });
     setUpdateModalOpen(true);
   };
@@ -504,6 +510,53 @@ const User = () => {
             </select>
           </div>
         </div>
+        <div>
+          <label className="block text-xs text-gray-600 mb-1">Role</label>
+          <select
+            className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none"
+            onChange={handleChange}
+            value={formData.role ?? "user"}
+            name="role"
+          >
+            <option value="user">User</option>
+            <option value="manager">Manager</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        {formData.role === "manager" && (
+          <div>
+            <label className="block text-xs text-gray-600 mb-1">
+              Permissions
+            </label>
+            {[
+              { key: "add_product", label: "Add Product" },
+              { key: "update_product", label: "Update Product" },
+              { key: "delete_product", label: "Delete Product" },
+              { key: "add_category", label: "Add Category" },
+              { key: "delete_category", label: "Delete Category" },
+              { key: "add_brand", label: "Add Brand" },
+              { key: "delete_brand", label: "Delete Brand" },
+            ].map((perm) => (
+              <label
+                key={perm.key}
+                className="flex items-center gap-2 text-xs text-gray-500"
+              >
+                <input
+                  type="checkbox"
+                  checked={formData.permissions?.includes(perm.key) ?? false}
+                  onChange={(e) => {
+                    const current = formData.permissions ?? [];
+                    const updated = e.target.checked
+                      ? [...current, perm.key]
+                      : current.filter((p) => p !== perm.key);
+                    setFormData({ ...formData, permissions: updated });
+                  }}
+                />
+                {perm.label}
+              </label>
+            ))}
+          </div>
+        )}
       </Modal>
       {/* pagination section dynamic page */}
       <div className="mt-2">

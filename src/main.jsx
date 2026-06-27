@@ -44,12 +44,12 @@ createRoot(document.getElementById("root")).render(
           <Route path="/contact" element={<Contacts />} />
           <Route path="/services" element={<Services />} />
           <Route path="/cart" element={<AdToCart />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
           {/* <Route path="/payment" element={<Payment />} /> */}
         </Route>
 
-        {/* login routing */}
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* admin login routing */}
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 

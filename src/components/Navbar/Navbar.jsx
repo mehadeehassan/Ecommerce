@@ -1,24 +1,44 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useEffect, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdClose, IoMdMenu, IoMdSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/Logo.png";
 import axiosPublic from "../../Pages/Utils/axiosPublic";
 
 const Navbar = () => {
-  // menu open/close function
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // categories backend theke asbe ei state e
   const [categories, setCategories] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
     handleGetAllCategory();
+
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch {
+        setUser(null);
+      }
+    }
+
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleGetAllCategory = async () => {
@@ -32,10 +52,42 @@ const Navbar = () => {
     }
   };
 
+  const getInitials = (name) => {
+    if (!name) return "U";
+    const parts = name.trim().split(" ").filter(Boolean);
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return (
+      parts[0].charAt(0).toUpperCase() +
+      parts[parts.length - 1].charAt(0).toUpperCase()
+    );
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    toast.success("Logged out successfully!");
+    setIsUserMenuOpen(false);
+    navigate("/");
+  };
+
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <div className="shadow-md bg-white transition-all duration-200 relative z-40">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          success: {
+            duration: 5000,
+            className: "!bg-green-300/50 !text-green-900 !backdrop-blur-sm",
+          },
+          error: {
+            duration: 5000,
+            className: "!bg-red-300/50 !text-red-900 !backdrop-blur-sm",
+          },
+        }}
+      />
       {/* Upper Navbar */}
       <div className="bg-orange-200 py-2">
         <div className="container mx-auto flex justify-between items-center px-4">
@@ -87,11 +139,44 @@ const Navbar = () => {
                 </div>
               </button>
             </Link>
-            <Link to="/login">
-              <div className="flex items-center ">
-                <FaRegUser className="text-2xl text-orange-500" />
+
+            {/* user login thakle initials-avatar + dropdown dekhabe, na thakle age-r moto plain icon + /login link */}
+            {user ? (
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setIsUserMenuOpen((prev) => !prev)}
+                  className="w-8 h-8 rounded-full bg-orange-400 text-white font-bold flex items-center justify-center"
+                >
+                  {getInitials(user.name)}
+                </button>
+
+                {/* dropdown - shudhu isUserMenuOpen true hole dekhabe */}
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-800 truncate">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-gray-400 truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
               </div>
-            </Link>
+            ) : (
+              <Link to="/login">
+                <div className="flex items-center">
+                  <FaRegUser className="text-2xl text-orange-500" />
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </div>

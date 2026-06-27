@@ -29,7 +29,7 @@ const CartRow = ({
               />
             </div>
             <h2 className="w-52 text-center">{product.name}</h2>
-            <p className="w-10 text-center">$ {product.price}</p>
+            <p className="w-10 text-center">${product.price}</p>
             <div className="flex items-center gap-6 border px-4 py-2">
               <p className="text-sm">Quantity</p>
               <div className="flex items-center gap-4 text-sm font-semibold">

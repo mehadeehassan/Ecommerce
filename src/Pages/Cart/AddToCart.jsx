@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,13 @@ const AdToCart = () => {
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
   const subTotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -25,13 +33,13 @@ const AdToCart = () => {
   const total = subTotal;
 
   const handleCheckout = () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      navigate("/payment");
-    } else {
+    if (!isLoggedIn) {
       setIsLoginModalOpen(true);
     }
+  };
+
+  const handleGoForPayment = () => {
+    navigate("/payment");
   };
 
   const handleRemove = (id) => {
@@ -78,13 +86,25 @@ const AdToCart = () => {
             Total Amount
             <span className="font-bold text-xl"> $ {total.toFixed(2)} </span>
           </p>
-
           <button
             onClick={handleCheckout}
-            className="bg-orange-500 text-white text-base w-full py-3 mt-6 hover:bg-orange-600 duration-200 rounded"
+            disabled={isLoggedIn}
+            className={`text-white text-base w-full py-3 mt-6 duration-200 rounded ${
+              isLoggedIn
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-orange-500 hover:bg-orange-600"
+            }`}
           >
             Proceed to Checkout
           </button>
+          {isLoggedIn && (
+            <button
+              onClick={handleGoForPayment}
+              className="bg-orange-500 text-white text-base w-full py-3 mt-3 hover:bg-orange-600 duration-200 rounded"
+            >
+              Go for Payment
+            </button>
+          )}
         </div>
       </div>
 
