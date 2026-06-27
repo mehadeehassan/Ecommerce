@@ -1,8 +1,10 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { API_BASE_URL } from "./apiConfig";
 
 const axiosAdmin = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: API_BASE_URL,
+  withCredentials: true,
 });
 
 axiosAdmin.interceptors.request.use((config) => {
