@@ -10,11 +10,21 @@ export default function ProductCard({ product }) {
   const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
-    toast.success(`${product.name} added to cart!`);
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 1500);
-  };
+  const finalPrice = hasDiscount
+    ? Number(product.discountedPrice)
+    : Number(product.price);
+
+  dispatch(
+    addToCart({
+      ...product,
+      price: finalPrice,
+      originalPrice: product.price,
+    })
+  );
+  toast.success(`${product.name} added to cart!`);
+  setIsAdded(true);
+  setTimeout(() => setIsAdded(false), 1500);
+};
 
   return (
     <div className="group bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
