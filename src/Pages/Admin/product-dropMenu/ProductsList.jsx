@@ -34,6 +34,8 @@ const Products = () => {
         status: "",
         description: "",
         image: null,
+        discount_percentage: "",
+        is_on_sale: false,
       });
     }
   };
@@ -53,6 +55,8 @@ const Products = () => {
       status: "",
       description: "",
       image: null,
+      discount_percentage: "",
+      is_on_sale: false,
     });
   };
 
@@ -67,6 +71,8 @@ const Products = () => {
     status: "",
     description: "",
     image: null,
+    discount_percentage: "",
+    is_on_sale: false,
   });
 
   // ইনপুট ফিল্ডের পরিবর্তন হ্যান্ডেল করার ফাংশন
@@ -76,6 +82,12 @@ const Products = () => {
       setFormData({
         ...formData,
         image: event.target.files[0],
+      });
+    } else if (event.target.type === "checkbox") {
+      // চেকবক্স ইনপুট হলে চেকড স্টেট অনুযায়ী সেভ করবে
+      setFormData({
+        ...formData,
+        [event.target.name]: event.target.checked,
       });
     } else {
       setFormData({
@@ -169,6 +181,8 @@ const Products = () => {
       data.append("brand_id", formData.brand_id);
       data.append("status", formData.status);
       data.append("description", formData.description);
+      data.append("discount_percentage", formData.discount_percentage || 0);
+      data.append("is_on_sale", formData.is_on_sale ? 1 : 0);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.post("/addProduct", data, {
@@ -198,6 +212,8 @@ const Products = () => {
       data.append("brand_id", formData.brand_id);
       data.append("status", formData.status);
       data.append("description", formData.description);
+      data.append("discount_percentage", formData.discount_percentage || 0);
+      data.append("is_on_sale", formData.is_on_sale ? 1 : 0);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.put("/updateProduct", data, {
@@ -292,7 +308,7 @@ const Products = () => {
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-center">
                   Image
                 </th>
-                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/4 border-r border-gray-200 ">
                   Product Name
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
@@ -306,6 +322,12 @@ const Products = () => {
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-left">
                   Price
+                </th>
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/5 border-r border-gray-200 ">
+                  Discount %
+                </th>
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
+                  On Sale
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Description
@@ -322,7 +344,7 @@ const Products = () => {
               {loading ? (
                 <tr>
                   <td
-                    colSpan={9}
+                    colSpan={10}
                     className="text-center py-6 text-gray-400 text-sm"
                   >
                     Loading...
@@ -331,7 +353,7 @@ const Products = () => {
               ) : allProduct.length === 0 ? (
                 <tr>
                   <td
-                    colSpan={9}
+                    colSpan={10}
                     className="text-center py-6 text-gray-400 text-sm"
                   >
                     No products found
@@ -352,6 +374,8 @@ const Products = () => {
                         brand_id: product.brand_id,
                         status: product.status,
                         description: product.description,
+                        discount_percentage: product.discount_percentage || "",
+                        is_on_sale: product.is_on_sale ? true : false,
                         image: null,
                       });
                       setUpdateModalOpen(true);
@@ -529,6 +553,42 @@ const Products = () => {
                 {errorMessage.description}
               </p>
             )}
+          </div>
+
+          {/* Discount % + Sale toggle — 2 column */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Discount (%)
+              </label>
+              <input
+                name="discount_percentage"
+                type="text"
+                inputMode="numeric"
+                onChange={handleChange}
+                value={formData.discount_percentage ?? ""}
+                placeholder="e.g. 20"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              />
+              {errorMessage.discount_percentage && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.discount_percentage}
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center pt-5">
+              <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                <input
+                  name="is_on_sale"
+                  type="checkbox"
+                  checked={formData.is_on_sale ?? false}
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-orange-400"
+                />
+                Mark as On Sale
+              </label>
+            </div>
           </div>
 
           {/* Image — full width */}
@@ -712,6 +772,42 @@ const Products = () => {
                 {errorMessage.description}
               </p>
             )}
+          </div>
+
+          {/* Discount % + Sale toggle — 2 column */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">
+                Discount (%)
+              </label>
+              <input
+                name="discount_percentage"
+                type="text"
+                inputMode="numeric"
+                onChange={handleChange}
+                value={formData.discount_percentage ?? ""}
+                placeholder="e.g. 20"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              />
+              {errorMessage.discount_percentage && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errorMessage.discount_percentage}
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center pt-5">
+              <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                <input
+                  name="is_on_sale"
+                  type="checkbox"
+                  checked={formData.is_on_sale ?? false}
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-orange-400"
+                />
+                Mark as On Sale
+              </label>
+            </div>
           </div>
 
           {/* Image — full width */}

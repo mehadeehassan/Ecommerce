@@ -40,6 +40,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
           <Route path="/products/:productType" element={<Products />} />
+          <Route path="/products/discount/:category" element={<Products />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/services" element={<Services />} />

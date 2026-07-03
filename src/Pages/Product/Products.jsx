@@ -1,34 +1,49 @@
+/* eslint-disable react-hooks/immutability */
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useLocation } from "react-router";
 import axiosPublic from "../../Pages/Utils/axiosPublic";
 import { getImageUrl } from "../../Pages/Utils/imageUrl";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 function Products() {
-  const { productType } = useParams();
+  const { productType, category } = useParams();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
+  const isDiscountRoute = location.pathname.includes("/discount/");
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/immutability
-    handleGetProductsByCategory();
+    handleGetProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productType]);
+  }, [productType, category]);
 
-  const handleGetProductsByCategory = async () => {
+  const handleGetProducts = async () => {
     try {
-      const response = await axiosPublic.get(
-        `/getProductCategoryById/${productType}`,
-      );
+      let response;
+
+      if (isDiscountRoute) {
+        if (category === "all") {
+          response = await axiosPublic.get(`/getAllDiscountedProducts`);
+          setCategoryName("All Discount");
+        } else {
+          response = await axiosPublic.get(
+            `/getDiscountedProductsByCategory/${category}`,
+          );
+          setCategoryName(`${category} Discount`);
+        }
+      } else {
+        response = await axiosPublic.get(
+          `/getProductCategoryById/${productType}`,
+        );
+        setCategoryName(productType);
+      }
 
       if (response.status === 200) {
         setProducts(response.data.data);
-        setCategoryName(productType);
       }
     } catch (error) {
       console.log("Error:", error);
       setProducts([]);
-      setCategoryName(productType);
     }
   };
 
@@ -39,7 +54,9 @@ function Products() {
           <p className="text-sm text-orange-400">
             Top Selling Products for you
           </p>
-          <h1 className="text-3xl font-bold">{categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}</h1>
+          <h1 className="text-3xl font-bold">
+            {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
+          </h1>
           <p className="text-xs text-gray-400">
             My best selling products for you
           </p>
@@ -47,19 +64,29 @@ function Products() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
-          {products.map((item) => (
-            <ProductCard
-              key={item.product_id}
-              product={{
-                productPicturePath: getImageUrl(item.image),
-                name: item.product_name,
-                brand: item.brand_name,
-                price: item.product_price,
-                code: item.product_code,
-                description: item.description,
-              }}
-            />
-          ))}
+          {products.length === 0 ? (
+            <p className="col-span-full text-center text-gray-400 py-10">
+              {isDiscountRoute
+                ? "No discounted products available right now."
+                : "No products found."}
+            </p>
+          ) : (
+            products.map((item) => (
+              <ProductCard
+                key={item.product_id || item.id}
+                product={{
+                  productPicturePath: getImageUrl(item.image),
+                  name: item.product_name,
+                  brand: item.brand_name,
+                  price: item.product_price,
+                  discountedPrice: item.discounted_price,
+                  discountPercentage: item.discount_percentage,
+                  code: item.product_code,
+                  description: item.description,
+                }}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ const Hero = () => {
                                     Discover the latest trends in men's fashion with our exclusive collection.
                                 </p>
                                 <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="300">
-                                    <Link to="/products/Men Discount">
+                                    <Link to="/products/discount/Men">
                                         <button className="bg-linear-to-r bg-orange-400 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
                                             Shop Now
                                         </button>
@@ -69,7 +69,7 @@ const Hero = () => {
                                     Discover the latest trends in women's fashion with our exclusive collection.
                                 </p>
                                 <div>
-                                    <Link to="/products/All Discount">
+                                    <Link to="/products/discount/Women">
                                         <button className="bg-linear-to-r bg-orange-400 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
                                             View Collection
                                         </button>
@@ -95,7 +95,7 @@ const Hero = () => {
                                     Don't miss out on our incredible sale! Grab the best deals before they're gone!
                                 </p>
                                 <div >
-                                    <Link to="/products/Discount Collection">
+                                    <Link to="/products/discount/all">
                                         <button className="bg-linear-to-r bg-orange-400 hover:scale-105 duration-200 text-white py-2 px-4 rounded-full">
                                             Discount Collection
                                         </button>

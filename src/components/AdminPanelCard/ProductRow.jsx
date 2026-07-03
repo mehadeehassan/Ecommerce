@@ -2,6 +2,13 @@ import { Pencil, Trash2 } from "lucide-react";
 import { getImageUrl } from "../../Pages/Utils/imageUrl";
 
 const ProductRow = ({ Row, onEdit, onDelete }) => {
+  const hasDiscount = Row.discount_percentage && Row.discount_percentage > 0;
+  const discountedPrice = hasDiscount
+    ? (
+        Row.product_price -
+        (Row.product_price * Row.discount_percentage) / 100
+      ).toFixed(2)
+    : null;
   return (
     <tr className="border-b border-gray-100">
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
@@ -27,9 +34,23 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
         {Row.product_code}
       </td>
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 text-left">
-        {Row.product_price}
+        {hasDiscount ? (
+          <div className="flex flex-col gap-0.5">
+            <span className="line-through text-gray-400 text-[11px]">
+              ${Row.product_price}
+            </span>
+            <span className="text-orange-500 font-semibold">
+              ${discountedPrice}
+            </span>
+            <span className="inline-flex w-fit text-[9px] bg-red-100 text-red-500 px-1.5 py-0.5 rounded-full font-medium">
+              {Row.discount_percentage}% OFF
+            </span>
+          </div>
+        ) : (
+          <span>${Row.product_price}</span>
+        )}
       </td>
-      <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 line-clamp-2 text-left">
+      <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 line-clamp-1 text-left">
         {Row.description}
       </td>
       <td className="px-5 py-2 border-r border-gray-200 text-center">

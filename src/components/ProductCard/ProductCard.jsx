@@ -7,29 +7,44 @@ export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [isAdded, setIsAdded] = useState(false);
 
+  const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
+
   const handleAddToCart = () => {
     dispatch(addToCart(product));
     toast.success(`${product.name} added to cart!`);
-
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 1500);
   };
 
   return (
     <div className="group bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-      {/* Product Image Section */}
       <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5">
         <img
           src={product.productPicturePath}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
+
+        {hasDiscount && (
+          <span className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+            -{product.discountPercentage}%
+          </span>
+        )}
+
         <span className="absolute bottom-2 right-2 bg-white text-gray-900 text-xs font-semibold px-2.5 py-1 rounded-full border border-gray-100 shadow-sm">
-          ${product.price}
+          {hasDiscount ? (
+            <span className="flex items-center gap-1.5">
+              <span className="line-through text-gray-400 text-[10px]">
+                ${product.price}
+              </span>
+              <span className="text-orange-500">${product.discountedPrice}</span>
+            </span>
+          ) : (
+            <>${product.price}</>
+          )}
         </span>
       </div>
 
-      {/* Brand & Name */}
       <p className="text-[10px] font-semibold uppercase tracking-wider text-orange-500">
         {product.brand}
       </p>
@@ -40,7 +55,6 @@ export default function ProductCard({ product }) {
         {product.name}
       </h3>
 
-      {/* Description */}
       <p
         className="text-xs text-gray-400 leading-relaxed mt-1.5 flex-1 line-clamp-2"
         title={product.description}
@@ -48,7 +62,6 @@ export default function ProductCard({ product }) {
         {product.description}
       </p>
 
-      {/* Footer Section: Code & Dynamic Button */}
       <div className="flex items-center justify-between border-t border-gray-100 mt-2.5 pt-2.5">
         <span className="text-[11px] text-gray-400">{product.code}</span>
 
