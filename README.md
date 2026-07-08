@@ -1,4 +1,4 @@
-![React Shops Frontend](../React_Shops/src/assets/download.png)
+![React Shops Frontend](src/assets/download.png)
 # React Shops
 
 A modern React-based e-commerce/shopping web application, built with Vite and using Redux Toolkit for state management.
