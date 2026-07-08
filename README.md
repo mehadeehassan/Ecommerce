@@ -1,16 +1,103 @@
-# React + Vite
+# React Shops
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based e-commerce/shopping web application, built with Vite and using Redux Toolkit for state management.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Core
+- **React 19** — UI library
+- **Vite 8** — Build tool and dev server
+- **React Router DOM 7** — Routing
 
-## React Compiler
+### State Management
+- **Redux Toolkit** — Global state management
+- **React Redux** — React bindings for Redux
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Styling
+- **Tailwind CSS 4** — Utility-first CSS framework
+- **@tailwindcss/vite** — Tailwind plugin for Vite
 
-## Expanding the ESLint configuration
+### UI/UX
+- **Lucide React** & **React Icons** — Icon libraries
+- **React Slick** & **Slick Carousel** — Carousel/slider component
+- **React Hot Toast** — Toast notifications
+- **SweetAlert2** — Alerts and confirmation modals
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Networking & Utilities
+- **Axios** — HTTP requests
+- **js-cookie** — Cookie management
+
+### Code Quality
+- **ESLint 9** — Code linting (with react-hooks and react-refresh plugins)
+
+## 📦 Installation
+
+After cloning the project, install the required dependencies:
+
+```bash
+npm install
+```
+
+## 🛠️ Usage
+
+### Start the development server
+```bash
+npm run dev
+```
+This starts the local dev server (default: `http://localhost:5173`).
+
+### Create a production build
+```bash
+npm run build
+```
+Build output will be generated in the `dist/` folder.
+
+### Preview the production build
+```bash
+npm run preview
+```
+
+### Lint the code
+```bash
+npm run lint
+```
+
+## 📁 Project Structure (suggested)
+
+```
+react-shops/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── redux/
+│   │   ├── store.js
+│   │   └── slices/
+│   ├── routes/
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+## ✨ Features (suggested)
+
+- Product browsing and search
+- Category-based filtering
+- Shopping cart management (via Redux Toolkit)
+- User authentication (cookie-based)
+- Responsive design (Tailwind CSS)
+- Product carousel/slider
+- Toast notifications and confirmation alerts
+
+## 📝 License
+
+This project is private (`"private": true`).
+
+## 🤝 Contributing
+
+Issues and pull requests are welcome.
