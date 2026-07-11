@@ -7,27 +7,37 @@ export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [isAdded, setIsAdded] = useState(false);
 
-  const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
+  const hasDiscount =
+    product.discountPercentage && product.discountPercentage > 0;
 
   const handleAddToCart = () => {
-  const finalPrice = hasDiscount
-    ? Number(product.discountedPrice)
-    : Number(product.price);
+    const finalPrice = hasDiscount
+      ? Number(product.discountedPrice)
+      : Number(product.price);
 
-  dispatch(
-    addToCart({
-      ...product,
-      price: finalPrice,
-      originalPrice: product.price,
-    })
-  );
-  toast.success(`${product.name} added to cart!`);
-  setIsAdded(true);
-  setTimeout(() => setIsAdded(false), 1500);
-};
+    dispatch(
+      addToCart({
+        ...product,
+        price: finalPrice,
+        originalPrice: product.price,
+      }),
+    );
+    toast.success(`${product.name} added to cart!`);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+  };
 
   return (
-    <div className="group bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    // <div className="group bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+    <div
+      className="group bg-white border border-gray-100 rounded-2xl p-3 flex flex-col h-full shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+      style={{
+        transform: "translateZ(0)",
+        WebkitTransform: "translateZ(0)",
+        WebkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
+      }}
+    >
       <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5">
         <img
           src={product.productPicturePath}
@@ -47,7 +57,9 @@ export default function ProductCard({ product }) {
               <span className="line-through text-gray-400 text-[10px]">
                 ${product.price}
               </span>
-              <span className="text-orange-500">${product.discountedPrice}</span>
+              <span className="text-orange-500">
+                ${product.discountedPrice}
+              </span>
             </span>
           ) : (
             <>${product.price}</>
