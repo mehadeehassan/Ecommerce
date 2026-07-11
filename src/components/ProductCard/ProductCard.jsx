@@ -3,6 +3,9 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/cartSlice";
 
+const isIOS =
+  typeof window !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [isAdded, setIsAdded] = useState(false);
@@ -38,42 +41,16 @@ export default function ProductCard({ product }) {
         backfaceVisibility: "hidden",
       }}
     >
-      <div
-        className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5"
-        style={{
-          position: "relative",
-          zIndex: 0,
-          WebkitTransform: "translateZ(0)",
-          transform: "translateZ(0)",
-          WebkitBackfaceVisibility: "hidden",
-          backfaceVisibility: "hidden",
-          WebkitMaskImage: "linear-gradient(#fff, #fff)",
-          WebkitClipPath: "inset(0 round 12px)",
-          clipPath: "inset(0 round 12px)",
-          willChange: "transform",
-        }}
-      >
-        <div className="w-full h-full overflow-hidden">
-          <img
-            src={product.productPicturePath}
-            alt={product.name}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover block rounded-xl transition-transform duration-500 group-hover:scale-110"
-            style={{
-              display: "block",
-              borderRadius: "inherit",
-              WebkitTransform: "translateZ(0)",
-              transform: "translateZ(0)",
-              WebkitBackfaceVisibility: "hidden",
-              backfaceVisibility: "hidden",
-              WebkitMaskImage: "linear-gradient(#fff, #fff)",
-              WebkitClipPath: "inset(0 round 12px)",
-              clipPath: "inset(0 round 12px)",
-              willChange: "transform",
-            }}
-          />
-        </div>
+      <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5">
+        <img
+          src={product.productPicturePath}
+          alt={product.name}
+          loading="lazy"
+          decoding="async"
+          className={`w-full h-full object-cover block rounded-xl transition-transform duration-500 ${
+            isIOS ? "" : "group-hover:scale-110"
+          }`}
+        />
         {hasDiscount && (
           <span className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
             -{product.discountPercentage}%
