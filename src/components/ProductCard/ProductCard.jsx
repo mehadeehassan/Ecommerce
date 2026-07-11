@@ -42,7 +42,16 @@ export default function ProductCard({ product }) {
         <img
           src={product.productPicturePath}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover block rounded-xl group-hover:scale-110 transition-transform duration-500"
+          style={{
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+            willChange: "transform",
+          }}
         />
 
         {hasDiscount && (
