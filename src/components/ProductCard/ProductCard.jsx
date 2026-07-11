@@ -38,7 +38,17 @@ export default function ProductCard({ product }) {
         backfaceVisibility: "hidden",
       }}
     >
-      <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5">
+      <div
+        className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5"
+        style={{
+          WebkitTransform: "translateZ(0)",
+          transform: "translateZ(0)",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden",
+          WebkitMaskImage: "linear-gradient(#fff, #fff)",
+          willChange: "transform",
+        }}
+      >
         <img
           src={product.productPicturePath}
           alt={product.name}
@@ -50,6 +60,7 @@ export default function ProductCard({ product }) {
             WebkitTransform: "translateZ(0)",
             WebkitBackfaceVisibility: "hidden",
             backfaceVisibility: "hidden",
+            WebkitMaskImage: "linear-gradient(#fff, #fff)",
             willChange: "transform",
           }}
         />
