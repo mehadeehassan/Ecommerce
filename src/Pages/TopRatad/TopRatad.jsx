@@ -16,7 +16,8 @@ const TopRatad = () => {
   const handleGetAllProduct = async () => {
     setLoading(true);
     try {
-      const response = await axiosPublic.get("/getAllProduct?page=1&limit=100");
+      const response = await axiosPublic.get("/getAllProduct?page=1&limit=100&status=active");
+      // const response = await axiosPublic.get("/getAllProduct?page=1&limit=100");
       if (response.status === 200) {
         setProducts(response.data.data);
       }
