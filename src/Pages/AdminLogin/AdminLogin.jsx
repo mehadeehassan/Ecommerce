@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
 import { ShieldCheck } from "lucide-react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -10,11 +10,13 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const res = await axiosAdmin.post("/adminLogin", {
@@ -45,6 +47,8 @@ export default function AdminLogin() {
       const msg = err.response?.data?.message || "Something went wrong";
       setError(msg);
       toast.error(msg);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -125,9 +129,14 @@ export default function AdminLogin() {
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg py-1 text-sm font-medium transition-all mt-4"
+            disabled={loading}
+            className={`w-full text-white rounded-lg py-1 text-sm font-medium transition-all mt-4 ${
+              loading
+                ? "bg-orange-400 cursor-not-allowed"
+                : "bg-orange-500 hover:bg-orange-600"
+            }`}
           >
-            Log in
+            {loading ? "Logging in..." : "Log in"}{" "}
           </button>
         </form>
 
