@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { FaStar } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { FaStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/cartSlice";
 import axiosPublic from "../Utils/axiosPublic";
 import { getImageUrl } from "../Utils/imageUrl";
-import { addToCart } from "../../Redux/cartSlice";
 
 const BestSelling = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,9 @@ const BestSelling = () => {
   const handleGetBestSelling = async () => {
     setLoading(true);
     try {
-      const response = await axiosPublic.get("/getAllProduct?page=1&limit=3&status=active");
+      const response = await axiosPublic.get(
+        "/getAllProduct?page=1&limit=3&status=active",
+      );
       // const response = await axiosPublic.get("/getAllProduct?page=1&limit=3");
       if (response.status === 200) {
         setProducts(response.data.data);
@@ -56,7 +58,15 @@ const BestSelling = () => {
           </p>
           <div className="w-60 h-1 bg-orange-400 mt-4 rounded-full"></div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center"> */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center"
+          style={{
+            WebkitTransform: "translate3d(0,0,0)",
+            transform: "translate3d(0,0,0)",
+            willChange: "transform",
+          }}
+        >
           {loading ? (
             <p className="text-gray-400 col-span-full text-center">
               Loading...

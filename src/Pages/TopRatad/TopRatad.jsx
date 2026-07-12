@@ -16,7 +16,9 @@ const TopRatad = () => {
   const handleGetAllProduct = async () => {
     setLoading(true);
     try {
-      const response = await axiosPublic.get("/getAllProduct?page=1&limit=100&status=active");
+      const response = await axiosPublic.get(
+        "/getAllProduct?page=1&limit=100&status=active",
+      );
       // const response = await axiosPublic.get("/getAllProduct?page=1&limit=100");
       if (response.status === 200) {
         setProducts(response.data.data);
@@ -52,7 +54,15 @@ const TopRatad = () => {
           ) : products.length === 0 ? (
             <p className="text-center text-gray-400">No products found</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
+            // <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
+            <div
+              className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center"
+              style={{
+                WebkitTransform: "translate3d(0,0,0)",
+                transform: "translate3d(0,0,0)",
+                willChange: "transform",
+              }}
+            >
               {visibleProducts.map((product) => (
                 <ProductCard
                   key={product.id}
