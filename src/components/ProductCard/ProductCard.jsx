@@ -107,7 +107,6 @@
 //   );
 // }
 
-
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -117,24 +116,25 @@ export default function ProductCard({ product }) {
   const dispatch = useDispatch();
   const [isAdded, setIsAdded] = useState(false);
 
-  const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
+  const hasDiscount =
+    product.discountPercentage && product.discountPercentage > 0;
 
   const handleAddToCart = () => {
-  const finalPrice = hasDiscount
-    ? Number(product.discountedPrice)
-    : Number(product.price);
+    const finalPrice = hasDiscount
+      ? Number(product.discountedPrice)
+      : Number(product.price);
 
-  dispatch(
-    addToCart({
-      ...product,
-      price: finalPrice,
-      originalPrice: product.price,
-    })
-  );
-  toast.success(`${product.name} added to cart!`);
-  setIsAdded(true);
-  setTimeout(() => setIsAdded(false), 1500);
-};
+    dispatch(
+      addToCart({
+        ...product,
+        price: finalPrice,
+        originalPrice: product.price,
+      }),
+    );
+    toast.success(`${product.name} added to cart!`);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+  };
 
   return (
     <div
@@ -146,13 +146,20 @@ export default function ProductCard({ product }) {
         backfaceVisibility: "hidden",
       }}
     >
-      <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5">
+      {/* <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5"> */}
+      <div
+        className="relative aspect-4/5 rounded-xl overflow-hidden bg-gray-50 mb-3.5"
+        style={{ transform: "translateZ(0)", WebkitTransform: "translateZ(0)" }}
+      >
         <img
           src={product.productPicturePath}
           alt={product.name}
           loading="lazy"
           className="w-full h-full object-cover md:group-hover:scale-110 transition-transform duration-500"
-          style={{ transform: "translateZ(0)", WebkitTransform: "translateZ(0)" }}
+          style={{
+            transform: "translateZ(0)",
+            WebkitTransform: "translateZ(0)",
+          }}
         />
 
         {hasDiscount && (
@@ -167,7 +174,9 @@ export default function ProductCard({ product }) {
               <span className="line-through text-gray-400 text-[10px]">
                 ${product.price}
               </span>
-              <span className="text-orange-500">${product.discountedPrice}</span>
+              <span className="text-orange-500">
+                ${product.discountedPrice}
+              </span>
             </span>
           ) : (
             <>${product.price}</>
@@ -193,7 +202,9 @@ export default function ProductCard({ product }) {
       </p>
 
       <div className="flex items-center justify-between gap-2 border-t border-gray-100 mt-2.5 pt-2.5">
-        <span className="text-[11px] text-gray-400 truncate">{product.code}</span>
+        <span className="text-[11px] text-gray-400 truncate">
+          {product.code}
+        </span>
 
         <button
           onClick={handleAddToCart}
