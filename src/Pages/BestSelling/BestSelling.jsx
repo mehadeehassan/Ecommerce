@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { FaStar } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../Redux/cartSlice";
+import { FaStar } from "react-icons/fa";
+import toast from "react-hot-toast";
 import axiosPublic from "../Utils/axiosPublic";
 import { getImageUrl } from "../Utils/imageUrl";
+import { addToCart } from "../../Redux/cartSlice";
 
 const BestSelling = () => {
   const dispatch = useDispatch();
@@ -19,9 +19,7 @@ const BestSelling = () => {
   const handleGetBestSelling = async () => {
     setLoading(true);
     try {
-      const response = await axiosPublic.get(
-        "/getAllProduct?page=1&limit=3&status=active",
-      );
+      const response = await axiosPublic.get("/getAllProduct?page=1&limit=3&status=active");
       // const response = await axiosPublic.get("/getAllProduct?page=1&limit=3");
       if (response.status === 200) {
         setProducts(response.data.data);
@@ -50,23 +48,15 @@ const BestSelling = () => {
   return (
     <div className="py-10 bg-white">
       <div className="container mx-auto">
-        <div className="text-left mb-24">
+        <div className="text-left mb-24 ml-4">
           <p className="text-sm text-orange-400">Top Rated Products for you</p>
           <h1 className="text-3xl font-bold">Best Products</h1>
           <p className="text-xs text-gray-400">
             My best selling products for you.
           </p>
-          <div className="w-60 h-1 bg-orange-400 mt-4 rounded-full"></div>
+          <div className="w-20 h-1  bg-orange-400 mt-4 rounded-full"></div>
         </div>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center"> */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center"
-          style={{
-            WebkitTransform: "translate3d(0,0,0)",
-            transform: "translate3d(0,0,0)",
-            willChange: "transform",
-          }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center">
           {loading ? (
             <p className="text-gray-400 col-span-full text-center">
               Loading...

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/immutability */
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useParams, useLocation } from "react-router";
 import axiosPublic from "../../Pages/Utils/axiosPublic";
 import { getImageUrl } from "../../Pages/Utils/imageUrl";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -63,15 +63,7 @@ function Products() {
           <div className="w-20 h-1 bg-orange-400 mx-auto mt-4 rounded-full"></div>
         </div>
 
-        {/* <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center"> */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center"
-          style={{
-            WebkitTransform: "translate3d(0,0,0)",
-            transform: "translate3d(0,0,0)",
-            willChange: "transform",
-          }}
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
           {products.length === 0 ? (
             <p className="col-span-full text-center text-gray-400 py-10">
               {isDiscountRoute
