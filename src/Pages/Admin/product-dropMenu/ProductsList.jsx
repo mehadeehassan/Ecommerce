@@ -152,7 +152,7 @@ const Products = () => {
 
   const handleGetAllCategory = async () => {
     try {
-      const response = await axiosAdmin.get("/getAllCategory");
+      const response = await axiosAdmin.get("/getAllCategory?limit=1000");
       if (response.status === 200) setAllCategory(response.data.data);
     } catch (error) {
       console.log(error);
@@ -161,7 +161,7 @@ const Products = () => {
 
   const handleGetAllBrand = async () => {
     try {
-      const response = await axiosAdmin.get("/getAllBrand");
+      const response = await axiosAdmin.get("/getAllBrand?limit=1000");
       if (response.status === 200) setAllBrand(response.data.data);
     } catch (error) {
       console.log(error);
