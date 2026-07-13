@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FolderPen, FolderPlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -36,7 +37,7 @@ const Category = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
     handleGetAllCategory();
-  }, []);
+  }, [currentPage]);
 
   const handleChange = (event) => {
     setFormData({
@@ -75,7 +76,7 @@ const Category = () => {
   const handleGetAllCategory = async () => {
     setLoading(true);
     try {
-      const response = await axiosAdmin.get("/getAllCategory");
+      const response = await axiosAdmin.get(`/getAllCategory?page=${currentPage}&limit=${itemsPerPage}`);
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllCategory(response.data.data);

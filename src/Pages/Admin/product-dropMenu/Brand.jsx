@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { BadgeCheck, BadgePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -36,7 +37,7 @@ const Brand = () => {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
     handleGetAllBrand();
-  }, []);
+  }, [currentPage]);
 
   const handleChange = (event) => {
     setFormData({
@@ -75,7 +76,7 @@ const Brand = () => {
   const handleGetAllBrand = async () => {
     setLoading(true);
     try {
-      const response = await axiosAdmin.get("/getAllBrand");
+      const response = await axiosAdmin.get(`/getAllBrand?page=${currentPage}&limit=${itemsPerPage}`);
       // console.log("response:", response.data);
       if (response.status === 200) {
         setAllBrand(response.data.data);

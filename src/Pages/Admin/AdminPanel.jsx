@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { useState } from "react";
 import {
   IoAppsOutline,
@@ -5,6 +6,7 @@ import {
   IoBarChartOutline,
   IoClose,
   IoGridOutline,
+  IoImagesOutline,
   IoListOutline,
   IoLogOutOutline,
   IoMenu,
@@ -12,7 +14,6 @@ import {
   IoSettingsOutline,
   IoStorefrontOutline,
 } from "react-icons/io5";
-import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
@@ -119,15 +120,15 @@ export default function AdminPanel() {
                   </li>
                 </Link>
 
-                {/* <Link to="/admin/products/units">
+                <Link to="/admin/products/hero-slides">
                   <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
-                    <IoScaleOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
+                    <IoImagesOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
                     <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">
-                      Units
+                      Hero Slides
                     </span>
                   </li>
-                </Link> */}
-
+                </Link>
+                
                 <Link to="/admin/products">
                   <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
                     <IoListOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />

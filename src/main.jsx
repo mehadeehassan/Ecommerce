@@ -29,6 +29,7 @@ import Category from "./Pages/Admin/product-dropMenu/Category.jsx";
 import ProductsList from "./Pages/Admin/product-dropMenu/ProductsList.jsx";
 import Settings from "./Pages/Admin/Settings.jsx";
 import User from "./Pages/Admin/User.jsx";
+import HeroSlides from "./Pages/Admin/product-dropMenu/HeroSlides.jsx";
 import AdminLogin from "./Pages/AdminLogin/AdminLogin.jsx";
 import ForgotPassword from "./Pages/AdminLogin/ForgotPassword.jsx";
 
@@ -67,6 +68,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="products" element={<ProductsList />} />
           <Route path="products/category" element={<Category />} />
           <Route path="products/brand" element={<Brand />} />
+          <Route path="products/hero-slides" element={<HeroSlides />} />
           <Route path="user" element={<User />} />
           <Route path="customers" element={<Customers />} />
           <Route path="settings" element={<Settings />} />
