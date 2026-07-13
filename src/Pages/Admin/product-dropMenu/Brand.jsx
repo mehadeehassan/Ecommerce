@@ -273,7 +273,8 @@ const Brand = () => {
               onChange={handleChange}
               value={formData.brand_name ?? ""}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 ${errorMessage.brand_name ? "border-red-500" : ""
+                }`}
               placeholder="Enter brand name"
             />
             {errorMessage.brand_name && (
@@ -305,7 +306,8 @@ const Brand = () => {
               onChange={handleChange}
               value={formData.brand_name ?? ""}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 ${errorMessage.brand_name ? "border-red-500" : ""
+                }`}
               placeholder="Enter brand name"
             />
             {errorMessage.brand_name && (

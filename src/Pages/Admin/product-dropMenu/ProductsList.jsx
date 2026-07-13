@@ -412,7 +412,8 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.product_code ?? ""}
                 placeholder="Enter product code"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.product_code ? "border-red-500" : ""}`}
               />
               {errorMessage.product_code && (
                 <p className="text-red-500 text-xs mt-1">
@@ -431,7 +432,9 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.product_price ?? ""}
                 placeholder="Enter product price"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.product_price ? "border-red-500" : ""
+                }`}
               />
               {errorMessage.product_price && (
                 <p className="text-red-500 text-xs mt-1">
@@ -453,7 +456,9 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.product_name ?? ""}
                 placeholder="Enter Product Name"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.product_name ? "border-red-500" : ""
+                }`}
               />
               {errorMessage.product_name && (
                 <p className="text-red-500 text-xs mt-1">
@@ -469,7 +474,9 @@ const Products = () => {
                 name="category_id"
                 onChange={handleChange}
                 value={formData.category_id ?? ""}
-                className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.category_id ? "border-red-500" : ""
+                }`}
               >
                 <option value="">--select--</option>
                 {allCategory.map((cat) => (
@@ -496,7 +503,9 @@ const Products = () => {
                 name="brand_id"
                 onChange={handleChange}
                 value={formData.brand_id ?? ""}
-                className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.brand_id ? "border-red-500" : ""
+                }`}
               >
                 <option value="">--select--</option>
                 {allBrand.map((brand) => (
@@ -521,7 +530,7 @@ const Products = () => {
                 name="status"
                 onChange={handleChange}
                 value={formData.status ?? ""}
-                className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.status ? 'border-red-500' : '' }`}
               >
                 <option value="">--select--</option>
                 <option value={1}>Active</option>
@@ -546,7 +555,9 @@ const Products = () => {
               value={formData.description ?? ""}
               placeholder="Enter Description"
               rows={3}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm resize-none"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm resize-none outline-none focus:ring-1 focus:ring-orange-400 ${
+                errorMessage.description ? "border-red-500" : ""
+              }`}
             />
             {errorMessage.description && (
               <p className="text-red-500 text-xs mt-1">
@@ -568,7 +579,7 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.discount_percentage ?? ""}
                 placeholder="e.g. 20"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400"
               />
               {errorMessage.discount_percentage && (
                 <p className="text-red-500 text-xs mt-1">
@@ -584,7 +595,7 @@ const Products = () => {
                   type="checkbox"
                   checked={formData.is_on_sale ?? false}
                   onChange={handleChange}
-                  className="w-4 h-4 accent-orange-400"
+                  className="w-4 h-4 accent-orange-400 outline-none"
                 />
                 Mark as On Sale
               </label>
@@ -601,13 +612,17 @@ const Products = () => {
               type="file"
               accept="image/*"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 ${
+                errorMessage.image ? "border-red-500" : ""
+              }`}
             />
             {errorMessage.image && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.image}</p>
             )}
           </div>
         </div>
+
+
       </Modal>
       {/* Product Update Modal */}
       <Modal
@@ -631,7 +646,8 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.product_code ?? ""}
                 placeholder="Enter product code"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.product_code ? "border-red-500" : ""}`}
               />
               {errorMessage.product_code && (
                 <p className="text-red-500 text-xs mt-1">
@@ -650,7 +666,9 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.product_price ?? ""}
                 placeholder="Enter product price"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.product_price ? "border-red-500" : ""
+                }`}
               />
               {errorMessage.product_price && (
                 <p className="text-red-500 text-xs mt-1">
@@ -672,7 +690,9 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.product_name ?? ""}
                 placeholder="Enter Product Name"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.product_name ? "border-red-500" : ""
+                }`}
               />
               {errorMessage.product_name && (
                 <p className="text-red-500 text-xs mt-1">
@@ -688,7 +708,9 @@ const Products = () => {
                 name="category_id"
                 onChange={handleChange}
                 value={formData.category_id ?? ""}
-                className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.category_id ? "border-red-500" : ""
+                }`}
               >
                 <option value="">--select--</option>
                 {allCategory.map((cat) => (
@@ -715,7 +737,9 @@ const Products = () => {
                 name="brand_id"
                 onChange={handleChange}
                 value={formData.brand_id ?? ""}
-                className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.brand_id ? "border-red-500" : ""
+                }`}
               >
                 <option value="">--select--</option>
                 {allBrand.map((brand) => (
@@ -740,7 +764,9 @@ const Products = () => {
                 name="status"
                 onChange={handleChange}
                 value={formData.status ?? ""}
-                className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500"
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.status ? "border-red-500" : ""
+                }`}
               >
                 <option value="">--select--</option>
                 <option value={1}>Active</option>
@@ -765,7 +791,9 @@ const Products = () => {
               value={formData.description ?? ""}
               placeholder="Enter Description"
               rows={3}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm resize-none"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
+                  errorMessage.description ? "border-red-500" : ""
+                }`}
             />
             {errorMessage.description && (
               <p className="text-red-500 text-xs mt-1">
@@ -787,7 +815,7 @@ const Products = () => {
                 onChange={handleChange}
                 value={formData.discount_percentage ?? ""}
                 placeholder="e.g. 20"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                className="w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400"
               />
               {errorMessage.discount_percentage && (
                 <p className="text-red-500 text-xs mt-1">
@@ -803,7 +831,7 @@ const Products = () => {
                   type="checkbox"
                   checked={formData.is_on_sale ?? false}
                   onChange={handleChange}
-                  className="w-4 h-4 accent-orange-400"
+                  className="w-4 h-4 accent-orange-400 outline-none " 
                 />
                 Mark as On Sale
               </label>
@@ -820,7 +848,9 @@ const Products = () => {
               type="file"
               accept="image/*"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 ${
+                errorMessage.image ? "border-red-500" : ""
+              }`}
             />
             {errorMessage.image && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.image}</p>

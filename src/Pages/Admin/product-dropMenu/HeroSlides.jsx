@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
-import SlideRow from "../../../components/AdminPanelCard/SlideRow"; 
+import SlideRow from "../../../components/AdminPanelCard/SlideRow";
 import axiosAdmin from "../../Utils/axiosAdmin";
 
 const HeroSlides = () => {
@@ -16,7 +16,7 @@ const HeroSlides = () => {
   const [allCategory, setAllCategory] = useState([]);
   const [allSlides, setAllSlides] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+
   // Pagination States
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -90,10 +90,12 @@ const HeroSlides = () => {
   const handleGetAllSlides = async () => {
     setLoading(true);
     try {
-      const response = await axiosAdmin.get(`/getAllHeroSlides?page=${currentPage}&limit=${itemsPerPage}`);
+      const response = await axiosAdmin.get(
+        `/getAllHeroSlides?page=${currentPage}&limit=${itemsPerPage}`,
+      );
       if (response.status === 200) {
         setAllSlides(response.data.data);
-        setTotalItems(response.data.total || response.data.data.length); 
+        setTotalItems(response.data.total || response.data.data.length);
       }
     } catch (error) {
       console.log(error);
@@ -120,7 +122,8 @@ const HeroSlides = () => {
       data.append("button_text", formData.button_text);
       data.append("sort_order", formData.sort_order || 0);
       data.append("status", formData.status);
-      if (formData.category_id) data.append("category_id", formData.category_id);
+      if (formData.category_id)
+        data.append("category_id", formData.category_id);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.post("/addHeroSlide", data, {
@@ -146,7 +149,8 @@ const HeroSlides = () => {
       data.append("button_text", formData.button_text);
       data.append("sort_order", formData.sort_order || 0);
       data.append("status", formData.status);
-      if (formData.category_id) data.append("category_id", formData.category_id);
+      if (formData.category_id)
+        data.append("category_id", formData.category_id);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.put("/updateHeroSlide", data, {
@@ -192,7 +196,7 @@ const HeroSlides = () => {
 
   useEffect(() => {
     handleGetAllSlides();
-    handleGetAllCategory()
+    handleGetAllCategory();
   }, [currentPage]);
 
   return (
@@ -210,7 +214,7 @@ const HeroSlides = () => {
           },
         }}
       />
-      
+
       {/* Add Slide Button */}
       <div className="flex justify-end mb-4">
         <button
@@ -260,13 +264,19 @@ const HeroSlides = () => {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-6 text-gray-400 text-sm">
+                  <td
+                    colSpan={8}
+                    className="text-center py-6 text-gray-400 text-sm"
+                  >
                     Loading...
                   </td>
                 </tr>
               ) : allSlides.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-6 text-gray-400 text-sm">
+                  <td
+                    colSpan={8}
+                    className="text-center py-6 text-gray-400 text-sm"
+                  >
                     No hero slides found
                   </td>
                 </tr>
@@ -317,7 +327,7 @@ const HeroSlides = () => {
               onChange={handleChange}
               value={formData.title ?? ""}
               placeholder="e.g. Upto 50% off on all Men's wear"
-              className="w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.title ? "border-red-500" : ""}`}
             />
             {errorMessage.title && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.title}</p>
@@ -325,20 +335,29 @@ const HeroSlides = () => {
           </div>
 
           <div>
-            <label className="block text-xs text-gray-600 mb-1">Description</label>
+            <label className="block text-xs text-gray-600 mb-1">
+              Description
+            </label>
             <textarea
               name="description"
               onChange={handleChange}
               value={formData.description ?? ""}
               placeholder="Short subtitle text"
               rows={2}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm resize-none outline-none focus:ring-1 focus:ring-orange-400"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm resize-none outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.description ? "border-red-500" : ""}`}
             />
+            {errorMessage.description && (
+              <p className="text-red-500 text-xs mt-1">
+                {errorMessage.description}
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Links To Category</label>
+              <label className="block text-xs text-gray-600 mb-1">
+                Links To Category
+              </label>
               <select
                 name="category_id"
                 onChange={handleChange}
@@ -402,7 +421,7 @@ const HeroSlides = () => {
               type="file"
               accept="image/*"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 ${errorMessage.image ? "border-red-500" : ""}`}
             />
             {errorMessage.image && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.image}</p>
@@ -411,7 +430,7 @@ const HeroSlides = () => {
         </div>
       </Modal>
 
-      {/* --- Update Slide Modal  --- */}
+      {/* --- Update Slide Modal (Imported) --- */}
       <Modal
         isOpen={isUpdateModalOpen}
         onClose={() => setUpdateModalOpen(false)}
@@ -430,7 +449,7 @@ const HeroSlides = () => {
               type="text"
               onChange={handleChange}
               value={formData.title ?? ""}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.title ? "border-red-500" : ""}`}
             />
             {errorMessage.title && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.title}</p>
@@ -438,19 +457,23 @@ const HeroSlides = () => {
           </div>
 
           <div>
-            <label className="block text-xs text-gray-600 mb-1">Description</label>
+            <label className="block text-xs text-gray-600 mb-1">
+              Description
+            </label>
             <textarea
               name="description"
               onChange={handleChange}
               value={formData.description ?? ""}
               rows={2}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm resize-none outline-none focus:ring-1 focus:ring-orange-400"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm resize-none outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.description ? "border-red-500" : ""}`}
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-600 mb-1">Links To Category</label>
+              <label className="block text-xs text-gray-600 mb-1">
+                Links To Category
+              </label>
               <select
                 name="category_id"
                 onChange={handleChange}
@@ -511,7 +534,7 @@ const HeroSlides = () => {
               type="file"
               accept="image/*"
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
+              className={`w-full p-2 border border-gray-300 rounded-md text-sm file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 ${errorMessage.image ? "border-red-500" : ""}`}
             />
           </div>
         </div>

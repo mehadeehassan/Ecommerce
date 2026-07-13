@@ -275,7 +275,8 @@ const Category = () => {
               onChange={handleChange}
               value={formData.category_name ?? ""}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 ${errorMessage.category_name ? "border-red-500" : ""
+                }`}
               placeholder="Enter category name"
             />
             {errorMessage.category_name && (
@@ -306,7 +307,8 @@ const Category = () => {
               onChange={handleChange}
               value={formData.category_name ?? ""}
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 ${errorMessage.category_name ? "border-red-500" : ""
+                }`}
               placeholder="Enter category name"
             />
             {errorMessage.category_name && (

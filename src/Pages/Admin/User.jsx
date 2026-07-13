@@ -338,7 +338,7 @@ const User = () => {
               value={formData.name ?? ""}
               type="text"
               placeholder="Enter your full name"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.name ? "border-red-500" : "border-gray-200"}`}
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.name ? "border-red-500" : "border-gray-200"}`}
             />
             {errorMessage.name && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.name}</p>
@@ -354,7 +354,7 @@ const User = () => {
               value={formData.email ?? ""}
               type="email"
               placeholder="ex: user@example.com"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.email ? "border-red-500" : "border-gray-200"}`}
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.email ? "border-red-500" : "border-gray-200"}`}
             />
             {errorMessage.email && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.email}</p>
@@ -370,7 +370,7 @@ const User = () => {
               value={formData.password ?? ""}
               type="password"
               placeholder="Enter your password"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.password ? "border-red-500" : "border-gray-200"}`}
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.password ? "border-red-500" : "border-gray-200"}`}
             />
             {errorMessage.password && (
               <p className="text-red-500 text-xs mt-1">
@@ -390,7 +390,7 @@ const User = () => {
                 value={formData.confirmPassword ?? ""}
                 type="password"
                 placeholder="Confirm your password"
-                className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
+                className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
               />
               {errorMessage.confirmPassword && (
                 <p className="text-red-500 text-xs mt-1">
@@ -402,7 +402,7 @@ const User = () => {
           <div>
             <label className="block text-xs  text-gray-600 mb-1">Status</label>
             <select
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none "
+              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 "
               onChange={handleChange}
               value={formData.status ?? 1}
               name="status"
@@ -434,7 +434,7 @@ const User = () => {
               value={formData.name ?? ""}
               type="text"
               placeholder="Enter your full name"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.name ? "border-red-500" : "border-gray-200"}`}
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.name ? "border-red-500" : "border-gray-200"}`}
             />
             {errorMessage.name && (
               <p className="text-red-500 text-xs mt-1">{errorMessage.name}</p>
@@ -450,7 +450,7 @@ const User = () => {
               value={formData.email ?? ""}
               type="email"
               placeholder="ex: user@example.com"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.email ? "border-red-500" : "border-gray-200"}`}
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.email ? "border-red-500" : "border-gray-200"}`}
             />
             {/* email related error message backend theke asle frontend e dekhanor jonno */}
             {errorMessage.email && (
@@ -467,7 +467,7 @@ const User = () => {
               value={formData.password ?? ""}
               type="password"
               placeholder="Enter a new password"
-              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.password ? "border-red-500" : "border-gray-200"}`}
+              className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.password ? "border-red-500" : "border-gray-200"}`}
             />
             {errorMessage.password && (
               <p className="text-red-500 text-xs mt-1">
@@ -488,7 +488,7 @@ const User = () => {
                 value={formData.confirmPassword ?? ""}
                 type="password"
                 placeholder="Confirm the new password"
-                className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
+                className={`w-full px-3 py-1 rounded-lg border text-gray-500 placeholder:text-gray-300 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.confirmPassword ? "border-red-500" : "border-gray-200"}`}
               />
               {errorMessage.confirmPassword && (
                 <p className="text-red-500 text-xs mt-1">
@@ -500,7 +500,7 @@ const User = () => {
           <div>
             <label className="block text-xs  text-gray-600 mb-1">Status</label>
             <select
-              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none "
+              className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 "
               onChange={handleChange}
               value={formData.status ?? 1}
               name="status"
@@ -513,7 +513,7 @@ const User = () => {
         <div>
           <label className="block text-xs text-gray-600 mb-1">Role</label>
           <select
-            className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none"
+            className="w-full px-3 py-1 rounded-lg border border-gray-200 text-gray-500 outline-none focus:ring-1 focus:ring-orange-400"
             onChange={handleChange}
             value={formData.role ?? "user"}
             name="role"
@@ -539,7 +539,7 @@ const User = () => {
             ].map((perm) => (
               <label
                 key={perm.key}
-                className="flex items-center gap-2 text-xs text-gray-500"
+                className="flex items-center gap-2 text-xs text-gray-500 "
               >
                 <input
                   type="checkbox"
