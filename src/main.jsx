@@ -8,7 +8,7 @@ import { store } from "./Redux/Store.js";
 import About from "./Pages/About/About.jsx";
 import AdToCart from "./Pages/Cart/AddToCart.jsx";
 import Contacts from "./Pages/ContactUs/Contact.jsx";
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/Home.jsx";
 import Products from "./Pages/Product/Products.jsx";
 import Services from "./Pages/Services/Services.jsx";
 
