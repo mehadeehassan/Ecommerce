@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/immutability */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axiosPublic from "../../Utils/axiosPublic";
-import { getImageUrl } from "../../Utils/imageUrl";
-import ProductCard from "../../components/ProductCard/ProductCard";
+import axiosPublic from "../../../Utils/axiosPublic";
+import { getImageUrl } from "../../../Utils/imageUrl";
+import ProductCard from "../../ProductCard/ProductCard";
 
 const DiscountSection = () => {
   const [discountProducts, setDiscountProducts] = useState([]);

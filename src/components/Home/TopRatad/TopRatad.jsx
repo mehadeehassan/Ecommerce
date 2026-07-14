@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import axiosPublic from "../../Utils/axiosPublic";
-import { getImageUrl } from "../../Utils/imageUrl";
+import ProductCard from "../../ProductCard/ProductCard";
+import axiosPublic from "../../../Utils/axiosPublic";
+import { getImageUrl } from "../../../Utils/imageUrl";
 
 const TopRatad = () => {
   const [products, setProducts] = useState([]);
