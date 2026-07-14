@@ -6,7 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
-import SlideRow from "../../../components/AdminPanelCard/SlideRow";
+import SlideRow from "../../../components/AdminPanelCard/HeroSlideRow";
 import axiosAdmin from "../../../Utils/axiosAdmin";
 
 const HeroSlides = () => {

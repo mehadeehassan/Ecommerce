@@ -16,7 +16,7 @@ import {
 } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
-import AdminCard from "../../components/AdminPanelCard/AdminManuCard";
+import AdminCard from "../../components/AdminPanelCard/AdminMenuCard";
 
 export default function AdminPanel() {
   const [isOpen, setIsOpen] = useState(false);

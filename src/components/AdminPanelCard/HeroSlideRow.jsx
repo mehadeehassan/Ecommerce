@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { getImageUrl } from "../../Utils//imageUrl";
+import { getImageUrl } from "../../Utils/imageUrl";
 
 const SlideRow = ({ row, onEdit, onDelete }) => {
   return (
