@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import CategoryRow from "../../../components/AdminPanelCard/CategoryRow";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
-import axiosAdmin from "../../Utils/axiosAdmin";
+import axiosAdmin from "../../../Utils/axiosAdmin";
 
 const Brand = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

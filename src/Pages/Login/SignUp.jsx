@@ -1,7 +1,7 @@
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import axiosPublic from "../Utils/axiosPublic";
+import axiosPublic from "../../Utils/axiosPublic";
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);

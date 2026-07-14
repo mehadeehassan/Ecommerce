@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/immutability */
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router";
-import axiosPublic from "../../Pages/Utils/axiosPublic";
-import { getImageUrl } from "../../Pages/Utils/imageUrl";
+import axiosPublic from "../../Utils/axiosPublic";
+import { getImageUrl } from "../../Utils/imageUrl";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 function Products() {

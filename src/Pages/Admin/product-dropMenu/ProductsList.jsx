@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
 import ProductRow from "../../../components/AdminPanelCard/ProductRow";
-import axiosAdmin from "../../Utils/axiosAdmin";
+import axiosAdmin from "../../../Utils/axiosAdmin";
 const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // প্রোডাক্ট অ্যাড করার মডাল ওপেন/ক্লোজ স্টেট
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // প্রোডাক্ট আপডেট করার মডাল ওপেন/ক্লোজ স্টেট

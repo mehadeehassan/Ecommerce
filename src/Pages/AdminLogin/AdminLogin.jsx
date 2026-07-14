@@ -4,7 +4,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import axiosAdmin from "../Utils/axiosAdmin";
+import axiosAdmin from "../../Utils/axiosAdmin";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");

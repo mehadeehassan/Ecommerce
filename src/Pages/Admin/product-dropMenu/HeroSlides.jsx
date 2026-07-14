@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
 import SlideRow from "../../../components/AdminPanelCard/SlideRow";
-import axiosAdmin from "../../Utils/axiosAdmin";
+import axiosAdmin from "../../../Utils/axiosAdmin";
 
 const HeroSlides = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import toast, { Toaster } from "react-hot-toast";
-import axiosPublic from "../Utils/axiosPublic";
+import axiosPublic from "../../Utils/axiosPublic";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);

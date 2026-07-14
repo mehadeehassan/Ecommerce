@@ -4,8 +4,8 @@ import SliderImport from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
-import axiosPublic from "../../Pages/Utils/axiosPublic";
-import { getImageUrl } from "../../Pages/Utils/imageUrl";
+import axiosPublic from "../../Utils/axiosPublic";
+import { getImageUrl } from "../../Utils/imageUrl";
 const Slider = SliderImport.default ? SliderImport.default : SliderImport;
 
 const Hero = () => {

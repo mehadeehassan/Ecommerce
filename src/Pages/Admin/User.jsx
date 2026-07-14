@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import Modal from "../../components/AdminPanelCard/Modal";
 import Pagination from "../../components/AdminPanelCard/Pagination";
 import UserRow from "../../components/AdminPanelCard/UserRow";
-import axiosAdmin from "../Utils/axiosAdmin";
+import axiosAdmin from "../../Utils/axiosAdmin";
 
 const User = () => {
   // Add User modal খোলা/বন্ধের জন্য — true হলে modal দেখাবে

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/Logo.png";
-import axiosPublic from "../../Pages/Utils/axiosPublic";
+import axiosPublic from "../../Utils/axiosPublic";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

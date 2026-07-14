@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { getImageUrl } from "../../Pages/Utils/imageUrl";
+import { getImageUrl } from "../../Utils/imageUrl";
 
 const ProductRow = ({ Row, onEdit, onDelete }) => {
   const hasDiscount = Row.discount_percentage && Row.discount_percentage > 0;
