@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axiosPublic from "../../../Utils/axiosPublic";
 import { getImageUrl } from "../../../Utils/imageUrl";
-import { addToCart } from "../../../Redux/cartSlice";
+import { addToCart } from "../../../redux/cartSlice";
 
 const BestSelling = () => {
   const dispatch = useDispatch();

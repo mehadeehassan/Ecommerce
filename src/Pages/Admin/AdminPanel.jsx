@@ -120,7 +120,7 @@ export default function AdminPanel() {
                   </li>
                 </Link>
 
-                <Link to="/admin/products/hero-slides">
+                <Link to="/admin/hero-slides">
                   <li className="flex items-center gap-2 p-2 px-3 rounded-lg group">
                     <IoImagesOutline className="text-xs text-gray-400 group-hover:text-orange-400 shrink-0" />
                     <span className="text-xs text-gray-500 group-hover:text-orange-500 hidden sm:block">

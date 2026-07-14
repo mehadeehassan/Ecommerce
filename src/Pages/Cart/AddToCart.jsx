@@ -11,7 +11,7 @@ import {
   increaseQty,
   removeFromCart,
   resetCart,
-} from "../../Redux/cartSlice";
+} from "../../redux/cartSlice";
 
 const AdToCart = () => {
   const cart = useSelector((state) => state.cart);

@@ -1,7 +1,7 @@
 // import { useState } from "react";
 // import toast from "react-hot-toast";
 // import { useDispatch } from "react-redux";
-// import { addToCart } from "../../Redux/cartSlice";
+// import { addToCart } from "../../redux/cartSlice";
 
 // export default function ProductCard({ product }) {
 //   const dispatch = useDispatch();
@@ -114,7 +114,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../Redux/cartSlice";
+import { addToCart } from "../../redux/cartSlice";
 
 export default function ProductCard({ product }) {
   const dispatch = useDispatch();
