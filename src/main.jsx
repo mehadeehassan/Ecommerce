@@ -21,7 +21,7 @@ import AdminLayout from "./layout/AdminLayout.jsx";
 import HomeLayout from "./layout/HomeLayout.jsx";
 
 // admin page
-import ProtectedRoute from "./components/AdminLogin/ProtectedRoute.jsx";
+import ProtectedRoute from "./components/Auth/ProtectedRoute.jsx";
 import Customers from "./Pages/Admin/Customers.jsx";
 import Dashboard from "./Pages/Admin/Dashboard.jsx";
 import Brand from "./Pages/Admin/product-dropMenu/Brand.jsx";
