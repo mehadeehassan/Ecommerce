@@ -263,8 +263,13 @@ const User = () => {
           <h2 className="font-bold text-[15px] text-gray-800">User List</h2>
         </div>
 
-        <div className="overflow-x-auto mt-6">
-          <table className="w-full table-fixed text-left">
+        {/* <div className="overflow-x-auto mt-6">
+          <table className="w-full table-fixed text-left"> */}
+        <div
+          className="overflow-x-auto mt-6"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <table className="w-full min-w-275 md:min-w-0 table-fixed text-left">
             <thead>
               <tr className="bg-gray-200/90">
                 <th className="px-5 py-2 text-[10px] text-gray-600 font-medium uppercase border-r border-gray-200 ">

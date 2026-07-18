@@ -36,6 +36,7 @@ const Products = () => {
         image: null,
         discount_percentage: "",
         is_on_sale: false,
+        is_new_arrival: false,
       });
     }
   };
@@ -57,6 +58,7 @@ const Products = () => {
       image: null,
       discount_percentage: "",
       is_on_sale: false,
+      is_new_arrival: false,
     });
   };
 
@@ -73,6 +75,7 @@ const Products = () => {
     image: null,
     discount_percentage: "",
     is_on_sale: false,
+    is_new_arrival: false,
   });
 
   // ইনপুট ফিল্ডের পরিবর্তন হ্যান্ডেল করার ফাংশন
@@ -183,6 +186,7 @@ const Products = () => {
       data.append("description", formData.description);
       data.append("discount_percentage", formData.discount_percentage || 0);
       data.append("is_on_sale", formData.is_on_sale ? 1 : 0);
+      data.append("is_new_arrival", formData.is_new_arrival ? 1 : 0);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.post("/addProduct", data, {
@@ -214,6 +218,7 @@ const Products = () => {
       data.append("description", formData.description);
       data.append("discount_percentage", formData.discount_percentage || 0);
       data.append("is_on_sale", formData.is_on_sale ? 1 : 0);
+      data.append("is_new_arrival", formData.is_new_arrival ? 1 : 0);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.put("/updateProduct", data, {
@@ -298,8 +303,9 @@ const Products = () => {
         <div className="p-3">
           <h3 className="font-bold text-[15px] text-gray-800">Products List</h3>
         </div>
-        <div className="overflow-x-auto mt-6">
-          <table className="w-full table-fixed text-left">
+        {/* <div className="overflow-x-auto mt-6"> */}
+        <div className="overflow-x-auto mt-6" style={{ WebkitOverflowScrolling: "touch" }}>
+          <table className="w-full min-w-275 md:min-w-0 table-fixed text-left">
             <thead>
               <tr className="bg-gray-200/90">
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1 border-r border-gray-200 ">
@@ -328,6 +334,9 @@ const Products = () => {
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   On Sale
+                </th>
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
+                  Arrivals
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Description
@@ -376,6 +385,7 @@ const Products = () => {
                         description: product.description,
                         discount_percentage: product.discount_percentage || "",
                         is_on_sale: product.is_on_sale ? true : false,
+                        is_new_arrival: product.is_new_arrival ? true : false,
                         image: null,
                       });
                       setUpdateModalOpen(true);
@@ -413,7 +423,8 @@ const Products = () => {
                 value={formData.product_code ?? ""}
                 placeholder="Enter product code"
                 className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
-                  errorMessage.product_code ? "border-red-500" : ""}`}
+                  errorMessage.product_code ? "border-red-500" : ""
+                }`}
               />
               {errorMessage.product_code && (
                 <p className="text-red-500 text-xs mt-1">
@@ -530,7 +541,7 @@ const Products = () => {
                 name="status"
                 onChange={handleChange}
                 value={formData.status ?? ""}
-                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.status ? 'border-red-500' : '' }`}
+                className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${errorMessage.status ? "border-red-500" : ""}`}
               >
                 <option value="">--select--</option>
                 <option value={1}>Active</option>
@@ -600,6 +611,19 @@ const Products = () => {
                 Mark as On Sale
               </label>
             </div>
+
+            <div className="flex items-center pt-2">
+              <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                <input
+                  name="is_new_arrival"
+                  type="checkbox"
+                  checked={formData.is_new_arrival ?? false}
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-orange-400 outline-none"
+                />
+                Mark as New Arrival
+              </label>
+            </div>
           </div>
 
           {/* Image — full width */}
@@ -621,8 +645,6 @@ const Products = () => {
             )}
           </div>
         </div>
-
-
       </Modal>
       {/* Product Update Modal */}
       <Modal
@@ -647,7 +669,8 @@ const Products = () => {
                 value={formData.product_code ?? ""}
                 placeholder="Enter product code"
                 className={`w-full p-2 border border-gray-300 rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
-                  errorMessage.product_code ? "border-red-500" : ""}`}
+                  errorMessage.product_code ? "border-red-500" : ""
+                }`}
               />
               {errorMessage.product_code && (
                 <p className="text-red-500 text-xs mt-1">
@@ -792,8 +815,8 @@ const Products = () => {
               placeholder="Enter Description"
               rows={3}
               className={`w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400 ${
-                  errorMessage.description ? "border-red-500" : ""
-                }`}
+                errorMessage.description ? "border-red-500" : ""
+              }`}
             />
             {errorMessage.description && (
               <p className="text-red-500 text-xs mt-1">
@@ -831,9 +854,22 @@ const Products = () => {
                   type="checkbox"
                   checked={formData.is_on_sale ?? false}
                   onChange={handleChange}
-                  className="w-4 h-4 accent-orange-400 outline-none " 
+                  className="w-4 h-4 accent-orange-400 outline-none "
                 />
                 Mark as On Sale
+              </label>
+            </div>
+
+            <div className="flex items-center pt-2">
+              <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                <input
+                  name="is_new_arrival"
+                  type="checkbox"
+                  checked={formData.is_new_arrival ?? false}
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-orange-400 outline-none"
+                />
+                Mark as New Arrival
               </label>
             </div>
           </div>

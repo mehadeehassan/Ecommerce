@@ -75,6 +75,19 @@ const ProductRow = ({ Row, onEdit, onDelete }) => {
         </span>
       </td>
 
+      {/* New Arrival */}
+      <td className="px-5 py-2 border-r border-gray-200 text-center">
+        <span
+          className={`inline-flex text-[10px] px-2 py-0.5 rounded-full font-medium ${
+            Row.is_new_arrival
+              ? "bg-green-100 text-green-600"
+              : "bg-gray-100 text-gray-400"
+          }`}
+        >
+          {Row.is_new_arrival ? "Yes" : "No"}
+        </span>
+      </td>
+
       {/* Description — এখন On Sale-এর পরে (header order অনুযায়ী) */}
       <td className="px-5 py-2 text-gray-500 font-normal text-[12px] border-r border-gray-200 line-clamp-2 text-left">
         {Row.description}
