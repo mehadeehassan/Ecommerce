@@ -4,9 +4,9 @@ import { ImagePlus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import SlideRow from "../../../components/AdminPanelCard/HeroSlideRow";
 import Modal from "../../../components/AdminPanelCard/Modal";
 import Pagination from "../../../components/AdminPanelCard/Pagination";
-import SlideRow from "../../../components/AdminPanelCard/HeroSlideRow";
 import axiosAdmin from "../../../Utils/axiosAdmin";
 
 const HeroSlides = () => {
@@ -44,6 +44,8 @@ const HeroSlides = () => {
       sort_order: 0,
       status: "active",
       image: null,
+      link_type: "all_discount",
+      custom_link: "",
     });
   };
 
@@ -56,6 +58,8 @@ const HeroSlides = () => {
     sort_order: 0,
     status: "active",
     image: null,
+    link_type: "all_discount",
+    custom_link: "",
   });
 
   const handleChange = (event) => {
@@ -125,6 +129,10 @@ const HeroSlides = () => {
       if (formData.category_id)
         data.append("category_id", formData.category_id);
       if (formData.image) data.append("image", formData.image);
+      data.append("link_type", formData.link_type);
+      if (formData.link_type === "custom") {
+        data.append("custom_link", formData.custom_link);
+      }
 
       const response = await axiosAdmin.post("/addHeroSlide", data, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -152,6 +160,10 @@ const HeroSlides = () => {
       if (formData.category_id)
         data.append("category_id", formData.category_id);
       if (formData.image) data.append("image", formData.image);
+      data.append("link_type", formData.link_type);
+      if (formData.link_type === "custom") {
+        data.append("custom_link", formData.custom_link);
+      }
 
       const response = await axiosAdmin.put("/updateHeroSlide", data, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -231,8 +243,13 @@ const HeroSlides = () => {
         <div className="p-3">
           <h3 className="font-bold text-[15px] text-gray-800">Hero Slides</h3>
         </div>
-        <div className="overflow-x-auto mt-6">
-          <table className="w-full table-fixed text-left">
+        {/* <div className="overflow-x-auto mt-6">
+          <table className="w-full table-fixed text-left"> */}
+        <div
+          className="overflow-x-auto mt-6"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <table className="w-full min-w-275 md:min-w-0 table-fixed text-left">
             <thead>
               <tr className="bg-gray-200/90">
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1 border-r border-gray-200">
@@ -295,6 +312,8 @@ const HeroSlides = () => {
                         sort_order: slide.sort_order,
                         status: slide.status,
                         image: null,
+                        link_type: slide.link_type || "all_discount",
+                        custom_link: slide.custom_link || "",
                       });
                       setUpdateModalOpen(true);
                     }}
@@ -356,22 +375,71 @@ const HeroSlides = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs text-gray-600 mb-1">
-                Links To Category
+                Link Type
               </label>
               <select
-                name="category_id"
+                name="link_type"
                 onChange={handleChange}
-                value={formData.category_id ?? ""}
+                value={formData.link_type ?? "all_discount"}
                 className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400"
               >
-                <option value=""> All Sale </option>
-                {allCategory.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.category_name}
-                  </option>
-                ))}
+                <option value="all_discount">All Discount</option>
+                <option value="category_discount">Category Discount</option>
+                <option value="new_arrival">New Arrival</option>
+                <option value="custom">Custom URL</option>
               </select>
             </div>
+
+            {formData.link_type === "category_discount" && (
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Category
+                </label>
+                <select
+                  name="category_id"
+                  onChange={handleChange}
+                  value={formData.category_id ?? ""}
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400"
+                >
+                  <option value="">-- select category --</option>
+                  {allCategory.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.category_name}
+                    </option>
+                  ))}
+                </select>
+                {errorMessage.category_id && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errorMessage.category_id}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {formData.link_type === "custom" && (
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Custom URL <span className="text-red-500">*</span>
+                </label>
+                <input
+                  name="custom_link"
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.custom_link ?? ""}
+                  placeholder="/products/new-summer-collection"
+                  className={`w-full p-2 border rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                    errorMessage.custom_link
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                />
+                {errorMessage.custom_link && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errorMessage.custom_link}
+                  </p>
+                )}
+              </div>
+            )}
             <div>
               <label className="block text-xs text-gray-600 mb-1">
                 Button Text <span className="text-red-500">*</span>
@@ -472,22 +540,71 @@ const HeroSlides = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs text-gray-600 mb-1">
-                Links To Category
+                Link Type
               </label>
               <select
-                name="category_id"
+                name="link_type"
                 onChange={handleChange}
-                value={formData.category_id ?? ""}
+                value={formData.link_type ?? "all_discount"}
                 className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400"
               >
-                <option value=""> All Sale </option>
-                {allCategory.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.category_name}
-                  </option>
-                ))}
+                <option value="all_discount">All Discount</option>
+                <option value="category_discount">Category Discount</option>
+                <option value="new_arrival">New Arrival</option>
+                <option value="custom">Custom URL</option>
               </select>
             </div>
+
+            {formData.link_type === "category_discount" && (
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Category
+                </label>
+                <select
+                  name="category_id"
+                  onChange={handleChange}
+                  value={formData.category_id ?? ""}
+                  className="w-full p-2 border border-gray-300 rounded-md text-sm text-gray-500 outline-none focus:ring-1 focus:ring-orange-400"
+                >
+                  <option value="">-- select category --</option>
+                  {allCategory.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.category_name}
+                    </option>
+                  ))}
+                </select>
+                {errorMessage.category_id && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errorMessage.category_id}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {formData.link_type === "custom" && (
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Custom URL <span className="text-red-500">*</span>
+                </label>
+                <input
+                  name="custom_link"
+                  type="text"
+                  onChange={handleChange}
+                  value={formData.custom_link ?? ""}
+                  placeholder="/products/new-summer-collection"
+                  className={`w-full p-2 border rounded-md text-sm outline-none focus:ring-1 focus:ring-orange-400 ${
+                    errorMessage.custom_link
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                />
+                {errorMessage.custom_link && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errorMessage.custom_link}
+                  </p>
+                )}
+              </div>
+            )}
             <div>
               <label className="block text-xs text-gray-600 mb-1">
                 Button Text <span className="text-red-500">*</span>

@@ -11,6 +11,7 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const isDiscountRoute = location.pathname.includes("/discount/");
+  const isNewArrivalRoute = location.pathname === "/products/new-arrivals";
 
   useEffect(() => {
     handleGetProducts();
@@ -21,7 +22,10 @@ function Products() {
     try {
       let response;
 
-      if (isDiscountRoute) {
+      if (isNewArrivalRoute) {
+        response = await axiosPublic.get(`/getAllNewArrivalProducts`);
+        setCategoryName("New Arrivals");
+      } else if (isDiscountRoute) {
         if (category === "all") {
           response = await axiosPublic.get(`/getAllDiscountedProducts`);
           setCategoryName("All Discount");
