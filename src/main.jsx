@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./index.css";
 import { store } from "./redux/Store.js";
 
@@ -75,6 +76,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
+      <SpeedInsights />
     </BrowserRouter>
   </Provider>,
 );
