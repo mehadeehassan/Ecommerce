@@ -556,7 +556,8 @@ const HeroSlides = () => {
               </select>
             </div>
 
-            {formData.link_type === "category_discount" && (
+            {(formData.link_type === "category_discount" ||
+              formData.link_type === "new_arrival") && (
               <div>
                 <label className="block text-xs text-gray-600 mb-1">
                   Category {formData.link_type === "new_arrival" && ""}
