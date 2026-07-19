@@ -48,11 +48,11 @@ const Hero = () => {
     switch (slide.link_type) {
         case "category_discount":
             return slide.category_name
-                ? `/products/discount/${slide.category_name}`
+                ? `/products/discount/${slide.category_name.toLowerCase()}`
                 : "/products/discount/all";
         case "new_arrival":
             return slide.category_name
-                ? `/products/new-arrivals/${slide.category_name}`
+                ? `/products/new-arrivals/${slide.category_name.toLowerCase()}`
                 : "/products/new-arrivals";
         case "custom":
             return slide.custom_link || "/";
