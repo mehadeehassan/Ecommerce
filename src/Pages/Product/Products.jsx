@@ -10,6 +10,7 @@ function Products() {
   const location = useLocation();
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
+  const [loading, setLoading] = useState(false);
   const isDiscountRoute = location.pathname.includes("/discount/");
   const isNewArrivalRoute = location.pathname.startsWith(
     "/products/new-arrivals",
@@ -21,6 +22,7 @@ function Products() {
   }, [productType, category]);
 
   const handleGetProducts = async () => {
+    setLoading(true);
     try {
       let response;
 
@@ -57,6 +59,8 @@ function Products() {
     } catch (error) {
       console.log("Error:", error);
       setProducts([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,7 +81,9 @@ function Products() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 place-items-center">
-          {products.length === 0 ? (
+          {loading ? (
+            <p className="col-span-full text-center text-gray-400">Loading...</p>
+          ) : products.length === 0 ? (
             <p className="col-span-full text-center text-gray-400 py-10">
               {isDiscountRoute
                 ? "No discounted products available right now."
