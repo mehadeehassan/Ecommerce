@@ -390,10 +390,11 @@ const HeroSlides = () => {
               </select>
             </div>
 
-            {formData.link_type === "category_discount" && (
+            {(formData.link_type === "category_discount" ||
+              formData.link_type === "new_arrival") && (
               <div>
                 <label className="block text-xs text-gray-600 mb-1">
-                  Category
+                  Category {formData.link_type === "new_arrival" && ""}
                 </label>
                 <select
                   name="category_id"
@@ -558,7 +559,7 @@ const HeroSlides = () => {
             {formData.link_type === "category_discount" && (
               <div>
                 <label className="block text-xs text-gray-600 mb-1">
-                  Category
+                  Category {formData.link_type === "new_arrival" && ""}
                 </label>
                 <select
                   name="category_id"

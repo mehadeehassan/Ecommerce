@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/immutability */
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import axiosPublic from "../../Utils/axiosPublic";
 import { getImageUrl } from "../../Utils/imageUrl";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -11,7 +11,9 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const isDiscountRoute = location.pathname.includes("/discount/");
-  const isNewArrivalRoute = location.pathname === "/products/new-arrivals";
+  const isNewArrivalRoute = location.pathname.startsWith(
+    "/products/new-arrivals",
+  );
 
   useEffect(() => {
     handleGetProducts();
@@ -23,8 +25,15 @@ function Products() {
       let response;
 
       if (isNewArrivalRoute) {
-        response = await axiosPublic.get(`/getAllNewArrivalProducts`);
-        setCategoryName("New Arrivals");
+        if (!category || category === "all") {
+          response = await axiosPublic.get(`/getAllNewArrivalProducts`);
+          setCategoryName("New Arrivals");
+        } else {
+          response = await axiosPublic.get(
+            `/getNewArrivalProductsByCategory/${category}`,
+          );
+          setCategoryName(`${category} New Arrivals`);
+        }
       } else if (isDiscountRoute) {
         if (category === "all") {
           response = await axiosPublic.get(`/getAllDiscountedProducts`);
