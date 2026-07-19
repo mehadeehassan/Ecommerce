@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ProductCard from "../../ProductCard/ProductCard";
 import axiosPublic from "../../../Utils/axiosPublic";
 import { getImageUrl } from "../../../Utils/imageUrl";
+import ProductCard from "../../ProductCard/ProductCard";
 
 const TopRatad = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +16,9 @@ const TopRatad = () => {
   const handleGetAllProduct = async () => {
     setLoading(true);
     try {
-      const response = await axiosPublic.get("/getAllProduct?page=1&limit=100&status=active");
+      const response = await axiosPublic.get(
+        "/getAllProduct?page=1&limit=100&status=active",
+      );
       // const response = await axiosPublic.get("/getAllProduct?page=1&limit=100");
       if (response.status === 200) {
         setProducts(response.data.data);
@@ -70,21 +72,22 @@ const TopRatad = () => {
           )}
 
           {!showAll && products.length > 6 && (
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-10">
               <button
                 onClick={() => setShowAll(true)}
-                className="mt-10 bg-orange-400 text-white py-2 px-6 rounded-md hover:bg-orange-600 transition duration-300"
+                className="inline-block border border-orange-400 text-orange-500 text-sm font-medium px-6 py-2 rounded-full hover:bg-orange-400 hover:text-white transition-all duration-200"
               >
-                View All Products
+                View All Products →
               </button>
             </div>
           )}
 
           {showAll && products.length > 6 && (
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-10">
               <button
                 onClick={() => setShowAll(false)}
-                className="mt-10 bg-gray-300 text-gray-700 py-2 px-6 rounded-md hover:bg-gray-400 transition duration-300"
+
+                className="inline-block border border-orange-400 text-orange-500 text-sm font-medium px-6 py-2 rounded-full hover:bg-orange-400 hover:text-white transition-all duration-200"
               >
                 Show Less
               </button>
