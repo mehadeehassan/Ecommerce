@@ -81,10 +81,10 @@ const BestSelling = () => {
                 </div>
                 <div className="p-4 text-center">
                   <div className="w-full flex items-center justify-center gap-1">
-                    <FaStar className="text-yellow-500" />
-                    <FaStar className="text-yellow-500" />
-                    <FaStar className="text-yellow-500" />
-                    <FaStar className="text-yellow-500" />
+                    <FaStar className="text-orange-400" />
+                    <FaStar className="text-orange-400" />
+                    <FaStar className="text-orange-400" />
+                    <FaStar className="text-orange-400" />
                   </div>
                   <h1 className="text-xl font-bold">{product.product_name}</h1>
                   <p className="text-gray-500 group-hover:text-white duration-300 text-sm line-clamp-2">
