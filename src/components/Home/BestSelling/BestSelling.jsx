@@ -19,7 +19,8 @@ const BestSelling = () => {
   const handleGetBestSelling = async () => {
     setLoading(true);
     try {
-      const response = await axiosPublic.get("/getAllProduct?page=1&limit=3&status=active");
+      const response = await axiosPublic.get("/getAllBestSellingProducts");
+      // const response = await axiosPublic.get("/getAllProduct?page=1&limit=3&status=active");
       // const response = await axiosPublic.get("/getAllProduct?page=1&limit=3");
       if (response.status === 200) {
         setProducts(response.data.data);

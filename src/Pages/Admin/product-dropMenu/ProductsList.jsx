@@ -37,6 +37,7 @@ const Products = () => {
         discount_percentage: "",
         is_on_sale: false,
         is_new_arrival: false,
+        is_best_selling: false,
       });
     }
   };
@@ -59,6 +60,7 @@ const Products = () => {
       discount_percentage: "",
       is_on_sale: false,
       is_new_arrival: false,
+      is_best_selling: false,
     });
   };
 
@@ -76,6 +78,7 @@ const Products = () => {
     discount_percentage: "",
     is_on_sale: false,
     is_new_arrival: false,
+    is_best_selling: false,
   });
 
   // ইনপুট ফিল্ডের পরিবর্তন হ্যান্ডেল করার ফাংশন
@@ -187,6 +190,7 @@ const Products = () => {
       data.append("discount_percentage", formData.discount_percentage || 0);
       data.append("is_on_sale", formData.is_on_sale ? 1 : 0);
       data.append("is_new_arrival", formData.is_new_arrival ? 1 : 0);
+      data.append("is_best_selling", formData.is_best_selling ? 1 : 0);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.post("/addProduct", data, {
@@ -219,6 +223,7 @@ const Products = () => {
       data.append("discount_percentage", formData.discount_percentage || 0);
       data.append("is_on_sale", formData.is_on_sale ? 1 : 0);
       data.append("is_new_arrival", formData.is_new_arrival ? 1 : 0);
+      data.append("is_best_selling", formData.is_best_selling ? 1 : 0);
       if (formData.image) data.append("image", formData.image);
 
       const response = await axiosAdmin.put("/updateProduct", data, {
@@ -304,7 +309,10 @@ const Products = () => {
           <h3 className="font-bold text-[15px] text-gray-800">Products List</h3>
         </div>
         {/* <div className="overflow-x-auto mt-6"> */}
-        <div className="overflow-x-auto mt-6" style={{ WebkitOverflowScrolling: "touch" }}>
+        <div
+          className="overflow-x-auto mt-6"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           <table className="w-full min-w-275 md:min-w-0 table-fixed text-left">
             <thead>
               <tr className="bg-gray-200/90">
@@ -337,6 +345,9 @@ const Products = () => {
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Arrivals
+                </th>
+                <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 text-left">
+                  Selling
                 </th>
                 <th className="px-5 py-2 text-xs text-gray-600 font-medium uppercase w-1/6 border-r border-gray-200 ">
                   Description
@@ -386,6 +397,7 @@ const Products = () => {
                         discount_percentage: product.discount_percentage || "",
                         is_on_sale: product.is_on_sale ? true : false,
                         is_new_arrival: product.is_new_arrival ? true : false,
+                        is_best_selling: product.is_best_selling ? true : false,
                         image: null,
                       });
                       setUpdateModalOpen(true);
@@ -622,6 +634,18 @@ const Products = () => {
                   className="w-4 h-4 accent-orange-400 outline-none"
                 />
                 Mark as New Arrival
+              </label>
+            </div>
+            <div className="flex items-center pt-2">
+              <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                <input
+                  name="is_best_selling"
+                  type="checkbox"
+                  checked={formData.is_best_selling ?? false}
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-orange-400 outline-none"
+                />
+                Mark as Best Selling
               </label>
             </div>
           </div>
@@ -870,6 +894,18 @@ const Products = () => {
                   className="w-4 h-4 accent-orange-400 outline-none"
                 />
                 Mark as New Arrival
+              </label>
+            </div>
+            <div className="flex items-center pt-2">
+              <label className="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
+                <input
+                  name="is_best_selling"
+                  type="checkbox"
+                  checked={formData.is_best_selling ?? false}
+                  onChange={handleChange}
+                  className="w-4 h-4 accent-orange-400 outline-none"
+                />
+                Mark as Best Selling
               </label>
             </div>
           </div>
