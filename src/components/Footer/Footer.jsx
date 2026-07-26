@@ -155,7 +155,7 @@ const Footer = () => {
 
         {/* Copyright Section  */}
         <div className="text-center py-6 border-t border-gray-800 text-gray-500 text-sm">
-          © 2026 Shops. All rights reserved.
+          © {new Date().getFullYear()} Shops. All rights reserved.
         </div>
       </div>
     </div>
